@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-black text-white box-border m-0 p-0
+}
