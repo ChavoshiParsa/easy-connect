@@ -3,12 +3,11 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className='relative flex h-screen w-screen flex-col items-center md:flex-row md:justify-center'>
+    <main className='relative flex flex-col items-center md:h-screen md:flex-row md:justify-center'>
       <div className='relative mb-14 flex h-80 w-full items-center justify-center overflow-hidden md:absolute md:mb-0 md:h-full'>
         <Image
           style={{
             objectFit: 'cover',
-            // objectPosition: 'center',
           }}
           fill
           src={'/galaxy.jpg'}
@@ -19,7 +18,7 @@ export default function Home() {
         <p className='mb-4 text-[34px] font-bold leading-tight md:mb-10 md:text-5xl'>
           Stay connected with your friends and family
         </p>
-        <div className='mb-12 flex md:mb-48'>
+        <div className='mb-10 flex md:mb-48'>
           <Image
             className='mr-2.5 animate-bounce md:mr-4 md:w-6'
             src='/icons/shield.svg'
@@ -34,32 +33,15 @@ export default function Home() {
 
         <Link
           className='link relative w-full overflow-hidden rounded-full bg-white py-4 text-center font-bold text-black opacity-90 hover:opacity-75 focus:outline-none md:w-5/12'
-          href='/login'
+          href='/signup'
         >
           Get Started
           <div className='animate-cPuls absolute bottom-0 top-0 bg-indigo-600 px-20 opacity-90 blur-3xl' />
         </Link>
       </div>
-      <h1 className='absolute bottom-3 left-3 z-10'>Creator: Parsa Chavoshi</h1>
+      <h1 className='absolute left-1.5 top-1.5 z-10 text-xs md:bottom-2 md:left-2 md:top-auto md:text-sm'>
+        Creator: Parsa Chavoshi
+      </h1>
     </main>
   );
-}
-
-{
-  /* 
-  <div className='flex items-start'>
-    <input className='mr-2 h-4 w-4' type='checkbox' />
-    <p className='text-sm'>
-        I agree to the Easy-Connect{' '}
-      <a
-        className='text-indigo-500'
-        href='https://telegram.org/privacy'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        Privacy Policy
-      </a>
-    </p>
-  </div> 
-  */
 }
