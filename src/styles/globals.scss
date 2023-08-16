@@ -3,5 +3,35 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black text-white box-border m-0 p-0
+  @apply m-0 box-border bg-black p-0 text-white;
+}
+.link {
+  -webkit-tap-highlight-color: transparent !important;
+  outline: none !important;
+}
+.glow {
+  text-shadow: 0 0 15px #6031ce;
+}
+
+.animate-cPuls {
+  transform: translateX(-350px);
+  animation: cPulse 4s infinite linear;
+}
+
+@keyframes cPulse {
+  70% {
+    transform: translateX(-350px);
+  }
+
+  100% {
+    transform: translateX(950px);
+  }
+}
+
+.removeAutofill:-webkit-autofill,
+.removeAutofill:-webkit-autofill:hover,
+.removeAutofill:-webkit-autofill:focus,
+.removeAutofill:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #0d0d0d inset !important;
+  -webkit-text-fill-color: white !important;
 }

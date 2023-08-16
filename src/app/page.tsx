@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className='relative flex w-screen flex-col items-center md:h-screen md:flex-row md:justify-center'>
-      <div className='relative mb-10 flex h-80 w-full items-center justify-center overflow-hidden md:absolute md:mb-0 md:h-full'>
+    <main className='relative flex h-screen w-screen flex-col items-center md:flex-row md:justify-center'>
+      <div className='relative mb-14 flex h-80 w-full items-center justify-center overflow-hidden md:absolute md:mb-0 md:h-full'>
         <Image
           style={{
             objectFit: 'cover',
@@ -21,7 +21,7 @@ export default function Home() {
         </p>
         <div className='mb-12 flex md:mb-48'>
           <Image
-            className='mr-2.5 animate-bounce md:w-6'
+            className='mr-2.5 animate-bounce md:mr-4 md:w-6'
             src='/icons/shield.svg'
             alt='shield Logo'
             width={16}
@@ -31,13 +31,16 @@ export default function Home() {
             Secure, private messaging
           </p>
         </div>
+
         <Link
-          className='w-full rounded-full bg-white py-4 text-center font-bold text-black opacity-90 hover:opacity-75 md:w-5/12'
+          className='link relative w-full overflow-hidden rounded-full bg-white py-4 text-center font-bold text-black opacity-90 hover:opacity-75 focus:outline-none md:w-5/12'
           href='/login'
         >
           Get Started
+          <div className='animate-cPuls absolute bottom-0 top-0 bg-indigo-600 px-20 opacity-90 blur-3xl' />
         </Link>
       </div>
+      <h1 className='absolute bottom-3 left-3 z-10'>Creator: Parsa Chavoshi</h1>
     </main>
   );
 }
