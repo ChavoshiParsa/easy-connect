@@ -1,18 +1,32 @@
 import Input from '&/UI/Input';
+import { Saira } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 
+const play = Saira({
+  subsets: ['latin'],
+  weight: '400',
+});
+
 export default function SignUp() {
   return (
-    <div className='flex flex-col items-center justify-center rounded-md bg-[#101010] p-3'>
+    <div className='relative flex flex-col items-center justify-center rounded-md bg-[#101010c5] px-4 py-8 md:mx-4 md:bg-transparent md:p-0'>
+      <h1
+        className={
+          'glow drop-shadow-3xl mb-16 animate-pulse text-5xl shadow-white md:mx-5 md:mb-16 lg:mx-2 lg:text-6xl xl:mx-6 xl:text-7xl ' +
+          play.className
+        }
+      >
+        Easy Connect
+      </h1>
       <Input type='email' name='email' label='Email' />
       <Input type='password' name='password' label='Password' />
-      <div className='mb-4 ml-2 mt-10 flex items-center justify-start self-start'>
+      <div className='mb-4 ml-2 mt-10 flex items-center justify-start self-start md:mt-8'>
         <input
-          className='checkbox mr-2 h-3.5 w-3.5 appearance-none rounded-sm border border-white'
+          className='checkbox mr-2 h-3.5 w-3.5 appearance-none rounded-sm border border-white md:h-5 md:w-5'
           type='checkbox'
         />
-        <p className='text-sm'>
+        <p className='text-sm md:text-base'>
           I agree to the{' '}
           <a
             className='text-indigo-500'
@@ -27,8 +41,8 @@ export default function SignUp() {
       <button className='link relative w-full rounded-lg bg-indigo-700 py-3 text-center font-bold text-white opacity-90 hover:opacity-75'>
         Sign Up
       </button>
-      <hr className='my-6 w-full border-t border-[#303030]' />
-      <button className='link relative mb-4 flex w-full items-center justify-center rounded-lg bg-zinc-800 py-3 hover:opacity-75'>
+      <hr className='my-6 w-full border-t border-[#303030] md:my-8' />
+      <button className='link relative mb-4 flex w-full items-center justify-center rounded-lg bg-zinc-800 py-3.5 hover:opacity-75'>
         <Image
           className='mr-2'
           src='/icons/google.svg'

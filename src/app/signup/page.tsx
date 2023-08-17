@@ -1,23 +1,23 @@
-import { Saira } from 'next/font/google';
 import SignUp from '@/src/components/login/SignUp';
-
-const play = Saira({
-  subsets: ['latin'],
-  weight: '700',
-});
+import Image from 'next/image';
+import shapes from '@/public/images/shapes.jpg';
 
 export default () => {
   return (
-    <div className='relative flex flex-col items-center'>
-      <h1
-        className={
-          'glow my-10 animate-pulse text-4xl shadow-white drop-shadow-2xl ' +
-          play.className
-        }
-      >
-        Easy Connect
-      </h1>
-      <SignUp />
-    </div>
+    <main className='relative flex h-screen w-screen items-start justify-center md:justify-between'>
+      <div className='absolute -z-10 h-full w-full opacity-50 md:relative md:w-7/12 md:opacity-90'>
+        <Image
+          style={{
+            objectFit: 'cover',
+          }}
+          fill
+          src={shapes}
+          alt='geometry shapes'
+        />
+      </div>
+      <div className='mt-10 items-center justify-center md:mt-0 md:flex md:h-full md:w-5/12'>
+        <SignUp />
+      </div>
+    </main>
   );
 };

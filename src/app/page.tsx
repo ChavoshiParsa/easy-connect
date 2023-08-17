@@ -1,16 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import galaxy from '@/public/images/galaxy.jpg';
 
 export default function Home() {
   return (
-    <main className='relative flex flex-col items-center md:h-screen md:flex-row md:justify-center'>
-      <div className='relative mb-14 flex h-80 w-full items-center justify-center overflow-hidden md:absolute md:mb-0 md:h-full'>
+    <main className='relative flex h-screen flex-col items-center md:justify-center'>
+      <div className='relative mb-14 flex h-80 w-full md:absolute md:mb-0 md:h-full'>
         <Image
           style={{
             objectFit: 'cover',
           }}
           fill
-          src={'/galaxy.jpg'}
+          src={galaxy}
           alt='Picture of Galaxy'
         />
       </div>
