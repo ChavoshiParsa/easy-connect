@@ -40,3 +40,37 @@ body {
   appearance: auto;
   accent-color: rgb(125, 85, 234);
 }
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.signupimage {
+  animation: 1s ease-out 0s 1 slideRight;
+}
+
+.signupform {
+  animation: 1s ease-out 0s 1 slideLeft;
+}
+
+.signinimage {
+  animation: 1s ease-out 0s 1 slideLeft;
+}
+
+.signinform {
+  animation: 1s ease-out 0s 1 slideRight;
+}

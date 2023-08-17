@@ -6,7 +6,8 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'email' },
+        name: { label: 'Name', type: 'name' },
+        username: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
@@ -18,6 +19,6 @@ export const options: NextAuthOptions = {
   session: { strategy: 'jwt' },
   secret: 'random Text',
   pages: {
-    signIn: '/',
+    signOut: '/',
   },
 };

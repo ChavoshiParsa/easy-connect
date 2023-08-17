@@ -1,21 +1,61 @@
+'use client';
+
 import Input from '@/src/components/ui/Input';
 import Image from 'next/image';
 import Link from 'next/link';
 import DividerLine from '../ui/DividerLine';
+import { FormEvent, useRef } from 'react';
 
 export default function SignUpForm() {
+  const nameRef = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = {
+      name: nameRef.current?.value,
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
+    };
+
+    const response = await fetch('/api/auth/signup', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+  };
+
   return (
-    <div className='relative flex flex-col items-center justify-center'>
+    <form
+      className='relative flex flex-col items-center justify-center'
+      onSubmit={submitHandler}
+    >
       <h1 className='text my-12 whitespace-nowrap text-2xl font-extrabold sm:text-3xl md:my-20 md:text-4xl'>
         Create your account
       </h1>
       <div className='flex w-full flex-col items-center justify-center space-y-2 md:space-y-5'>
-        <Input type='text' name='name' label='Name' />
-        <Input type='text' name='email' label='Email' />
-        <Input type='password' name='password' label='Password' />
+        <Input type='text' name='name' label='Name' ref={nameRef} />
+        <Input type='text' name='email' label='Email' ref={emailRef} />
+        <Input
+          type='password'
+          name='password'
+          label='Password'
+          ref={passwordRef}
+        />
       </div>
       <AgreementForm />
-      <button className='link relative w-full rounded-lg bg-indigo-700 py-3 text-center font-bold text-white opacity-90 hover:opacity-75'>
+      <button
+        className='link relative w-full rounded-lg bg-indigo-700 py-3 text-center font-bold text-white opacity-90 hover:opacity-75'
+        type='submit'
+      >
         Sign Up
       </button>
       <DividerLine centralText='or' />
@@ -36,7 +76,7 @@ export default function SignUpForm() {
           Sign In
         </Link>
       </p>
-    </div>
+    </form>
   );
 }
 
