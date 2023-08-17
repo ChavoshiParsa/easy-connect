@@ -1,11 +1,11 @@
-import SignUpForm from '@/src/components/login/SignUpForm';
+import SignInForm from '@/src/components/login/SignInForm';
 import Image from 'next/image';
-import shapes from '@/public/images/shapes-up.jpg';
+import shapes from '@/public/images/shapes-in.jpg';
 import Logo from '&/logo/Logo';
 
 export default () => {
   return (
-    <main className='relative flex h-screen w-screen items-center justify-center'>
+    <main className='relative flex h-screen w-screen flex-row-reverse items-center justify-center'>
       <div className='absolute -z-10 h-full w-full opacity-30 blur-sm md:relative md:w-1/2'>
         <Image
           style={{
@@ -23,7 +23,7 @@ export default () => {
         <div className='absolute left-2 top-1.5 hidden md:block'>
           <Logo />
         </div>
-        <SignUpForm />
+        <SignInForm />
       </div>
     </main>
   );
