@@ -1,3 +1,5 @@
+'use client';
+
 import Input from '@/src/components/ui/Input';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,8 +19,8 @@ export default function SignInForm() {
         <RememberMe />
         <ForgetPassword />
       </div>
-      <button className='link relative w-full rounded-lg bg-indigo-700 py-3 text-center font-bold text-white opacity-90 hover:opacity-75'>
-        Sign Up
+      <button className='link relative w-full rounded-lg bg-indigo-700 py-3 text-center font-bold text-white opacity-90 transition hover:bg-indigo-600'>
+        Sign In
       </button>
       <DividerLine centralText='or' />
       <button className='link relative mb-3 flex w-full items-center justify-center rounded-lg bg-zinc-800 py-3.5 opacity-90 hover:opacity-75'>
@@ -34,7 +36,10 @@ export default function SignInForm() {
 
       <p className='text-sm'>
         Don't have an account?{' '}
-        <Link className='font-bold text-indigo-500' href='/signup'>
+        <Link
+          className='font-bold text-indigo-500 hover:text-indigo-400'
+          href='/signup'
+        >
           Sign Up
         </Link>
       </p>
@@ -55,7 +60,10 @@ const RememberMe = () => {
 };
 const ForgetPassword = () => {
   return (
-    <Link className='text-sm font-bold text-blue-600 md:text-base' href='/'>
+    <Link
+      className='text-sm font-bold text-blue-600 hover:text-indigo-500 md:text-base'
+      href='/'
+    >
       Forget Password?
     </Link>
   );
