@@ -1,4 +1,4 @@
-import { hashPassword } from '@/lib/auth';
+import { hashPassword, randomNumber } from '@/lib/auth';
 import { prisma } from '@/prisma/prisma';
 import { NextResponse } from 'next/server';
 import { type NextRequest } from 'next/server';
@@ -44,9 +44,25 @@ export async function POST(req: NextRequest) {
 
   const hashedPassword = await hashPassword(trimData.password);
 
+  // generating username base name and random numbers
+  let username: string = name + randomNumber(1000, 9999);
+  username = await usernameGenerator(username, name);
+
   const res = await prisma.user.create({
-    data: { name, email, password: hashedPassword },
+    data: { name, email, username, password: hashedPassword },
   });
 
   return NextResponse.json(res);
+}
+
+async function usernameGenerator(username: string, name: string) {
+  let newUsername: string = name + randomNumber(1000, 9999);
+  let anyUsername = await prisma.user.findUnique({
+    where: { username: newUsername },
+  });
+
+  if (anyUsername) {
+    newUsername = await usernameGenerator(username, name);
+    return newUsername;
+  } else return newUsername;
 }

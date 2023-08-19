@@ -4,11 +4,16 @@ import Input from '@/src/components/ui/Input';
 import Image from 'next/image';
 import Link from 'next/link';
 import DividerLine from '../ui/DividerLine';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useContextProvider } from '@/src/context/store';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { signIn } from 'next-auth/react';
 
 export default function SignInForm() {
+  const { alert, setAlert } = useContextProvider();
+  const router = useRouter();
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -21,13 +26,34 @@ export default function SignInForm() {
       password: Yup.string().required('Enter your password'),
     }),
     onSubmit: async (values) => {
+      setAlert({
+        status: 'pending',
+        title: 'Please wait!',
+        message: 'Data is sending...',
+      });
+
       const result = await signIn('credentials', {
         redirect: false,
         email: values.email,
         password: values.password,
       });
 
-      console.log(result);
+      if (!result?.error) {
+        setAlert({
+          status: 'success',
+          title: 'Success!',
+          message: 'Welcome back sir',
+        });
+        setTimeout(() => {
+          router.push('/home');
+        }, 500);
+      } else {
+        setAlert({
+          status: 'error',
+          title: 'Error!',
+          message: result?.error,
+        });
+      }
     },
   });
   return (
@@ -73,8 +99,9 @@ export default function SignInForm() {
       <button
         className='link relative w-full rounded-lg bg-indigo-700 py-3 text-center font-bold text-white opacity-90 transition hover:bg-indigo-600'
         type='submit'
+        disabled={alert?.status === 'pending'}
       >
-        Sign In
+        {alert?.status !== 'pending' ? 'Sign In' : 'Sending data...'}
       </button>
       <DividerLine centralText='or' />
       <button className='link relative mb-3 flex w-full items-center justify-center rounded-lg bg-zinc-800 py-3.5 opacity-90 hover:opacity-75'>

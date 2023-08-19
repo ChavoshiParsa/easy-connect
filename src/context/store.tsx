@@ -27,7 +27,7 @@ export const ContextProvider: React.FC<{
     if (alert && alert.status !== 'pending') {
       const timer = setTimeout(() => {
         setAlert(null);
-      }, 3000);
+      }, 2500);
       return () => {
         clearTimeout(timer);
       };

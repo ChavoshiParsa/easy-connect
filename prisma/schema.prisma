@@ -10,10 +10,10 @@ datasource db {
 model User {
   id           String  @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  password     String
   email        String  @unique
+  username     String  @unique
+  password     String
   isOnline     Boolean @default(true)
-  username     String? @unique
   lastName     String?
   age          Int?
   profilePhoto String?

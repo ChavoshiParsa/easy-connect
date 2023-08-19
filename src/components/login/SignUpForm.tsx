@@ -5,19 +5,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import DividerLine from '../ui/DividerLine';
 import axios from 'axios';
-import { useFormik } from 'formik';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { signIn, useSession } from 'next-auth/react';
 import { useContextProvider } from '@/src/context/store';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 export default function SignUpForm() {
   const [isChecked, setIsChecked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const { data: session, status } = useSession();
-  console.log(session, status);
 
   const { alert, setAlert } = useContextProvider();
+  const router = useRouter();
 
   const handleCheckBox = (isChecked: boolean): void => {
     setIsChecked(isChecked);
@@ -59,7 +59,7 @@ export default function SignUpForm() {
       });
       try {
         const response = await axios.post('/api/auth/signup', formData);
-        const result = await signIn('credentials', {
+        await signIn('credentials', {
           redirect: false,
           email: response.data.email,
           password: response.data.password,
@@ -67,8 +67,11 @@ export default function SignUpForm() {
         setAlert({
           status: 'success',
           title: 'Success!',
-          message: 'Sign up was successful',
+          message: 'Welcome ' + values.name,
         });
+        setTimeout(() => {
+          router.push('/home');
+        }, 500);
       } catch (error: any) {
         setAlert({
           status: 'error',
