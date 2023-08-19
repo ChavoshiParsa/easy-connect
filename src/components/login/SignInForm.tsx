@@ -6,6 +6,7 @@ import Link from 'next/link';
 import DividerLine from '../ui/DividerLine';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { signIn } from 'next-auth/react';
 
 export default function SignInForm() {
   const formik = useFormik({
@@ -20,10 +21,13 @@ export default function SignInForm() {
       password: Yup.string().required('Enter your password'),
     }),
     onSubmit: async (values) => {
-      const formData = {
+      const result = await signIn('credentials', {
+        redirect: false,
         email: values.email,
         password: values.password,
-      };
+      });
+
+      console.log(result);
     },
   });
   return (

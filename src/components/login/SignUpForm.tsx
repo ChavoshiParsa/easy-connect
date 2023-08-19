@@ -8,13 +8,21 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { signIn } from 'next-auth/react';
+import Alert from '../ui/Alert';
 
 export default function SignUpForm() {
   const [isChecked, setIsChecked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  const [status, setStatus] = useState('');
+  const [title, setTitle] = useState('Hi there');
+  const [message, setMessage] = useState('Everything is fine.');
+
   const handleCheckBox = (isChecked: boolean): void => {
     setIsChecked(isChecked);
   };
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -45,103 +53,122 @@ export default function SignUpForm() {
         password: values.password,
       };
 
+      setStatus('pending');
+      setTitle('Please wait');
+      setMessage('Data is sending...');
       try {
         const response = await axios.post('/api/auth/signup', formData);
+        const result = await signIn('credentials', {
+          redirect: false,
+          email: response.data.email,
+          password: response.data.password,
+        });
+        setStatus('success');
+        setTitle('Success');
+        setMessage('Sign up was successful');
+        console.log(result);
         console.log(response.data);
       } catch (error: any) {
-        console.log(error.response.data.message);
+        // console.log(error.response.data);
+        // console.log(error.response.statusText);
+        setStatus('error');
+        setTitle('Error');
+        setMessage(error.response.data.message);
       }
     },
   });
 
   return (
-    <form
-      className='relative flex flex-col items-center justify-center'
-      onSubmit={formik.handleSubmit}
-    >
-      <h1 className='text my-12 whitespace-nowrap text-2xl font-extrabold sm:text-3xl md:my-20 md:text-4xl'>
-        Create your account
-      </h1>
-      <div className='flex w-full flex-col items-center justify-center'>
-        <Input
-          name='name'
-          type='text'
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name}
-          label='Name'
-        />
-        {formik.touched.name && formik.errors.name && (
-          <div className='-mt-1 mb-2.5 self-start pl-1.5 text-sm text-rose-500 md:-mt-4'>
-            {formik.errors.name}
-          </div>
-        )}
-        <Input
-          name='email'
-          type='text'
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-          label='Email'
-        />
-        {formik.touched.email && formik.errors.email && (
-          <div className='-mt-1 mb-2.5 self-start  pl-1.5 text-sm text-rose-500 md:-mt-4'>
-            {formik.errors.email}
-          </div>
-        )}
-        <Input
-          name='password'
-          type='password'
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.password}
-          label='Password'
-        />
-        {formik.touched.password && formik.errors.password && (
-          <div className='-mt-1 self-start  pl-1.5 text-sm text-rose-500 md:-mt-4'>
-            {formik.errors.password}
-          </div>
-        )}
-      </div>
-      <AgreementForm handleCheckBox={handleCheckBox} />
-      {!isChecked && isVisible && (
-        <div className='-mt-3 mb-1 self-start pl-1.5 text-sm text-rose-500'>
-          Please agree with Privacy Policy
-        </div>
-      )}
-      <button
-        className='link relative w-full rounded-lg bg-indigo-700 py-3 text-center font-bold text-white opacity-90 transition hover:bg-indigo-600'
-        type='submit'
+    <>
+      <Alert status={status} title={title} message={message} />
+      <form
+        className='relative flex flex-col items-center justify-center'
+        onSubmit={formik.handleSubmit}
       >
-        Sign Up
-      </button>
-      <DividerLine centralText='or' />
-      <button className='link relative mb-3 flex w-full items-center justify-center rounded-lg bg-zinc-800 py-3.5 opacity-90 hover:opacity-75'>
-        <Image
-          className='mr-2 aspect-auto w-auto'
-          src='/icons/google.svg'
-          alt='google Logo'
-          sizes='100vw'
-          style={{
-            width: '20px',
-            height: 'auto',
-          }}
-          width={20}
-          height={20}
-        />
-        <p className='text-sm text-white'>or sign up with Google</p>
-      </button>
-
-      <p className='text-sm'>
-        Already have an account?{' '}
-        <Link
-          className='font-bold text-indigo-500 hover:text-indigo-400'
-          href='/signin'
+        <h1 className='text my-12 whitespace-nowrap text-2xl font-extrabold sm:text-3xl md:my-20 md:text-4xl'>
+          Create your account
+        </h1>
+        <div className='flex w-full flex-col items-center justify-center'>
+          <Input
+            name='name'
+            type='text'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+            label='Name'
+          />
+          {formik.touched.name && formik.errors.name && (
+            <div className='-mt-1 mb-2.5 self-start pl-1.5 text-sm text-rose-500 md:-mt-4'>
+              {formik.errors.name}
+            </div>
+          )}
+          <Input
+            name='email'
+            type='text'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            label='Email'
+          />
+          {formik.touched.email && formik.errors.email && (
+            <div className='-mt-1 mb-2.5 self-start  pl-1.5 text-sm text-rose-500 md:-mt-4'>
+              {formik.errors.email}
+            </div>
+          )}
+          <Input
+            name='password'
+            type='password'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            label='Password'
+          />
+          {formik.touched.password && formik.errors.password && (
+            <div className='-mt-1 self-start  pl-1.5 text-sm text-rose-500 md:-mt-4'>
+              {formik.errors.password}
+            </div>
+          )}
+        </div>
+        <AgreementForm handleCheckBox={handleCheckBox} />
+        {!isChecked && isVisible && (
+          <div className='-mt-3 mb-1 self-start pl-1.5 text-sm text-rose-500'>
+            Please agree with Privacy Policy
+          </div>
+        )}
+        <button
+          className='link relative w-full rounded-lg bg-indigo-700 py-3 text-center font-bold text-white opacity-90 transition hover:bg-indigo-600'
+          type='submit'
         >
-          Sign In
-        </Link>
-      </p>
-    </form>
+          Sign Up
+        </button>
+        <DividerLine centralText='or' />
+        <button className='link relative mb-3 flex w-full items-center justify-center rounded-lg bg-zinc-800 py-3.5 opacity-90 hover:opacity-75'>
+          <Image
+            className='mr-2 aspect-auto w-auto'
+            src='/icons/google.svg'
+            alt='google Logo'
+            sizes='100vw'
+            style={{
+              width: '20px',
+              height: 'auto',
+            }}
+            width={20}
+            height={20}
+          />
+          <p className='text-sm text-white'>or sign up with Google</p>
+        </button>
+
+        <p className='text-sm'>
+          Already have an account?{' '}
+          <Link
+            className='font-bold text-indigo-500 hover:text-indigo-400'
+            href='/signin'
+          >
+            Sign In
+          </Link>
+        </p>
+      </form>
+    </>
   );
 }
 
