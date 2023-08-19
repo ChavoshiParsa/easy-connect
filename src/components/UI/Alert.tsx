@@ -1,20 +1,12 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
 
-interface AlertProps {
-  status: string;
-  title: string;
-  message: string;
-}
+import { useContextProvider } from '@/src/context/store';
 
-const Alert = (props: AlertProps) => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
+const Alert: React.FC = () => {
+  const { alert } = useContextProvider();
   let statusColor;
 
-  switch (props.status) {
+  switch (alert?.status) {
     case 'success':
       statusColor = ' bg-emerald-300';
       break;
@@ -24,24 +16,21 @@ const Alert = (props: AlertProps) => {
     case 'error':
       statusColor = ' bg-rose-300';
       break;
-    default:
-      statusColor = ' bg-white';
   }
 
-  return mounted
-    ? createPortal(
-        <div
-          className={
-            'absolute right-3 top-3 flex flex-col items-start justify-center rounded-md px-3 py-2 text-black' +
-            statusColor
-          }
-        >
-          <h1 className='text-lg'>{props.title}</h1>
-          <p>{props.message}</p>
-        </div>,
-        document.body
-      )
-    : null;
+  if (!alert) return;
+
+  return (
+    <div
+      className={
+        'absolute right-3 top-3 flex flex-col items-start justify-center rounded-md px-3 py-2 text-black' +
+        statusColor
+      }
+    >
+      <h1 className='text-lg'>{alert?.title}</h1>
+      <p>{alert?.message}</p>
+    </div>
+  );
 };
 
 export default Alert;

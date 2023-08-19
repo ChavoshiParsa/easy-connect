@@ -35,7 +35,4 @@ export const options: NextAuthOptions = {
   ],
   session: { strategy: 'jwt' },
   secret: 'random Text',
-  pages: {
-    signOut: '/',
-  },
 };

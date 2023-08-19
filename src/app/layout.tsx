@@ -2,6 +2,8 @@ import '#/styles/globals.scss';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { AuthProvider } from './provider';
+import { ContextProvider } from '../context/store';
+import Alert from '../components/ui/Alert';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -19,9 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <div id='alert'></div>
-        <AuthProvider>{children}</AuthProvider>
+      <body className={`${inter.className} relative`}>
+        <ContextProvider>
+          <Alert />
+          <AuthProvider>{children}</AuthProvider>
+        </ContextProvider>
       </body>
     </html>
   );
