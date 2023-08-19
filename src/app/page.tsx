@@ -13,6 +13,8 @@ export default function Home() {
           fill
           src={galaxy}
           alt='Picture of Galaxy'
+          priority
+          sizes='100vw'
         />
       </div>
       <div className='z-10 mx-6 flex flex-col items-start justify-center md:-mt-10 md:items-center'>
@@ -21,11 +23,16 @@ export default function Home() {
         </p>
         <div className='mb-10 flex md:mb-48'>
           <Image
-            className='mr-2.5 animate-bounce md:mr-4 md:w-6'
+            className='mr-2 aspect-auto w-auto animate-bounce md:mr-4 md:w-6'
             src='/icons/shield.svg'
             alt='shield Logo'
-            width={16}
-            height={16}
+            width={20}
+            height={20}
+            sizes='100vw'
+            style={{
+              width: '20px',
+              height: 'auto',
+            }}
           />
           <p className='animate-pulse font-semibold md:text-3xl'>
             Secure, private messaging

@@ -6,8 +6,8 @@ import Link from 'next/link';
 import DividerLine from '../ui/DividerLine';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { useState } from 'react';
+import * as Yup from 'yup';
 
 export default function SignUpForm() {
   const [isChecked, setIsChecked] = useState(false);
@@ -98,7 +98,7 @@ export default function SignUpForm() {
           label='Password'
         />
         {formik.touched.password && formik.errors.password && (
-          <div className='-mt-1 mb-2.5 self-start  pl-1.5 text-sm text-rose-500 md:-mt-4'>
+          <div className='-mt-1 self-start  pl-1.5 text-sm text-rose-500 md:-mt-4'>
             {formik.errors.password}
           </div>
         )}
@@ -118,9 +118,14 @@ export default function SignUpForm() {
       <DividerLine centralText='or' />
       <button className='link relative mb-3 flex w-full items-center justify-center rounded-lg bg-zinc-800 py-3.5 opacity-90 hover:opacity-75'>
         <Image
-          className='mr-2'
+          className='mr-2 aspect-auto w-auto'
           src='/icons/google.svg'
           alt='google Logo'
+          sizes='100vw'
+          style={{
+            width: '20px',
+            height: 'auto',
+          }}
           width={20}
           height={20}
         />
