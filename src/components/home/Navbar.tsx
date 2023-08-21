@@ -1,4 +1,4 @@
-import { Roboto, Roboto_Condensed, Roboto_Flex } from 'next/font/google';
+import { Roboto_Flex } from 'next/font/google';
 import Image from 'next/image';
 
 const roboto = Roboto_Flex({
@@ -8,7 +8,7 @@ const roboto = Roboto_Flex({
 
 export default function Navbar() {
   return (
-    <div className='flex w-full flex-row items-center justify-start bg-[#292F3F] p-3'>
+    <div className='sticky top-0 z-10 flex w-full flex-row items-center justify-start bg-[#3e4b6d69] p-3 opacity-100 blur-0 backdrop-blur-lg'>
       <Image
         className='mr-8'
         src='/icons/open-menu.svg'
