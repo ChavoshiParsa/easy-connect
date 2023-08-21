@@ -46,7 +46,12 @@ export async function POST(req: NextRequest) {
 
   // generating username base name and random numbers
   let username: string = name + randomNumber(1000, 9999);
-  username = await usernameGenerator(username, name);
+  let anyUsername = await prisma.user.findUnique({
+    where: { username },
+  });
+  if (anyUsername) {
+    username = await usernameGenerator(username, name);
+  }
 
   const res = await prisma.user.create({
     data: { name, email, username, password: hashedPassword },
