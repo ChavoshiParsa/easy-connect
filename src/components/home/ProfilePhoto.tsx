@@ -20,7 +20,7 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
           }}
           fill
           src={profilePhoto}
-          alt='Picture of Galaxy'
+          alt='Profile Photo'
           priority
           sizes='100vw'
         />

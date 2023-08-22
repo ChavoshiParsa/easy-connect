@@ -3,9 +3,5 @@
 import ChatScreen from '@/src/components/home/message-screen/ChatScreen';
 
 export default () => {
-  return (
-    <>
-      <ChatScreen />
-    </>
-  );
+  return <ChatScreen />;
 };

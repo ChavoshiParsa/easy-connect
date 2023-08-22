@@ -5,10 +5,17 @@
 body {
   @apply m-0 box-border bg-black p-0 text-white;
 }
+
+.phone {
+  height: 100dvh;
+  // height: 100vh;
+}
+
 .link {
   -webkit-tap-highlight-color: transparent !important;
   outline: none !important;
 }
+
 .glow {
   text-shadow: 0 0 15px #6031ce;
 }

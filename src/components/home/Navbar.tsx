@@ -1,10 +1,9 @@
 'use client';
 
 import { Roboto_Flex } from 'next/font/google';
-import OpenMenuIcon from '../icon/OpenMenuIcon';
-import SearchIcon from '../icon/SearchIcon';
 import { useContextProvider } from '@/src/context/store';
 import Link from 'next/link';
+import Icon from '../ui/Icon';
 
 const roboto = Roboto_Flex({
   subsets: ['latin'],
@@ -20,14 +19,14 @@ export default function Navbar() {
         className='link mr-5 cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
         onClick={toggleIsMenuShow}
       >
-        <OpenMenuIcon />
+        <Icon size='24px' name='hamburger' />
       </div>
       <h1 className={`${roboto.className} text-xl`}>Easy Connect</h1>
       <Link
         className='link ml-auto cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
         href='/search'
       >
-        <SearchIcon />
+        <Icon size='24px' name='magnifier' />
       </Link>
     </div>
   );

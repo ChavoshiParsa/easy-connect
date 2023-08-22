@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import galaxy from '@/public/images/galaxy.jpg';
+import Icon from '../components/ui/Icon';
 
 export default function Home() {
   return (
