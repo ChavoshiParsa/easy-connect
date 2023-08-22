@@ -14,7 +14,7 @@ export default function MenuControl() {
             className='absolute z-20 h-full w-full bg-black opacity-60'
             onClick={toggleIsMenuShow}
           />
-          <div className='absolute left-0 top-0 z-30 h-full w-10/12 bg-slate-900'>
+          <div className='absolute left-0 top-0 z-30 h-full w-10/12 bg-zinc-900'>
             <Menu />
           </div>
         </>

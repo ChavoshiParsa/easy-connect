@@ -7,7 +7,7 @@ interface Props {
 export default function OpenMenuIcon(props: Props) {
   return (
     <Image
-      src='/icons/account.svg'
+      src='/icons/message.svg'
       alt='hamburger icon'
       width={20}
       height={20}

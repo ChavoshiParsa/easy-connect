@@ -5,7 +5,7 @@ import galaxy from '@/public/images/galaxy.jpg';
 export default function Home() {
   return (
     <main className='relative flex h-screen flex-col items-center md:justify-center'>
-      <div className='relative mb-14 flex h-80 w-full md:absolute md:mb-0 md:h-full'>
+      <div className='relative -z-10 mb-14 flex h-80 w-full md:absolute md:mb-0 md:h-full'>
         <Image
           style={{
             objectFit: 'cover',
@@ -17,7 +17,7 @@ export default function Home() {
           sizes='100vw'
         />
       </div>
-      <div className='z-10 mx-6 flex flex-col items-start justify-center md:-mt-10 md:items-center'>
+      <div className='z-20 mx-6 flex flex-col items-start justify-center md:-mt-10 md:items-center'>
         <p className='mb-4 text-[34px] font-bold leading-tight md:mb-10 md:text-5xl'>
           Stay connected with your friends and family
         </p>

@@ -4,6 +4,7 @@ import { Roboto_Flex } from 'next/font/google';
 import OpenMenuIcon from '../icon/OpenMenuIcon';
 import SearchIcon from '../icon/SearchIcon';
 import { useContextProvider } from '@/src/context/store';
+import Link from 'next/link';
 
 const roboto = Roboto_Flex({
   subsets: ['latin'],
@@ -21,10 +22,13 @@ export default function Navbar() {
       >
         <OpenMenuIcon />
       </div>
-      <h1 className={`${roboto.className} text-xl `}>Easy Connect</h1>
-      <div className='ml-auto'>
+      <h1 className={`${roboto.className} text-xl`}>Easy Connect</h1>
+      <Link
+        className='link ml-auto cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
+        href='/search'
+      >
         <SearchIcon />
-      </div>
+      </Link>
     </div>
   );
 }
