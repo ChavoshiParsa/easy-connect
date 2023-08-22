@@ -25,14 +25,14 @@ export default function ChatsContainer() {
 }
 
 const FakeApi = [
-  // {
-  //   profilePhoto: '',
-  //   name: 'Ali',
-  //   lastName: 'Ahmadi',
-  //   lastSender: 'I',
-  //   lastSenderMessage: 'Hi, How ru?',
-  //   lastMessageTime: '3:00 PM',
-  // },
+  {
+    profilePhoto: '',
+    name: 'Ali',
+    lastName: 'Ahmadi',
+    lastSender: 'I',
+    lastSenderMessage: 'Hi, How ru?',
+    lastMessageTime: '3:00 PM',
+  },
   // {
   //   profilePhoto: '',
   //   name: 'Mahdi',
@@ -49,12 +49,12 @@ const FakeApi = [
   //   lastSenderMessage: 'Her is grate',
   //   lastMessageTime: '2:50 PM',
   // },
-  {
-    profilePhoto: '',
-    name: 'Parsa',
-    lastName: 'Chavoshi',
-    lastSender: 'I',
-    lastSenderMessage: 'Her is grate',
-    lastMessageTime: '5:38 PM',
-  },
+  // {
+  //   profilePhoto: '',
+  //   name: 'Parsa',
+  //   lastName: 'Chavoshi',
+  //   lastSender: 'I',
+  //   lastSenderMessage: 'Her is grate',
+  //   lastMessageTime: '5:38 PM',
+  // },
 ];

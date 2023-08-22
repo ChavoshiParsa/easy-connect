@@ -41,7 +41,8 @@ export default function Home() {
 
         <Link
           className='link relative w-full overflow-hidden rounded-full bg-white py-4 text-center font-bold text-black opacity-90 hover:opacity-75 focus:outline-none md:w-5/12'
-          href='/signup'
+          href='/home'
+          // href='/signup'
         >
           Get Started
           <div className='animate-cPuls absolute bottom-0 top-0 bg-indigo-600 px-20 opacity-90 blur-3xl' />

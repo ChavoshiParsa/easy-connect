@@ -2,8 +2,6 @@ import SignUpForm from '@/src/components/login/SignUpForm';
 import Image from 'next/image';
 import shapes from '@/public/images/shapes-up.jpg';
 import Logo from '&/logo/Logo';
-import Alert from '@/src/components/ui/Alert';
-import { useContextProvider } from '@/src/context/store';
 
 export default () => {
   return (

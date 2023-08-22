@@ -8,20 +8,29 @@ interface AlertProps {
   message: string;
 }
 
-interface AlertContextType {
+interface ContextType {
   alert: AlertProps | null;
   setAlert: ({ status, title, message }: AlertProps) => void;
+  isMenuShow: boolean | null;
+  toggleIsMenuShow: () => void;
 }
 
-const AlertContext = createContext<AlertContextType>({
+const Context = createContext<ContextType>({
   alert: null,
   setAlert: ({ status, title, message }: AlertProps) => {},
+  isMenuShow: null,
+  toggleIsMenuShow: () => {},
 });
 
 export const ContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [alert, setAlert] = useState<AlertProps | null>(null);
+  const [isMenuShow, setIsMenuShow] = useState<boolean | null>(true);
+
+  const toggleIsMenuShow = () => {
+    setIsMenuShow((prev) => !prev);
+  };
 
   useEffect(() => {
     if (alert && alert.status !== 'pending') {
@@ -35,10 +44,10 @@ export const ContextProvider: React.FC<{
   }, [alert]);
 
   return (
-    <AlertContext.Provider value={{ alert, setAlert }}>
+    <Context.Provider value={{ alert, setAlert, isMenuShow, toggleIsMenuShow }}>
       {children}
-    </AlertContext.Provider>
+    </Context.Provider>
   );
 };
 
-export const useContextProvider = () => useContext(AlertContext);
+export const useContextProvider = () => useContext(Context);

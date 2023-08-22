@@ -18,6 +18,7 @@ export default function ChatItem(props) {
           profilePhoto={profilePhoto}
           name={name}
           lastName={lastName}
+          size={'50px'}
         />
       </div>
       <div className='flex flex-col items-start justify-center'>
