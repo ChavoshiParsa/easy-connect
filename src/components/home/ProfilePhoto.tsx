@@ -1,7 +1,14 @@
 import { randomNumber } from '@/lib/auth';
 import Image from 'next/image';
 
-export default function ProfilePhoto(props) {
+interface ProfilePhotoProps {
+  profilePhoto: string;
+  name: string;
+  lastName: string;
+  size: string;
+}
+
+export default function ProfilePhoto(props: ProfilePhotoProps) {
   const { profilePhoto, name, lastName, size } = props;
 
   if (profilePhoto !== '') {
@@ -26,12 +33,12 @@ export default function ProfilePhoto(props) {
   firstLetter = firstLetter.toUpperCase();
 
   const randomNum = randomNumber(0, colors.length - 1);
-  const randomFromColor = 'from-' + colors[randomNum] + '-500';
-  const randomToColor = 'to-' + colors[randomNum] + '-300';
+  const fromColor = 'from-' + colors[randomNum] + '-500';
+  const toColor = 'to-' + colors[randomNum] + '-300';
 
   return (
     <div
-      className={`relative flex items-center justify-center rounded-full bg-gradient-to-t  font-bold text-white ${randomFromColor} ${randomToColor}`}
+      className={`relative flex items-center justify-center rounded-full bg-gradient-to-t font-bold text-white ${fromColor} ${toColor}`}
       style={{ width: size, height: size }}
     >
       <span className='absolute'>{firstLetter}</span>

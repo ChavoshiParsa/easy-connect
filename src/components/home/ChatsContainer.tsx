@@ -11,6 +11,8 @@ export default function ChatsContainer() {
       ) : (
         FakeApi.map((connect) => (
           <ChatItem
+            key={connect.connectId}
+            connectId={`/home/${connect.connectId}`}
             profilePhoto={connect.profilePhoto}
             name={connect.name}
             lastName={connect.lastName}
@@ -27,34 +29,29 @@ export default function ChatsContainer() {
 const FakeApi = [
   {
     profilePhoto: '',
-    name: 'Ali',
-    lastName: 'Ahmadi',
-    lastSender: 'I',
-    lastSenderMessage: 'Hi, How ru?',
-    lastMessageTime: '3:00 PM',
-  },
-  {
-    profilePhoto: '',
     name: 'AmirHossein',
     lastName: 'Noori',
     lastSender: 'I',
     lastSenderMessage: "I'm Ok",
     lastMessageTime: '8:13 AM',
+    connectId: '5698',
   },
   {
     profilePhoto: '',
-    name: 'Reza',
-    lastName: 'mohamady',
+    name: 'Ali',
+    lastName: 'Ahmadi',
+    lastSender: 'I',
+    lastSenderMessage: 'Hi, How ru?',
+    lastMessageTime: '3:00 PM',
+    connectId: '8408',
+  },
+  {
+    profilePhoto: '',
+    name: 'AmirHossein',
+    lastName: 'Naderali',
     lastSender: 'Y',
     lastSenderMessage: 'He is great',
     lastMessageTime: '2:50 PM',
+    connectId: '1292',
   },
-  // {
-  //   profilePhoto: '',
-  //   name: 'Parsa',
-  //   lastName: 'Chavoshi',
-  //   lastSender: 'I',
-  //   lastSenderMessage: 'Her is grate',
-  //   lastMessageTime: '5:38 PM',
-  // },
 ];

@@ -26,7 +26,7 @@ export const ContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [alert, setAlert] = useState<AlertProps | null>(null);
-  const [isMenuShow, setIsMenuShow] = useState<boolean | null>(true);
+  const [isMenuShow, setIsMenuShow] = useState<boolean | null>(false);
 
   const toggleIsMenuShow = () => {
     setIsMenuShow((prev) => !prev);

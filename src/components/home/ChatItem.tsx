@@ -1,7 +1,18 @@
 import Image from 'next/image';
 import ProfilePhoto from './ProfilePhoto';
+import Link from 'next/link';
 
-export default function ChatItem(props) {
+interface ChatItemProps {
+  connectId: string;
+  profilePhoto: string;
+  name: string;
+  lastName: string;
+  lastSender: string;
+  lastSenderMessage: string;
+  lastMessageTime: string;
+}
+
+export default function ChatItem(props: ChatItemProps) {
   const {
     profilePhoto,
     name,
@@ -9,10 +20,14 @@ export default function ChatItem(props) {
     lastSender,
     lastSenderMessage,
     lastMessageTime,
+    connectId,
   } = props;
 
   return (
-    <div className='flex w-full flex-row items-center justify-start bg-[#101012] py-2 pl-2.5 pr-4 hover:bg-[#1a1a1b]'>
+    <Link
+      className='flex w-full flex-row items-center justify-start bg-[#101012] py-2 pl-2.5 pr-4 transition hover:bg-[#1a1a1b]'
+      href={connectId}
+    >
       <div className='mr-2.5'>
         <ProfilePhoto
           profilePhoto={profilePhoto}
@@ -45,6 +60,6 @@ export default function ChatItem(props) {
 
         <div className='text-sm text-gray-400'>{lastMessageTime}</div>
       </div>
-    </div>
+    </Link>
   );
 }
