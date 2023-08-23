@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MouseEventHandler, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 interface MenuItemProps {
   children: ReactNode;
@@ -9,7 +9,7 @@ interface MenuItemProps {
 export default function MenuItem(props: MenuItemProps) {
   return (
     <Link
-      className='link flex w-full items-center justify-start py-3.5 pl-4 hover:bg-zinc-800'
+      className='link flex w-full items-center justify-start py-3 pl-4 hover:bg-zinc-800'
       key={props.text}
       href={props.link}
     >

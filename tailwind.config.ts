@@ -26,6 +26,8 @@ const config: Config = {
   ],
   safelist: [
     ...colorClasses.map((color) => `from-${color}-500 to-${color}-300`),
+    'self-end',
+    'self-start',
   ],
   theme: {
     extend: {},

@@ -13,7 +13,7 @@ export default function Home() {
         <ChatsContainer />
       </div>
       <Link
-        className='link absolute bottom-6 right-6 rounded-full bg-[#03A9F1] p-3'
+        className='link absolute bottom-4 right-4 rounded-full bg-sky-500 bg-gradient-to-tr p-4 transition hover:bg-sky-400'
         href='/all-users'
       >
         <Icon size='26px' name='pencil' />

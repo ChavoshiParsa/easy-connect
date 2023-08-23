@@ -12,7 +12,7 @@ interface ChatScreenNavbarProps {
 export default function Navbar(props: ChatScreenNavbarProps) {
   const { profilePhoto, name, lastName, status } = props;
   return (
-    <div className='sticky top-0 z-30 flex w-full items-center justify-start bg-[#171d2da4] px-1 py-2.5 backdrop-blur-lg'>
+    <div className='absolute top-0 z-30 flex w-full items-center justify-start bg-[#171d2da4] px-1 py-2.5 backdrop-blur-lg'>
       <Link
         className='link mr-4 cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
         href='/home'

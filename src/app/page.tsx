@@ -5,7 +5,7 @@ import Icon from '../components/ui/Icon';
 
 export default function Home() {
   return (
-    <main className='relative flex h-screen flex-col items-center md:justify-center'>
+    <main className='relative flex h-full flex-col items-center md:justify-center'>
       <div className='relative -z-10 mb-14 flex h-80 w-full md:absolute md:mb-0 md:h-full'>
         <Image
           style={{
@@ -19,7 +19,7 @@ export default function Home() {
         />
       </div>
       <div className='z-20 mx-6 flex flex-col items-start justify-center md:-mt-10 md:items-center'>
-        <p className='mb-4 text-[34px] font-bold leading-tight md:mb-10 md:text-5xl'>
+        <p className='mb-4 text-[34px] font-bold leading-tight md:mb-10 md:text-center md:text-5xl md:leading-snug'>
           Stay connected with your friends and family
         </p>
         <div className='mb-10 flex md:mb-48'>

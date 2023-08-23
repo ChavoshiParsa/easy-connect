@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={`${inter.className} relative`}>
+      <body className={`${inter.className} phone md:relative md:h-screen`}>
         <ContextProvider>
           <Alert />
           <AuthProvider>{children}</AuthProvider>

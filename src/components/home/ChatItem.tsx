@@ -25,7 +25,7 @@ export default function ChatItem(props: ChatItemProps) {
 
   return (
     <Link
-      className='flex w-full flex-row items-center justify-start bg-[#101012] py-2 pl-2.5 pr-4 transition hover:bg-[#1a1a1b]'
+      className='link flex w-full flex-row items-center justify-start bg-[#101012] py-2 pl-2.5 pr-4 transition hover:bg-[#232327]'
       href={connectId}
     >
       <div className='mr-2.5'>

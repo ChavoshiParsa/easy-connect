@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import ProfilePhoto from '../ProfilePhoto';
-import galaxy from '@/public/images/galaxy.jpg';
+import galaxy from '@/public/images/wallpaper4.jpg';
 
 export default function MenuProfile() {
   return (
     <div className='relative flex h-1/4 w-full flex-col items-start justify-end pl-5'>
       <Image
+        className='opacity-75'
         style={{
           objectFit: 'cover',
         }}

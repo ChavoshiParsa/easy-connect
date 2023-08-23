@@ -5,7 +5,7 @@ import Logo from '&/logo/Logo';
 
 export default () => {
   return (
-    <main className='relative flex h-screen w-screen flex-row-reverse items-center justify-center'>
+    <main className='relative flex h-full w-screen flex-row-reverse items-center justify-center'>
       <div className='signinimage absolute -z-10 h-full w-full opacity-30 blur-sm transition md:relative md:z-10 md:w-1/2 md:opacity-100 md:blur-none'>
         <Image
           style={{

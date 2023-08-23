@@ -6,7 +6,7 @@ import Logo from '&/logo/Logo';
 export default () => {
   return (
     <>
-      <main className='relative flex h-screen w-screen items-center justify-center'>
+      <main className='w- relative flex h-full items-center justify-center'>
         <div className='signupimage absolute -z-10 h-full w-full opacity-30 blur-sm md:relative md:z-10 md:w-1/2 md:opacity-100 md:blur-none'>
           <Image
             style={{
