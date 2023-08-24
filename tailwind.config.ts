@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+// import type { Config } from 'tailwindcss';
 
 const colorClasses = [
   'sky',
@@ -18,7 +18,14 @@ const colorClasses = [
   'purple',
 ];
 
-const config: Config = {
+// const config: Config = {
+
+// };
+// export default config;
+
+import { withUt } from 'uploadthing/tw';
+
+export default withUt({
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -32,5 +39,4 @@ const config: Config = {
   theme: {
     extend: {},
   },
-};
-export default config;
+});

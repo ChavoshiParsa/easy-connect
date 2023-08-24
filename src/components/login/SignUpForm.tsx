@@ -31,9 +31,9 @@ export default function SignUpForm() {
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
-        .min(3, 'Full name must be at least 3 characters long')
+        .min(3, 'First name must be at least 3 characters long')
         .max(15, 'Must be 15 characters or less')
-        .required('Name is required'),
+        .required('First Name is required'),
       email: Yup.string()
         .email('Invalid email address')
         .required('Email is required'),
@@ -97,7 +97,7 @@ export default function SignUpForm() {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.firstName}
-          label='Name'
+          label='First Name'
         />
         {formik.touched.firstName && formik.errors.firstName && (
           <div className='-mt-1 mb-2.5 self-start pl-1.5 text-sm text-rose-500 md:-mt-4'>

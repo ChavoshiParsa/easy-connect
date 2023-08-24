@@ -30,7 +30,7 @@ export default function ChatScreen() {
       />
       <Navbar
         profilePhoto=''
-        name='AmirHossein'
+        firstName='AmirHossein'
         lastName='Noori'
         status='last seen recently'
       />

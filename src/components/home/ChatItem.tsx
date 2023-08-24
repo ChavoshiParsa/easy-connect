@@ -5,7 +5,7 @@ import Link from 'next/link';
 interface ChatItemProps {
   connectId: string;
   profilePhoto: string;
-  name: string;
+  firstName: string;
   lastName: string;
   lastSender: string;
   lastSenderMessage: string;
@@ -15,7 +15,7 @@ interface ChatItemProps {
 export default function ChatItem(props: ChatItemProps) {
   const {
     profilePhoto,
-    name,
+    firstName,
     lastName,
     lastSender,
     lastSenderMessage,
@@ -31,14 +31,14 @@ export default function ChatItem(props: ChatItemProps) {
       <div className='mr-2.5'>
         <ProfilePhoto
           profilePhoto={profilePhoto}
-          name={name}
+          firstName={firstName}
           lastName={lastName}
           size={'50px'}
         />
       </div>
       <div className='flex flex-col items-start justify-center'>
         <span className='font-semibold text-white'>
-          {name + ' ' + lastName}
+          {firstName + ' ' + lastName}
         </span>
         <span className='text-sm text-gray-400'>{lastSenderMessage}</span>
       </div>

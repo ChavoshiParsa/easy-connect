@@ -14,7 +14,7 @@ export default function ChatsContainer() {
             key={connect.connectId}
             connectId={`/home/${connect.connectId}`}
             profilePhoto={connect.profilePhoto}
-            name={connect.name}
+            firstName={connect.firstName}
             lastName={connect.lastName}
             lastSender={connect.lastSender}
             lastSenderMessage={connect.lastSenderMessage}
@@ -29,7 +29,7 @@ export default function ChatsContainer() {
 const FakeApi = [
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Noori',
     lastSender: 'I',
     lastSenderMessage: "I'm Ok",
@@ -38,7 +38,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'Ali',
+    firstName: 'Ali',
     lastName: 'Ahmadi',
     lastSender: 'I',
     lastSenderMessage: 'Hi, How ru?',
@@ -47,7 +47,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Naderali',
     lastSender: 'Y',
     lastSenderMessage: 'He is great',
@@ -56,7 +56,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Noori',
     lastSender: 'I',
     lastSenderMessage: "I'm Ok",
@@ -65,7 +65,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'Ali',
+    firstName: 'Ali',
     lastName: 'Ahmadi',
     lastSender: 'I',
     lastSenderMessage: 'Hi, How ru?',
@@ -74,7 +74,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Naderali',
     lastSender: 'Y',
     lastSenderMessage: 'He is great',
@@ -83,7 +83,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Noori',
     lastSender: 'I',
     lastSenderMessage: "I'm Ok",
@@ -92,7 +92,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'Ali',
+    firstName: 'Ali',
     lastName: 'Ahmadi',
     lastSender: 'I',
     lastSenderMessage: 'Hi, How ru?',
@@ -101,7 +101,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Naderali',
     lastSender: 'Y',
     lastSenderMessage: 'He is great',
@@ -110,7 +110,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Noori',
     lastSender: 'I',
     lastSenderMessage: "I'm Ok",
@@ -119,7 +119,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'Ali',
+    firstName: 'Ali',
     lastName: 'Ahmadi',
     lastSender: 'I',
     lastSenderMessage: 'Hi, How ru?',
@@ -128,7 +128,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Naderali',
     lastSender: 'Y',
     lastSenderMessage: 'He is great',
@@ -137,7 +137,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Noori',
     lastSender: 'I',
     lastSenderMessage: "I'm Ok",
@@ -146,7 +146,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'Ali',
+    firstName: 'Ali',
     lastName: 'Ahmadi',
     lastSender: 'I',
     lastSenderMessage: 'Hi, How ru?',
@@ -155,7 +155,7 @@ const FakeApi = [
   },
   {
     profilePhoto: '',
-    name: 'AmirHossein',
+    firstName: 'AmirHossein',
     lastName: 'Naderali',
     lastSender: 'Y',
     lastSenderMessage: 'He is great',

@@ -1,34 +1,40 @@
 import { randomNumber } from '@/lib/auth';
-import Image from 'next/image';
+import Image, { ImageLoader } from 'next/image';
 
 interface ProfilePhotoProps {
   profilePhoto: string;
-  name: string;
+  firstName: string;
   lastName: string;
-  size: string;
+  size: number;
 }
 
+const imageLoader: ImageLoader = ({ src, width, quality }) => {
+  return `https://uploadthing.com/f/${src}?w=${width}&q=${quality || 25}`;
+};
+
 export default function ProfilePhoto(props: ProfilePhotoProps) {
-  const { profilePhoto, name, lastName, size } = props;
+  const { profilePhoto, firstName, lastName, size } = props;
+  let strSiz = size + 'px';
 
   if (profilePhoto !== '') {
     return (
-      <div className='overflow-hidden rounded-full'>
+      <div
+        className='relative flex items-center justify-center overflow-hidden rounded-full'
+        style={{ width: strSiz, height: strSiz }}
+      >
         <Image
-          style={{
-            objectFit: 'cover',
-          }}
-          fill
+          className='absolute'
+          loader={imageLoader}
           src={profilePhoto}
           alt='Profile Photo'
-          priority
-          sizes='100vw'
+          width={size}
+          height={size}
         />
       </div>
     );
   }
 
-  let firstLetter = Array.from(name)[0];
+  let firstLetter = Array.from(firstName)[0];
   if (lastName !== '') firstLetter += Array.from(lastName)[0];
   firstLetter = firstLetter.toUpperCase();
 
@@ -39,7 +45,7 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
   return (
     <div
       className={`relative flex items-center justify-center rounded-full bg-gradient-to-t font-bold text-white ${fromColor} ${toColor}`}
-      style={{ width: size, height: size }}
+      style={{ width: strSiz, height: strSiz }}
     >
       <span className='absolute'>{firstLetter}</span>
     </div>

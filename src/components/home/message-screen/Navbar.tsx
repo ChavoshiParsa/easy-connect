@@ -5,12 +5,12 @@ import Icon from '../../ui/Icon';
 interface ChatScreenNavbarProps {
   profilePhoto: string;
   status: string;
-  name: string;
+  firstName: string;
   lastName: string;
 }
 
 export default function Navbar(props: ChatScreenNavbarProps) {
-  const { profilePhoto, name, lastName, status } = props;
+  const { profilePhoto, firstName, lastName, status } = props;
   return (
     <div className='absolute top-0 z-30 flex w-full items-center justify-start bg-[#171d2da4] px-1 py-2.5 backdrop-blur-lg'>
       <Link
@@ -22,7 +22,7 @@ export default function Navbar(props: ChatScreenNavbarProps) {
       <div className='mr-2.5'>
         <ProfilePhoto
           profilePhoto={profilePhoto}
-          name={name}
+          firstName={firstName}
           lastName={lastName}
           size={'46px'}
         />
@@ -30,7 +30,7 @@ export default function Navbar(props: ChatScreenNavbarProps) {
       <div className='flex flex-col items-start justify-center'>
         <div className='flex flex-col items-start justify-center'>
           <span className='font-semibold text-white'>
-            {name + ' ' + lastName}
+            {firstName + ' ' + lastName}
           </span>
         </div>
         <div className='text-sm text-gray-400'>{status}</div>

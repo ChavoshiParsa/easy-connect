@@ -19,7 +19,7 @@ export default function MenuProfile() {
       <div className='relative mb-3 mt-6'>
         <ProfilePhoto
           profilePhoto={''}
-          name={'Parsa'}
+          firstName={'Parsa'}
           lastName={'Chavoshi'}
           size={'64px'}
         />
