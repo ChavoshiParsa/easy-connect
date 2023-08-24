@@ -11,14 +11,14 @@ model User {
   id           String  @id @default(auto()) @map("_id") @db.ObjectId
   email        String  @unique
   username     String  @unique
-  password     String
   isOnline     Boolean @default(true)
   firstName    String
+  password     String
   lastName     String?
   profilePhoto String?
   age          Int?
-  location     String?
-  gender       String?
+  // location     String?
+  // gender       String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

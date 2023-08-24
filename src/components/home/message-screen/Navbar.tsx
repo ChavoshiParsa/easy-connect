@@ -24,7 +24,7 @@ export default function Navbar(props: ChatScreenNavbarProps) {
           profilePhoto={profilePhoto}
           firstName={firstName}
           lastName={lastName}
-          size={'46px'}
+          size={46}
         />
       </div>
       <div className='flex flex-col items-start justify-center'>

@@ -5,8 +5,9 @@ interface InputProps {
   name: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onBlur: (event: FocusEvent<HTMLInputElement>) => void;
-  value: string;
+  value: string | number | undefined;
   editable: boolean;
+  type: string;
 }
 
 export default function Input(props: InputProps) {
@@ -18,7 +19,7 @@ export default function Input(props: InputProps) {
       <input
         className='mt-0.5 w-full rounded-lg border border-[#c0c0c0] bg-[#101010f8] px-3 py-4 outline-0 md:mt-1 md:px-5'
         name={props.name}
-        type='text'
+        type={props.type}
         onChange={props.onChange}
         onBlur={props.onBlur}
         value={props.value}

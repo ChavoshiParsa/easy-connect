@@ -16,6 +16,10 @@ export default function ChangeProfilePhoto(props: ProfilePhotoProps) {
 
   const { setAlert } = useContextProvider();
   const [profilePhoto, setProfilePhoto] = useState<string>('');
+  const deleteFileHandler = async () => {
+    // await utapi.deleteFiles(profilePhoto);
+    setProfilePhoto('');
+  };
 
   return (
     <div className='mb-5 flex flex-col items-center justify-center md:mb-9 md:flex-row md:space-x-7'>
@@ -73,7 +77,10 @@ export default function ChangeProfilePhoto(props: ProfilePhotoProps) {
             });
           }}
         />
-        <button className='flex flex-row items-center justify-center rounded-xl border border-rose-500 py-1 pl-3 pr-4 transition hover:bg-rose-300 md:py-2.5 md:pl-6 md:pr-7'>
+        <button
+          className='flex flex-row items-center justify-center rounded-xl border border-rose-500 py-1 pl-3 pr-4 transition hover:bg-rose-300 md:py-2.5 md:pl-6 md:pr-7'
+          onClick={deleteFileHandler}
+        >
           <Icon name='remove-photo' size='24px' />
           <span className=' text-sm font-bold text-rose-500 sm:ml-3 sm:text-base'>
             Remove

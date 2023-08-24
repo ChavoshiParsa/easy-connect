@@ -21,7 +21,7 @@ export default function MenuProfile() {
           profilePhoto={''}
           firstName={'Parsa'}
           lastName={'Chavoshi'}
-          size={'64px'}
+          size={64}
         />
       </div>
       <h1 className='z-10 mb-0.5 font-bold text-white'>Parsa Chavoshi</h1>

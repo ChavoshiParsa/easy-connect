@@ -14,13 +14,13 @@ const imageLoader: ImageLoader = ({ src, width, quality }) => {
 
 export default function ProfilePhoto(props: ProfilePhotoProps) {
   const { profilePhoto, firstName, lastName, size } = props;
-  let strSiz = size + 'px';
+  const strSize = size + 'px';
 
   if (profilePhoto !== '') {
     return (
       <div
         className='relative flex items-center justify-center overflow-hidden rounded-full'
-        style={{ width: strSiz, height: strSiz }}
+        style={{ width: strSize, height: strSize }}
       >
         <Image
           className='absolute'
@@ -34,9 +34,13 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
     );
   }
 
-  let firstLetter = Array.from(firstName)[0];
-  if (lastName !== '') firstLetter += Array.from(lastName)[0];
-  firstLetter = firstLetter.toUpperCase();
+  let firstLetter = 'No Name';
+  if (firstName !== '' && firstName.length >= 3)
+    firstLetter = Array.from(firstName)[0];
+  if (lastName !== '' && lastName.length >= 3)
+    firstLetter += Array.from(lastName)[0];
+
+  if (firstLetter !== 'No Name') firstLetter = firstLetter.toUpperCase();
 
   const randomNum = randomNumber(0, colors.length - 1);
   const fromColor = 'from-' + colors[randomNum] + '-500';
@@ -45,7 +49,7 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
   return (
     <div
       className={`relative flex items-center justify-center rounded-full bg-gradient-to-t font-bold text-white ${fromColor} ${toColor}`}
-      style={{ width: strSiz, height: strSiz }}
+      style={{ width: strSize, height: strSize }}
     >
       <span className='absolute'>{firstLetter}</span>
     </div>
