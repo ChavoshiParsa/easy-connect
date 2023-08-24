@@ -16,7 +16,7 @@ export default function MenuProfile() {
         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
         priority
       />
-      <div className='relative mb-5'>
+      <div className='relative mb-3 mt-6'>
         <ProfilePhoto
           profilePhoto={''}
           name={'Parsa'}

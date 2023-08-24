@@ -13,6 +13,7 @@ interface ContextType {
   setAlert: ({ status, title, message }: AlertProps) => void;
   isMenuShow: boolean | null;
   toggleIsMenuShow: () => void;
+  setIsMenuShow: (value: boolean) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -20,6 +21,7 @@ const Context = createContext<ContextType>({
   setAlert: ({ status, title, message }: AlertProps) => {},
   isMenuShow: null,
   toggleIsMenuShow: () => {},
+  setIsMenuShow: (value: boolean) => {},
 });
 
 export const ContextProvider: React.FC<{
@@ -44,7 +46,9 @@ export const ContextProvider: React.FC<{
   }, [alert]);
 
   return (
-    <Context.Provider value={{ alert, setAlert, isMenuShow, toggleIsMenuShow }}>
+    <Context.Provider
+      value={{ alert, setAlert, isMenuShow, toggleIsMenuShow, setIsMenuShow }}
+    >
       {children}
     </Context.Provider>
   );

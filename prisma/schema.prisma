@@ -9,14 +9,16 @@ datasource db {
 
 model User {
   id           String  @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
   email        String  @unique
   username     String  @unique
   password     String
   isOnline     Boolean @default(true)
+  firstName    String
   lastName     String?
-  age          Int?
   profilePhoto String?
+  age          Int?
+  location     String?
+  gender       String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

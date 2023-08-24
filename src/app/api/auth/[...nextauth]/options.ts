@@ -29,7 +29,7 @@ export const options: NextAuthOptions = {
           throw new Error('Password is wrong!');
         }
 
-        return { email: user.email, name: user.name } as any;
+        return { email: user.email, firstName: user.firstName } as any;
       },
     }),
   ],

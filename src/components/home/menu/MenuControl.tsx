@@ -2,9 +2,14 @@
 
 import { useContextProvider } from '@/src/context/store';
 import Menu from './Menu';
+import { useEffect } from 'react';
 
 export default function MenuControl() {
-  const { isMenuShow, toggleIsMenuShow } = useContextProvider();
+  const { isMenuShow, toggleIsMenuShow, setIsMenuShow } = useContextProvider();
+
+  useEffect(() => {
+    setIsMenuShow(false);
+  }, []);
 
   return (
     <>

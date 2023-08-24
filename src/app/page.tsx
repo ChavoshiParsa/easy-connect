@@ -5,7 +5,7 @@ import Icon from '../components/ui/Icon';
 
 export default function Home() {
   return (
-    <main className='relative flex h-full flex-col items-center md:justify-center'>
+    <main className='phone flex h-full flex-col items-center md:relative md:h-screen md:justify-center'>
       <div className='relative -z-10 mb-14 flex h-80 w-full md:absolute md:mb-0 md:h-full'>
         <Image
           style={{

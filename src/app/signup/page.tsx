@@ -6,8 +6,8 @@ import Logo from '&/logo/Logo';
 export default () => {
   return (
     <>
-      <main className='w- relative flex h-full items-center justify-center'>
-        <div className='signupimage absolute -z-10 h-full w-full opacity-30 blur-sm md:relative md:z-10 md:w-1/2 md:opacity-100 md:blur-none'>
+      <main className='phone flex items-center justify-center md:relative md:h-screen'>
+        <div className='signupimage absolute -z-10 h-full w-full opacity-40 blur-sm md:relative md:z-10 md:w-1/2 md:opacity-100 md:blur-none'>
           <Image
             style={{
               objectFit: 'cover',

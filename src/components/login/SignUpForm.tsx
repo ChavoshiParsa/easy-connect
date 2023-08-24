@@ -25,12 +25,12 @@ export default function SignUpForm() {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      firstName: '',
       email: '',
       password: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string()
+      firstName: Yup.string()
         .min(3, 'Full name must be at least 3 characters long')
         .max(15, 'Must be 15 characters or less')
         .required('Name is required'),
@@ -48,7 +48,7 @@ export default function SignUpForm() {
       setIsVisible(true);
       if (!isChecked) return;
       const formData = {
-        name: values.name,
+        firstName: values.firstName,
         email: values.email,
         password: values.password,
       };
@@ -67,7 +67,7 @@ export default function SignUpForm() {
         setAlert({
           status: 'success',
           title: 'Success!',
-          message: 'Welcome ' + values.name,
+          message: 'Welcome ' + values.firstName,
         });
         setTimeout(() => {
           router.push('/home');
@@ -92,16 +92,16 @@ export default function SignUpForm() {
       </h1>
       <div className='flex w-full flex-col items-center justify-center'>
         <Input
-          name='name'
+          name='firstName'
           type='text'
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.name}
+          value={formik.values.firstName}
           label='Name'
         />
-        {formik.touched.name && formik.errors.name && (
+        {formik.touched.firstName && formik.errors.firstName && (
           <div className='-mt-1 mb-2.5 self-start pl-1.5 text-sm text-rose-500 md:-mt-4'>
-            {formik.errors.name}
+            {formik.errors.firstName}
           </div>
         )}
         <Input
