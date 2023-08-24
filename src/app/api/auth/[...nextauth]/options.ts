@@ -1,9 +1,9 @@
 import { verifyPassword } from '@/lib/auth';
 import { prisma } from '@/prisma/prisma';
-import { NextAuthOptions } from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const options: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -36,6 +36,9 @@ export const options: NextAuthOptions = {
   session: { strategy: 'jwt' },
   secret: 'random Text',
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      return true;
+    },
     async redirect({ url, baseUrl }) {
       // Allows relative callback URLs
       if (url.startsWith('/')) return `${baseUrl}${url}`;

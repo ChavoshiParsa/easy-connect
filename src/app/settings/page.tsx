@@ -1,14 +1,9 @@
-'use client';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '#/app/api/auth/[...nextauth]/options';
 
-import { signOut, useSession } from 'next-auth/react';
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  console.log(session);
 
-export default async () => {
-  const { data, status } = useSession();
-  console.log(status);
-
-  return (
-    <>
-      <button onClick={() => signOut()}>Sign out</button>
-    </>
-  );
-};
+  return <></>;
+}

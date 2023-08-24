@@ -60,10 +60,12 @@ export default function SignUpForm() {
       try {
         const response = await axios.post('/api/auth/signup', formData);
         await signIn('credentials', {
-          redirect: false,
           email: response.data.email,
           password: response.data.password,
+          redirect: true,
+          callbackUrl: '/',
         });
+
         setAlert({
           status: 'success',
           title: 'Success!',
