@@ -2,8 +2,13 @@ import SignUpForm from '@/src/components/login/SignUpForm';
 import Image from 'next/image';
 import shapes from '@/public/images/shapes-up.jpg';
 import Logo from '&/logo/Logo';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]/options';
 
-export default () => {
+export default async () => {
+  const session = await getServerSession(authOptions);
+  if (session) redirect('/home');
   return (
     <>
       <main className='phone flex items-center justify-center md:relative md:h-screen'>

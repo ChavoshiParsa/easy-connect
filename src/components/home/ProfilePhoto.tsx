@@ -1,4 +1,3 @@
-import { randomNumber } from '@/lib/auth';
 import Image, { ImageLoader } from 'next/image';
 
 interface ProfilePhotoProps {
@@ -16,7 +15,7 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
   const { profilePhoto, firstName, lastName, size } = props;
   const strSize = size + 'px';
 
-  if (profilePhoto !== '') {
+  if (profilePhoto.length > 35) {
     return (
       <div
         className='relative flex items-center justify-center overflow-hidden rounded-full'
@@ -29,6 +28,7 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
           alt='Profile Photo'
           width={size}
           height={size}
+          placeholder='blur'
         />
       </div>
     );
@@ -42,34 +42,13 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
 
   if (firstLetter !== 'No Name') firstLetter = firstLetter.toUpperCase();
 
-  const randomNum = randomNumber(0, colors.length - 1);
-  const fromColor = 'from-' + colors[randomNum] + '-500';
-  const toColor = 'to-' + colors[randomNum] + '-300';
-
+  let color = profilePhoto;
   return (
     <div
-      className={`relative flex items-center justify-center rounded-full bg-gradient-to-t font-bold text-white ${fromColor} ${toColor}`}
+      className={`relative flex items-center justify-center rounded-full bg-gradient-to-t font-bold text-white from-${color}-500 to-${color}-300`}
       style={{ width: strSize, height: strSize }}
     >
       <span className='absolute'>{firstLetter}</span>
     </div>
   );
 }
-
-const colors = [
-  'sky',
-  'blue',
-  'cyan',
-  'emerald',
-  'lime',
-  'indigo',
-  'violet',
-  'pink',
-  'rose',
-  'orange',
-  'amber',
-  'red',
-  'teal',
-  'green',
-  'purple',
-];

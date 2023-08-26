@@ -3,11 +3,26 @@ import ChatsContainer from '@/src/components/home/ChatsContainer';
 import MenuControl from '@/src/components/home/menu/MenuControl';
 import Link from 'next/link';
 import Icon from '../ui/Icon';
+import { authOptions } from '@/src/app/api/auth/[...nextauth]/options';
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/prisma/prisma';
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
+  const userEmail = session?.user?.email;
+  let res;
+  if (userEmail) {
+    res = await prisma.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+    });
+  }
+
   return (
     <>
-      <MenuControl />
+      <MenuControl user={res} />
       <div className='h-full w-full overflow-y-scroll bg-[#18181855]'>
         <Navbar />
         <ChatsContainer />

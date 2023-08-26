@@ -1,9 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import galaxy from '@/public/images/galaxy.jpg';
-import Icon from '../components/ui/Icon';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]/options';
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  if (session) redirect('/home');
+
   return (
     <main className='phone flex h-full flex-col items-center md:relative md:h-screen md:justify-center'>
       <div className='relative -z-10 mb-14 flex h-80 w-full md:absolute md:mb-0 md:h-full'>
@@ -42,8 +47,7 @@ export default function Home() {
 
         <Link
           className='link relative w-full overflow-hidden rounded-full bg-white py-4 text-center font-bold text-black opacity-90 hover:opacity-75 focus:outline-none md:w-5/12'
-          href='/home'
-          // href='/signup'
+          href='/signup'
         >
           Get Started
           <div className='animate-cPuls absolute bottom-0 top-0 bg-indigo-600 px-20 opacity-90 blur-3xl' />

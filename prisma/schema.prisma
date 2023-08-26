@@ -14,8 +14,9 @@ model User {
   isOnline     Boolean @default(true)
   firstName    String
   password     String
-  lastName     String?
+  profileColor String
   profilePhoto String?
+  lastName     String?
   age          Int?
   // location     String?
   // gender       String?

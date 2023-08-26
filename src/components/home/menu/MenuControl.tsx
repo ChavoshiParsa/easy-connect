@@ -4,10 +4,12 @@ import { useContextProvider } from '@/src/context/store';
 import Menu from './Menu';
 import { useEffect } from 'react';
 
-export default function MenuControl() {
-  const { isMenuShow, toggleIsMenuShow, setIsMenuShow } = useContextProvider();
+export default function MenuControl({ user }) {
+  const { isMenuShow, toggleIsMenuShow, setIsMenuShow, setUser } =
+    useContextProvider();
 
   useEffect(() => {
+    setUser(user);
     setIsMenuShow(false);
   }, []);
 

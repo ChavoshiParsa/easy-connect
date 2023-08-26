@@ -58,19 +58,21 @@ export default function SignUpForm() {
         message: 'Data is sending...',
       });
       try {
-        const response = await axios.post('/api/auth/signup', formData);
-        await signIn('credentials', {
-          email: response.data.email,
-          password: response.data.password,
-          redirect: true,
-          callbackUrl: '/',
+        await axios.post('/api/auth/signup', formData);
+        const result = await signIn('credentials', {
+          redirect: false,
+          email: values.email,
+          password: values.password,
         });
+
+        console.log(result);
 
         setAlert({
           status: 'success',
           title: 'Success!',
           message: 'Welcome ' + values.firstName,
         });
+
         setTimeout(() => {
           router.push('/home');
         }, 500);
