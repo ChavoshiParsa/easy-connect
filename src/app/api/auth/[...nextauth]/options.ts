@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials: any) {
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { email: credentials.email.trim().toLowerCase() },
         });
 
         if (!user) {
@@ -22,8 +22,8 @@ export const authOptions: NextAuthOptions = {
         }
 
         const isValid = await verifyPassword(
-          credentials.password,
-          user?.password
+          credentials.password.trim(),
+          user?.password.trim()
         );
 
         if (!isValid) {

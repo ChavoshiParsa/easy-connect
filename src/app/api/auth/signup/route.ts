@@ -12,13 +12,17 @@ interface Data {
 
 export async function POST(req: NextRequest) {
   const data: Data = await req.json();
-  const trimData: Data = {
-    firstName: data.firstName.trim(),
-    email: data.email.trim(),
+
+  const convertedData: Data = {
+    firstName:
+      data.firstName.trim()[0].toUpperCase() +
+      data.firstName.trim()[0].slice(1),
+    email: data.email.trim().toLowerCase(),
     password: data.password.trim(),
   };
 
-  const { firstName, email, password } = trimData;
+  const { firstName, email, password } = convertedData;
+
   if (
     !firstName ||
     !email ||
@@ -43,15 +47,17 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const hashedPassword = await hashPassword(trimData.password);
+  const hashedPassword = await hashPassword(convertedData.password);
 
+  const loweredFirstName = firstName.toLowerCase();
   // generating username base name and random numbers
-  let username: string = firstName + randomNumber(1000, 9999);
+  let username: string =
+    loweredFirstName.toLowerCase() + randomNumber(1000, 9999);
   let anyUsername = await prisma.user.findUnique({
     where: { username },
   });
   if (anyUsername) {
-    username = await usernameGenerator(username, firstName);
+    username = await usernameGenerator(username, loweredFirstName);
   }
 
   const res = await prisma.user.create({

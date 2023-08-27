@@ -31,23 +31,51 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
       firstName: Yup.string()
         .min(3, 'Must be at least 3 characters long')
         .max(15, 'Must be 15 characters or less')
-        .required('First name is required')
-        .trim(),
+        .required('First name is required'),
       lastName: Yup.string()
         .min(3, 'Must be at least 3 characters long')
-        .max(15, 'Must be 15 characters or less')
-        .trim(),
+        .max(15, 'Must be 15 characters or less'),
       age: Yup.number()
         .min(14, 'Age must be at least 14')
         .max(99, 'Age must be at most 99'),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (!usernameIsValid) return;
       if (usernameLoading) return;
-      setIsEditing(false);
       setIsTouched(false);
 
-      //saving at data base
+      const formData = {
+        email: userData.email,
+        firstName: values.firstName,
+        lastName: values.lastName || undefined,
+        age: values.age || undefined,
+        username: enteredUsername,
+      };
+
+      setAlert({
+        status: 'pending',
+        title: 'Please wait!',
+        message: 'Data is sending...',
+      });
+
+      try {
+        const result = await axios.post('/api/updateUser', formData);
+
+        console.log(result);
+
+        setAlert({
+          status: 'success',
+          title: 'Success!',
+          message: 'Profile changed successfully' + values.firstName,
+        });
+      } catch (error: any) {
+        setAlert({
+          status: 'error',
+          title: 'Error!',
+          message: error.response.data.message,
+        });
+      }
+      setIsEditing(false);
     },
   });
 
@@ -67,16 +95,18 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
         setUsernameIsValid(true);
         setUsernameLoading(true);
         timer = setTimeout(async () => {
-          if (enteredUsername === userData.username) return;
+          if (enteredUsername === userData.username) {
+            setUsernameLoading(false);
+            return;
+          }
           try {
             await axios.post('/api/usernameCheck', { enteredUsername });
           } catch (error: any) {
-            console.log(error.response.data.message);
             setUsernameError(error.response.data.message);
             setUsernameIsValid(false);
           }
           setUsernameLoading(false);
-        }, 300);
+        }, 600);
       })
       .catch((error) => {
         setUsernameError(error.message);
@@ -221,8 +251,11 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
               <button
                 className='link relative w-full rounded-lg bg-indigo-700 py-2.5 text-center font-bold text-white opacity-90 transition hover:bg-indigo-600 sm:w-40'
                 type='submit'
+                disabled={alert?.status === 'pending'}
               >
-                Save Changes
+                {alert?.status === 'pending'
+                  ? 'Apply Changes...'
+                  : 'Save Changes'}
               </button>
             </>
           )}

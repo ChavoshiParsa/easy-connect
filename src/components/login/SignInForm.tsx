@@ -22,8 +22,9 @@ export default function SignInForm() {
     validationSchema: Yup.object({
       email: Yup.string()
         .email('Invalid email address')
-        .required('Enter your email'),
-      password: Yup.string().required('Enter your password'),
+        .required('Enter your email')
+        .trim(),
+      password: Yup.string().required('Enter your password').trim(),
     }),
     onSubmit: async (values) => {
       setAlert({
