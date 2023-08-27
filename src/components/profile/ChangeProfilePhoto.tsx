@@ -4,8 +4,10 @@ import Icon from '../ui/Icon';
 import { useContextProvider } from '@/src/context/store';
 import { useState } from 'react';
 import { UploadFileResponse } from 'uploadthing/client';
+import axios from 'axios';
 
 interface ProfilePhotoProps {
+  email: string;
   firstName: string;
   lastName: string | null;
   profilePhoto: string | null;
@@ -13,7 +15,7 @@ interface ProfilePhotoProps {
 }
 
 export default function ChangeProfilePhoto(props: ProfilePhotoProps) {
-  const { firstName, lastName, profilePhoto, profileColor } = props;
+  const { email, firstName, lastName, profilePhoto, profileColor } = props;
 
   const { setAlert } = useContextProvider();
   const [photo, setPhoto] = useState<string | null>(profilePhoto);
@@ -55,7 +57,7 @@ export default function ChangeProfilePhoto(props: ProfilePhotoProps) {
               if (isUploading)
                 return (
                   <div className='absolute right-3 top-3 z-30 flex flex-col items-start justify-center rounded-md bg-blue-300 px-3 py-2 text-black'>
-                    <h1 className='text-lg'>Loading!</h1>
+                    <h1 className='text-lg'>Loading...</h1>
                     <p className='text-base'>Seems like stuff is uploading</p>
                   </div>
                 );
@@ -63,8 +65,22 @@ export default function ChangeProfilePhoto(props: ProfilePhotoProps) {
             },
           }}
           endpoint='imageUploader'
-          onClientUploadComplete={(res: UploadFileResponse[] | undefined) => {
-            if (res && res.length > 0) setPhoto(res[0].key);
+          onClientUploadComplete={async (
+            res: UploadFileResponse[] | undefined
+          ) => {
+            if (res && res.length > 0) {
+              setPhoto(res[0].key);
+              setAlert({
+                status: 'pending',
+                title: 'Loading...',
+                message: 'Setting profile photo',
+              });
+              await axios.post('/api/update-profile-photo', {
+                email,
+                photo: res[0].key,
+              });
+            }
+
             setAlert({
               status: 'success',
               title: 'Success!',

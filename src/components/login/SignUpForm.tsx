@@ -33,7 +33,8 @@ export default function SignUpForm() {
       firstName: Yup.string()
         .min(3, 'First name must be at least 3 characters long')
         .max(15, 'Must be 15 characters or less')
-        .required('First Name is required'),
+        .required('First Name is required')
+        .trim(),
       email: Yup.string()
         .email('Invalid email address')
         .required('Email is required'),
@@ -64,8 +65,6 @@ export default function SignUpForm() {
           email: values.email,
           password: values.password,
         });
-
-        console.log(result);
 
         setAlert({
           status: 'success',

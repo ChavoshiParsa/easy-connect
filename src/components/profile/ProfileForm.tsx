@@ -31,10 +31,12 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
       firstName: Yup.string()
         .min(3, 'Must be at least 3 characters long')
         .max(15, 'Must be 15 characters or less')
-        .required('First name is required'),
+        .required('First name is required')
+        .trim(),
       lastName: Yup.string()
         .min(3, 'Must be at least 3 characters long')
-        .max(15, 'Must be 15 characters or less'),
+        .max(15, 'Must be 15 characters or less')
+        .trim(),
       age: Yup.number()
         .min(14, 'Age must be at least 14')
         .max(99, 'Age must be at most 99'),
@@ -59,23 +61,27 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
       });
 
       try {
-        const result = await axios.post('/api/updateUser', formData);
-
-        console.log(result);
-
+        const result = await axios.post('/api/update-user', formData);
         setAlert({
           status: 'success',
           title: 'Success!',
           message: 'Profile changed successfully' + values.firstName,
         });
+
+        formik.values.firstName = result.data.res.firstName;
+        formik.values.lastName = result.data.res.lastName;
+        formik.values.age = result.data.res.age;
+        setEnteredUsername(result.data.res.username);
+
+        setIsEditing(false);
       } catch (error: any) {
         setAlert({
           status: 'error',
           title: 'Error!',
           message: error.response.data.message,
         });
+        setIsEditing(true);
       }
-      setIsEditing(false);
     },
   });
 
@@ -100,7 +106,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
             return;
           }
           try {
-            await axios.post('/api/usernameCheck', { enteredUsername });
+            await axios.post('/api/username-check', { enteredUsername });
           } catch (error: any) {
             setUsernameError(error.response.data.message);
             setUsernameIsValid(false);
@@ -123,6 +129,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
         Profile Page
       </h1>
       <ChangeProfilePhoto
+        email={userData.email}
         profilePhoto={userData.profilePhoto}
         profileColor={userData.profileColor}
         firstName={userData.firstName}
@@ -161,7 +168,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
                 {usernameError}
               </p>
             )}
-            {usernameLoading && isTouched && (
+            {usernameLoading && isTouched && usernameIsValid && (
               <p className='absolute -bottom-5 text-sm text-white '>
                 Checking username...
               </p>

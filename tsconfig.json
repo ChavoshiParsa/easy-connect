@@ -30,7 +30,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/api/usernameCheck"
+    "src/app/api/username-check"
   ],
   "exclude": ["node_modules"]
 }

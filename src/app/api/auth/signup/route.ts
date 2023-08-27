@@ -15,8 +15,7 @@ export async function POST(req: NextRequest) {
 
   const convertedData: Data = {
     firstName:
-      data.firstName.trim()[0].toUpperCase() +
-      data.firstName.trim()[0].slice(1),
+      data.firstName.trim()[0].toUpperCase() + data.firstName.trim().slice(1),
     email: data.email.trim().toLowerCase(),
     password: data.password.trim(),
   };

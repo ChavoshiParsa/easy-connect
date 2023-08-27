@@ -30,7 +30,6 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
           alt='Profile Photo'
           width={size}
           height={size}
-          placeholder='blur'
         />
       </div>
     );
