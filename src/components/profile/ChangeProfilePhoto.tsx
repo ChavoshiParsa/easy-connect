@@ -4,15 +4,11 @@ import Icon from '../ui/Icon';
 import { useContextProvider } from '@/src/context/store';
 import { useState } from 'react';
 import { UploadFileResponse } from 'uploadthing/client';
+import Loading from '@/src/app/loading';
 
-interface ProfilePhotoProps {
-  firstName: string;
-  lastName: string;
-  size: number;
-}
-
-export default function ChangeProfilePhoto(props: ProfilePhotoProps) {
-  const { firstName, lastName, size } = props;
+export default function ChangeProfilePhoto() {
+  const { user, setUser } = useContextProvider();
+  if (!user) return <Loading />;
 
   const { setAlert } = useContextProvider();
   const [profilePhoto, setProfilePhoto] = useState<string>('');
@@ -25,10 +21,11 @@ export default function ChangeProfilePhoto(props: ProfilePhotoProps) {
     <div className='mb-5 flex flex-col items-center justify-center md:mb-9 md:flex-row md:space-x-7'>
       <div className='mb-5 md:mb-0'>
         <ProfilePhoto
-          profilePhoto={profilePhoto}
-          firstName={firstName}
-          lastName={lastName}
-          size={size}
+          profilePhoto={user.profilePhoto}
+          profileColor={user.profileColor}
+          firstName={user.firstName}
+          lastName={user.lastName}
+          size={120}
         />
       </div>
       <div className='flex flex-row items-center justify-center md:flex-col'>

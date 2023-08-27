@@ -5,7 +5,7 @@ interface InputProps {
   name: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onBlur: (event: FocusEvent<HTMLInputElement>) => void;
-  value: string | number | undefined;
+  value: string | number | null | undefined;
   editable: boolean;
   type: string;
 }

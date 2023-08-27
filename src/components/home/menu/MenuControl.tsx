@@ -1,15 +1,15 @@
 'use client';
 
-import { useContextProvider } from '@/src/context/store';
+import { UserData, useContextProvider } from '@/src/context/store';
 import Menu from './Menu';
 import { useEffect } from 'react';
 
-export default function MenuControl({ user }) {
+export default function MenuControl({ userData }: { userData: UserData }) {
   const { isMenuShow, toggleIsMenuShow, setIsMenuShow, setUser } =
     useContextProvider();
 
   useEffect(() => {
-    setUser(user);
+    setUser(userData);
     setIsMenuShow(false);
   }, []);
 
@@ -29,9 +29,3 @@ export default function MenuControl({ user }) {
     </>
   );
 }
-
-// profile --> changing profile: name,photo,age...
-// new message --> pencil icon
-// account --> signing out, deleting account,
-// setting --> light mode, dark mode, wallpaper
-// send feedback --> direct to my pv

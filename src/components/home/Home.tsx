@@ -6,23 +6,33 @@ import Icon from '../ui/Icon';
 import { authOptions } from '@/src/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import { prisma } from '@/prisma/prisma';
+import Loading from '@/src/app/loading';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-
   const userEmail = session?.user?.email;
-  let res;
-  if (userEmail) {
-    res = await prisma.user.findUnique({
-      where: {
-        email: userEmail,
-      },
-    });
-  }
+
+  if (!userEmail) return;
+
+  let res = await prisma.user.findUnique({
+    where: {
+      email: userEmail,
+    },
+    select: {
+      id: true,
+      email: true,
+      username: true,
+      firstName: true,
+      profileColor: true,
+      profilePhoto: true,
+      lastName: true,
+      age: true,
+    },
+  });
 
   return (
     <>
-      <MenuControl user={res} />
+      {res ? <MenuControl userData={res} /> : <Loading />}
       <div className='h-full w-full overflow-y-scroll bg-[#18181855]'>
         <Navbar />
         <ChatsContainer />

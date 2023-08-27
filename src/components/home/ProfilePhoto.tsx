@@ -1,9 +1,10 @@
 import Image, { ImageLoader } from 'next/image';
 
 interface ProfilePhotoProps {
-  profilePhoto: string;
+  profilePhoto: string | null;
+  profileColor: string;
   firstName: string;
-  lastName: string;
+  lastName: string | null;
   size: number;
 }
 
@@ -12,10 +13,11 @@ const imageLoader: ImageLoader = ({ src, width, quality }) => {
 };
 
 export default function ProfilePhoto(props: ProfilePhotoProps) {
-  const { profilePhoto, firstName, lastName, size } = props;
+  const { profilePhoto, profileColor, firstName, lastName, size } = props;
+
   const strSize = size + 'px';
 
-  if (profilePhoto.length > 35) {
+  if (profilePhoto !== '' && profilePhoto !== null) {
     return (
       <div
         className='relative flex items-center justify-center overflow-hidden rounded-full'
@@ -37,12 +39,12 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
   let firstLetter = 'No Name';
   if (firstName !== '' && firstName.length >= 3)
     firstLetter = Array.from(firstName)[0];
-  if (lastName !== '' && lastName.length >= 3)
+  if (lastName !== '' && lastName !== null && lastName.length >= 3)
     firstLetter += Array.from(lastName)[0];
 
   if (firstLetter !== 'No Name') firstLetter = firstLetter.toUpperCase();
 
-  let color = profilePhoto;
+  let color = profileColor;
   return (
     <div
       className={`relative flex items-center justify-center rounded-full bg-gradient-to-t font-bold text-white from-${color}-500 to-${color}-300`}

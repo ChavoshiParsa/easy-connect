@@ -1,23 +1,27 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import ChangeProfilePhoto from './ChangeProfilePhoto';
 import Input from './Input';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { UserData, useContextProvider } from '@/src/context/store';
 
-export default function ProfileForm() {
+export default function ProfileForm({ userData }: { userData: UserData }) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const { user, setUser } = useContextProvider();
+
+  useEffect(() => {
+    setUser(userData);
+  }, []);
 
   const formik = useFormik({
-    // server
     initialValues: {
-      firstName: 'Parsa',
-      lastName: '',
-      age: '',
-      username: 'Parsa5485',
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      age: user?.age,
+      username: user?.username,
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -50,11 +54,7 @@ export default function ProfileForm() {
       <h1 className='mb-4 text-4xl font-bold sm:text-5xl md:mb-8'>
         Profile Page
       </h1>
-      <ChangeProfilePhoto
-        firstName={formik.values.firstName}
-        lastName={formik.values.lastName}
-        size={120}
-      />
+      <ChangeProfilePhoto />
       <form className='w-full' onSubmit={formik.handleSubmit}>
         <div className='mb-6 flex w-full flex-col items-center justify-center space-y-5 md:mb-12 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4 md:space-y-0'>
           <div className='relative flex w-full items-center justify-center'>
@@ -147,6 +147,7 @@ export default function ProfileForm() {
                 onClick={() => {
                   setIsEditing(false);
                   // initial value will back
+                  console.log(formik.initialValues);
                   formik.values.firstName = 'Parsa';
                   formik.values.lastName = '';
                   formik.values.age = '';
