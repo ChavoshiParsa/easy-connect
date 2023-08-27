@@ -20,8 +20,21 @@ export default function ChangeProfilePhoto(props: ProfilePhotoProps) {
   const { setAlert } = useContextProvider();
   const [photo, setPhoto] = useState<string | null>(profilePhoto);
   const deleteFileHandler = async () => {
-    // await utapi.deleteFiles(profilePhoto);
+    setAlert({
+      status: 'pending',
+      title: 'Loading...',
+      message: 'Deleting your photo from server...',
+    });
+    await axios.post('/api/update-profile-photo', {
+      email,
+      photo: null,
+    });
     setPhoto(null);
+    setAlert({
+      status: 'success',
+      title: 'Done',
+      message: 'Your photo has deleted.',
+    });
   };
 
   return (
