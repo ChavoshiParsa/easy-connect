@@ -7,54 +7,97 @@ import Input from './Input';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { UserData, useContextProvider } from '@/src/context/store';
+import axios from 'axios';
 
 export default function ProfileForm({ userData }: { userData: UserData }) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const { user, setUser } = useContextProvider();
+  const [enteredUsername, setEnteredUsername] = useState<string>(
+    userData.username
+  );
+  const [usernameIsValid, setUsernameIsValid] = useState<boolean>(true);
+  const [isTouched, setIsTouched] = useState<boolean>(false);
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+  const [usernameLoading, setUsernameLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    setUser(userData);
-  }, []);
+  const { alert, setAlert } = useContextProvider();
 
   const formik = useFormik({
     initialValues: {
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      age: user?.age,
-      username: user?.username,
+      firstName: userData.firstName,
+      lastName: userData.lastName || undefined,
+      age: userData.age || undefined,
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
-        .min(3, 'First Name must be at least 3 characters long')
+        .min(3, 'Must be at least 3 characters long')
         .max(15, 'Must be 15 characters or less')
-        .required('First Name is required'),
+        .required('First name is required')
+        .trim(),
       lastName: Yup.string()
-        .min(3, 'Last Name must be at least 3 characters long')
-        .max(15, 'Must be 15 characters or less'),
+        .min(3, 'Must be at least 3 characters long')
+        .max(15, 'Must be 15 characters or less')
+        .trim(),
       age: Yup.number()
         .min(14, 'Age must be at least 14')
         .max(99, 'Age must be at most 99'),
-      username: Yup.string()
-        .matches(
-          /^[a-zA-Z0-9]+$/,
-          'Username must contain only letters and numbers'
-        )
-        .min(4, 'Username must be at least 4 characters long')
-        .max(20, 'Must be 20 characters or less')
-        .required('Username is required'),
     }),
     onSubmit: (values) => {
+      if (!usernameIsValid) return;
+      if (usernameLoading) return;
       setIsEditing(false);
-      console.log('Form submitted:', values);
+      setIsTouched(false);
+
+      //saving at data base
     },
   });
+
+  const usernameSchema = Yup.object().shape({
+    username: Yup.string()
+      .required('Username is required')
+      .matches(/^[a-zA-Z0-9]+$/, 'Only letters and numbers')
+      .min(4, 'Username must be at least 4 characters long')
+      .max(20, 'Must be 20 characters or less'),
+  });
+
+  useEffect(() => {
+    let timer: any;
+    usernameSchema
+      .validate({ username: enteredUsername })
+      .then(() => {
+        setUsernameIsValid(true);
+        setUsernameLoading(true);
+        timer = setTimeout(async () => {
+          if (enteredUsername === userData.username) return;
+          try {
+            await axios.post('/api/usernameCheck', { enteredUsername });
+          } catch (error: any) {
+            console.log(error.response.data.message);
+            setUsernameError(error.response.data.message);
+            setUsernameIsValid(false);
+          }
+          setUsernameLoading(false);
+        }, 300);
+      })
+      .catch((error) => {
+        setUsernameError(error.message);
+        setUsernameIsValid(false);
+      });
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [enteredUsername]);
 
   return (
     <div className='m-2 flex h-full flex-col items-center justify-center rounded-xl bg-zinc-900 px-3 py-4 sm:mx-8 sm:my-8 sm:p-6 md:items-start md:p-8 lg:mx-40 lg:my-12 lg:p-10 xl:mx-52'>
       <h1 className='mb-4 text-4xl font-bold sm:text-5xl md:mb-8'>
         Profile Page
       </h1>
-      <ChangeProfilePhoto />
+      <ChangeProfilePhoto
+        profilePhoto={userData.profilePhoto}
+        profileColor={userData.profileColor}
+        firstName={userData.firstName}
+        lastName={userData.lastName}
+      />
       <form className='w-full' onSubmit={formik.handleSubmit}>
         <div className='mb-6 flex w-full flex-col items-center justify-center space-y-5 md:mb-12 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4 md:space-y-0'>
           <div className='relative flex w-full items-center justify-center'>
@@ -75,12 +118,41 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
           </div>
           <div className='relative flex w-full items-center justify-center'>
             <Input
+              label='Username'
+              name='username'
+              type='text'
+              onFocus={() => setIsTouched(true)}
+              onChange={(e) => setEnteredUsername(e.target.value)}
+              value={enteredUsername}
+              editable={isEditing}
+            />
+            {!usernameIsValid && usernameError && isTouched && (
+              <p className='absolute -bottom-5 text-sm text-rose-500 '>
+                {usernameError}
+              </p>
+            )}
+            {usernameLoading && isTouched && (
+              <p className='absolute -bottom-5 text-sm text-white '>
+                Checking username...
+              </p>
+            )}
+            {usernameIsValid &&
+              !usernameLoading &&
+              isTouched &&
+              enteredUsername !== userData.username && (
+                <p className='absolute -bottom-5 text-sm text-emerald-500 '>
+                  {enteredUsername} is available.
+                </p>
+              )}
+          </div>
+          <div className='relative flex w-full items-center justify-center'>
+            <Input
               label='Last Name'
               name='lastName'
               type='text'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.lastName}
+              value={formik.values.lastName || ''}
               editable={isEditing}
             />
             {formik.touched.lastName && formik.errors.lastName && (
@@ -96,28 +168,12 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
               type='number'
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.age}
+              value={formik.values.age || ''}
               editable={isEditing}
             />
             {formik.touched.age && formik.errors.age && (
               <p className='absolute -bottom-5 text-sm text-rose-500 '>
                 {formik.errors.age}
-              </p>
-            )}
-          </div>
-          <div className='relative flex w-full items-center justify-center'>
-            <Input
-              label='Username'
-              name='username'
-              type='text'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.username}
-              editable={isEditing}
-            />
-            {formik.touched.username && formik.errors.username && (
-              <p className='absolute -bottom-5 text-sm text-rose-500 '>
-                {formik.errors.username}
               </p>
             )}
           </div>
@@ -146,17 +202,18 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
                 className='link relative ml-auto mr-3 w-full rounded-lg border border-rose-500 py-2.5 text-center font-bold text-rose-500 opacity-90 transition hover:bg-rose-500 hover:text-slate-100 sm:w-40'
                 onClick={() => {
                   setIsEditing(false);
-                  // initial value will back
-                  console.log(formik.initialValues);
-                  formik.values.firstName = 'Parsa';
-                  formik.values.lastName = '';
-                  formik.values.age = '';
-                  formik.values.username = 'Parsa5485';
+
+                  formik.values.firstName = formik.initialValues.firstName;
+                  formik.values.lastName = formik.initialValues.lastName;
+                  formik.values.age = formik.initialValues.age;
 
                   formik.errors.firstName = '';
                   formik.errors.lastName = '';
                   formik.errors.age = '';
-                  formik.errors.username = '';
+
+                  setEnteredUsername(userData.username);
+                  setUsernameError(null);
+                  setIsTouched(false);
                 }}
               >
                 Cancel

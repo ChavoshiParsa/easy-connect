@@ -4,8 +4,9 @@ interface InputProps {
   label: string;
   name: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (event: FocusEvent<HTMLInputElement>) => void;
-  value: string | number | null | undefined;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
+  value: string | number | undefined;
   editable: boolean;
   type: string;
 }
@@ -23,6 +24,7 @@ export default function Input(props: InputProps) {
         onChange={props.onChange}
         onBlur={props.onBlur}
         value={props.value}
+        onFocus={props.onFocus}
         autoComplete='off'
         disabled={!props.editable}
       />

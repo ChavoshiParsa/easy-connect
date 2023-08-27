@@ -4,27 +4,32 @@ import Icon from '../ui/Icon';
 import { useContextProvider } from '@/src/context/store';
 import { useState } from 'react';
 import { UploadFileResponse } from 'uploadthing/client';
-import Loading from '@/src/app/loading';
 
-export default function ChangeProfilePhoto() {
-  const { user, setUser } = useContextProvider();
-  if (!user) return <Loading />;
+interface ProfilePhotoProps {
+  firstName: string;
+  lastName: string | null;
+  profilePhoto: string | null;
+  profileColor: string;
+}
+
+export default function ChangeProfilePhoto(props: ProfilePhotoProps) {
+  const { firstName, lastName, profilePhoto, profileColor } = props;
 
   const { setAlert } = useContextProvider();
-  const [profilePhoto, setProfilePhoto] = useState<string>('');
+  const [photo, setPhoto] = useState<string | null>(profilePhoto);
   const deleteFileHandler = async () => {
     // await utapi.deleteFiles(profilePhoto);
-    setProfilePhoto('');
+    setPhoto(null);
   };
 
   return (
     <div className='mb-5 flex flex-col items-center justify-center md:mb-9 md:flex-row md:space-x-7'>
       <div className='mb-5 md:mb-0'>
         <ProfilePhoto
-          profilePhoto={user.profilePhoto}
-          profileColor={user.profileColor}
-          firstName={user.firstName}
-          lastName={user.lastName}
+          profilePhoto={photo}
+          profileColor={profileColor}
+          firstName={firstName}
+          lastName={lastName}
           size={120}
         />
       </div>
@@ -59,7 +64,7 @@ export default function ChangeProfilePhoto() {
           }}
           endpoint='imageUploader'
           onClientUploadComplete={(res: UploadFileResponse[] | undefined) => {
-            if (res && res.length > 0) setProfilePhoto(res[0].key);
+            if (res && res.length > 0) setPhoto(res[0].key);
             setAlert({
               status: 'success',
               title: 'Success!',

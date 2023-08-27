@@ -11,7 +11,7 @@ export default async () => {
 
   const userEmail = session?.user?.email;
 
-  if (!userEmail) return;
+  if (!userEmail) return <Loading />;
 
   let res = await prisma.user.findUnique({
     where: {
