@@ -30,6 +30,7 @@ export default function ChatItem(props: ChatItemProps) {
     >
       <div className='mr-2.5'>
         <ProfilePhoto
+          profileColor='blue'
           profilePhoto={profilePhoto}
           firstName={firstName}
           lastName={lastName}
