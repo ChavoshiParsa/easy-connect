@@ -8,6 +8,8 @@ import { getServerSession } from 'next-auth';
 import { prisma } from '@/prisma/prisma';
 import Loading from '@/src/app/loading';
 
+// use swr
+
 export default async function Home() {
   const session = await getServerSession(authOptions);
   const userEmail = session?.user?.email;
