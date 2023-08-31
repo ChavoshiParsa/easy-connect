@@ -4,9 +4,8 @@ import { Inter } from 'next/font/google';
 import { AuthProvider } from './provider';
 import { ContextProvider } from '../context/store';
 import Alert from '../components/ui/Alert';
-import { authOptions } from './api/auth/[...nextauth]/options';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
+import Image from 'next/image';
+import wallpaperLaptop from '@/public/images/wallpaper4.jpg';
 
 const inter = Inter({
   subsets: ['latin'],

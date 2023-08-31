@@ -11,13 +11,13 @@ const roboto = Roboto_Flex({
 });
 
 export default function Navbar() {
-  const { toggleIsMenuShow } = useContextProvider();
+  const { setIsMenuShow } = useContextProvider();
 
   return (
     <div className='sticky top-0 z-10 flex w-full flex-row items-center justify-start bg-[#3e4b6d69] p-3 opacity-100 blur-0 backdrop-blur-lg'>
       <div
         className='link mr-5 cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
-        onClick={toggleIsMenuShow}
+        onClick={() => setIsMenuShow(true)}
       >
         <Icon size='24px' name='hamburger' />
       </div>

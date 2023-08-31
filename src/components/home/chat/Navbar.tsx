@@ -21,6 +21,7 @@ export default function Navbar(props: ChatScreenNavbarProps) {
       </Link>
       <div className='mr-2.5'>
         <ProfilePhoto
+          profileColor='red'
           profilePhoto={profilePhoto}
           firstName={firstName}
           lastName={lastName}

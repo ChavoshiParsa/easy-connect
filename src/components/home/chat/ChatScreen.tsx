@@ -9,7 +9,7 @@ export default function ChatScreen() {
   return (
     <div className='relative flex h-full w-full flex-col items-center justify-end'>
       <Image
-        className='hidden opacity-60 sm:block'
+        className='hidden brightness-50 sm:block'
         style={{
           objectFit: 'cover',
         }}
@@ -19,7 +19,7 @@ export default function ChatScreen() {
         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
       />
       <Image
-        className='block opacity-60 sm:hidden'
+        className='block brightness-50 sm:hidden'
         style={{
           objectFit: 'cover',
         }}

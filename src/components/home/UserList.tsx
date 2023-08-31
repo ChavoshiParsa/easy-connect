@@ -1,6 +1,6 @@
-import ChatItem from './ChatItem';
+import UserItem from './UserItem';
 
-export default function ChatsContainer() {
+export default function UserList() {
   return (
     <div className='relative flex w-full flex-col items-center justify-start space-y-px'>
       {FakeApi.length === 0 ? (
@@ -10,7 +10,7 @@ export default function ChatsContainer() {
         </p>
       ) : (
         FakeApi.map((connect) => (
-          <ChatItem
+          <UserItem
             key={connect.connectId}
             connectId={`/home/${connect.connectId}`}
             profilePhoto={connect.profilePhoto}

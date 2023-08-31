@@ -1,10 +1,11 @@
 import ProfilePhoto from '../home/ProfilePhoto';
 import { useContextProvider } from '@/src/context/store';
 import Uploader from './custom-uploadthing';
+import Loading from '@/src/app/loading';
 
 export default function ChangeProfilePhoto() {
   const { user } = useContextProvider();
-  if (!user) return;
+  if (!user) return <Loading />;
 
   return (
     <div className='mb-5 flex flex-col items-center justify-center md:mb-9 md:flex-row md:space-x-7'>

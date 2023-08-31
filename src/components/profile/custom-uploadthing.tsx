@@ -1,18 +1,18 @@
 import { ChangeEvent } from 'react';
 
-import type { OurFileRouter } from '@/src/app/api/uploadthing/core';
-
-import { generateReactHelpers } from '@uploadthing/react/hooks';
-import { useContextProvider } from '@/src/context/store';
 import { UploadFileResponse } from 'uploadthing/client';
 import axios from 'axios';
 import Icon from '../ui/Icon';
+import { generateReactHelpers } from '@uploadthing/react/hooks';
+import { OurFileRouter } from '@/src/app/api/uploadthing/core';
+import { useContextProvider } from '@/src/context/store';
+import Loading from '@/src/app/loading';
 
 const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
 export default function Uploader() {
   const { user, setUser, setAlert } = useContextProvider();
-  if (!user) return;
+  if (!user) return <Loading />;
 
   const deleteFileHandler = async () => {
     setAlert({

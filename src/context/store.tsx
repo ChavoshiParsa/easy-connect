@@ -22,7 +22,6 @@ interface ContextType {
   alert: AlertProps | null;
   setAlert: ({ status, title, message }: AlertProps) => void;
   isMenuShow: boolean | null;
-  toggleIsMenuShow: () => void;
   setIsMenuShow: (value: boolean) => void;
   user: UserData | null;
   setUser: (user: UserData | null) => void;
@@ -32,7 +31,6 @@ const Context = createContext<ContextType>({
   alert: null,
   setAlert: ({ status, title, message }: AlertProps) => {},
   isMenuShow: null,
-  toggleIsMenuShow: () => {},
   setIsMenuShow: (value: boolean) => {},
   user: null,
   setUser: (value: UserData | null) => {},
@@ -44,10 +42,6 @@ export const ContextProvider: React.FC<{
   const [alert, setAlert] = useState<AlertProps | null>(null);
   const [isMenuShow, setIsMenuShow] = useState<boolean | null>(false);
   const [user, setUser] = useState<UserData | null>(null);
-
-  const toggleIsMenuShow = () => {
-    setIsMenuShow((prev) => !prev);
-  };
 
   useEffect(() => {
     if (alert && alert.status !== 'pending') {
@@ -64,11 +58,10 @@ export const ContextProvider: React.FC<{
     <Context.Provider
       value={{
         alert,
-        isMenuShow,
-        user,
         setAlert,
+        isMenuShow,
         setIsMenuShow,
-        toggleIsMenuShow,
+        user,
         setUser,
       }}
     >

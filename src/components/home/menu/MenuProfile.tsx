@@ -12,7 +12,7 @@ export default function MenuProfile() {
   return (
     <div className='relative flex h-1/4 w-full flex-col items-start justify-end pl-5'>
       <Image
-        className='opacity-75'
+        className='opacity-50'
         style={{
           objectFit: 'cover',
         }}

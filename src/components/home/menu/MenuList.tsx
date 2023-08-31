@@ -18,7 +18,7 @@ export default function MenuList() {
       <MenuItem text='Profile' link='/profile'>
         <Icon size='30px' name='profile' />
       </MenuItem>
-      <MenuItem text='New Message' link='/all-users'>
+      <MenuItem text='New Message' link='/home/new-message'>
         <Icon size='30px' name='message' />
       </MenuItem>
       <MenuItem text='Account' link='/account'>
