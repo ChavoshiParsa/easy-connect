@@ -15,13 +15,15 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
     userData.username
   );
   const [usernameIsValid, setUsernameIsValid] = useState<boolean>(true);
-  const [isTouched, setIsTouched] = useState<boolean>(false);
+  const [usernameIsTouched, setUsernameIsTouched] = useState<boolean>(false);
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [usernameLoading, setUsernameLoading] = useState<boolean>(false);
 
-  const { alert, setAlert, setPhoto } = useContextProvider();
+  const { setUser, alert, setAlert } = useContextProvider();
 
-  setPhoto(userData.profilePhoto);
+  useEffect(() => {
+    setUser(userData);
+  }, [userData, setUser]);
 
   const formik = useFormik({
     initialValues: {
@@ -46,7 +48,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
     onSubmit: async (values) => {
       if (!usernameIsValid) return;
       if (usernameLoading) return;
-      setIsTouched(false);
+      setUsernameIsTouched(false);
 
       const formData = {
         email: userData.email,
@@ -130,13 +132,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
       <h1 className='mb-4 text-4xl font-bold sm:text-5xl md:mb-8'>
         Profile Page
       </h1>
-      <ChangeProfilePhoto
-        email={userData.email}
-        profilePhoto={userData.profilePhoto}
-        profileColor={userData.profileColor}
-        firstName={userData.firstName}
-        lastName={userData.lastName}
-      />
+      <ChangeProfilePhoto />
       <form className='w-full' onSubmit={formik.handleSubmit}>
         <div className='mb-6 flex w-full flex-col items-center justify-center space-y-5 md:mb-12 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4 md:space-y-0'>
           <div className='relative flex w-full items-center justify-center'>
@@ -160,24 +156,24 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
               label='Username'
               name='username'
               type='text'
-              onFocus={() => setIsTouched(true)}
+              onFocus={() => setUsernameIsTouched(true)}
               onChange={(e) => setEnteredUsername(e.target.value)}
               value={enteredUsername}
               editable={isEditing}
             />
-            {!usernameIsValid && usernameError && isTouched && (
+            {!usernameIsValid && usernameError && usernameIsTouched && (
               <p className='absolute -bottom-5 text-sm text-rose-500 '>
                 {usernameError}
               </p>
             )}
-            {usernameLoading && isTouched && usernameIsValid && (
+            {usernameLoading && usernameIsTouched && usernameIsValid && (
               <p className='absolute -bottom-5 text-sm text-white '>
                 Checking username...
               </p>
             )}
             {usernameIsValid &&
               !usernameLoading &&
-              isTouched &&
+              usernameIsTouched &&
               enteredUsername !== userData.username && (
                 <p className='absolute -bottom-5 text-sm text-emerald-500 '>
                   {enteredUsername} is available.
@@ -252,7 +248,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
 
                   setEnteredUsername(userData.username);
                   setUsernameError(null);
-                  setIsTouched(false);
+                  setUsernameIsTouched(false);
                 }}
               >
                 Cancel

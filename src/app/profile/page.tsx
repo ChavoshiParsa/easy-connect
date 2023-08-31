@@ -18,7 +18,6 @@ export default async () => {
       email: userEmail,
     },
     select: {
-      id: true,
       email: true,
       username: true,
       firstName: true,
@@ -29,5 +28,7 @@ export default async () => {
     },
   });
 
-  return <>{res ? <ProfileForm userData={res} /> : <Loading />}</>;
+  if (!res) return <Loading />;
+
+  return <ProfileForm userData={res} />;
 };

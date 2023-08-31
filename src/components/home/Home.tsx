@@ -21,7 +21,6 @@ export default async function Home() {
       email: userEmail,
     },
     select: {
-      id: true,
       email: true,
       username: true,
       firstName: true,

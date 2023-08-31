@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
 import type { OurFileRouter } from '@/src/app/api/uploadthing/core';
 
@@ -10,14 +10,9 @@ import Icon from '../ui/Icon';
 
 const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
-export default function Uploader({
-  email,
-  photo,
-}: {
-  email: string;
-  photo: string | null;
-}) {
-  const { setPhoto, setAlert } = useContextProvider();
+export default function Uploader() {
+  const { user, setUser, setAlert } = useContextProvider();
+  if (!user) return;
 
   const deleteFileHandler = async () => {
     setAlert({
@@ -26,10 +21,13 @@ export default function Uploader({
       message: `Deleting your photo from server...`,
     });
     await axios.post('/api/update-profile-photo', {
-      email,
+      email: user.email,
       photo: null,
     });
-    setPhoto(null);
+    setUser({
+      ...user,
+      profilePhoto: null,
+    });
     setAlert({
       status: 'success',
       title: 'Done',
@@ -38,20 +36,30 @@ export default function Uploader({
   };
 
   const { startUpload } = useUploadThing('imageUploader', {
+    onUploadProgress: () => {
+      setAlert({
+        status: 'pending',
+        title: 'Loading...',
+        message: 'Seems like stuff is uploading',
+      });
+    },
     onClientUploadComplete: async (res: UploadFileResponse[] | undefined) => {
-      if (photo) {
+      if (user.profilePhoto) {
         await deleteFileHandler();
       }
       if (res && res.length > 0) {
-        setPhoto(res[0].key);
         setAlert({
           status: 'pending',
           title: 'Loading...',
           message: 'Setting profile photo',
         });
         await axios.post('/api/update-profile-photo', {
-          email,
+          email: user.email,
           photo: res[0].key,
+        });
+        setUser({
+          ...user,
+          profilePhoto: res[0].key,
         });
       }
 
@@ -59,13 +67,6 @@ export default function Uploader({
         status: 'success',
         title: 'Success!',
         message: 'Upload Completed',
-      });
-    },
-    onUploadProgress: () => {
-      setAlert({
-        status: 'pending',
-        title: 'Loading...',
-        message: 'Seems like stuff is uploading',
       });
     },
     onUploadError: (error: Error) => {
@@ -122,7 +123,7 @@ export default function Uploader({
         canvas.toBlob(
           (blob) => {
             if (blob) {
-              const newFile = new File([blob], `${email}.jpg`, {
+              const newFile = new File([blob], `${user.email}.jpg`, {
                 type: 'image/jpeg',
                 lastModified: Date.now(),
               });
@@ -138,12 +139,15 @@ export default function Uploader({
 
   return (
     <div className='flex flex-row items-center justify-center md:flex-col'>
-      <div className='md:mb-2'>
-        <label>Upload file</label>
-        <input type='file' onChange={inputChangeHandler} />
-      </div>
+      <label className='mr-3 flex cursor-pointer flex-row items-center justify-center rounded-xl border border-indigo-500 py-1 pl-3 pr-4 transition hover:bg-indigo-300 md:mb-2 md:mr-0 md:py-2.5 md:pl-6 md:pr-7'>
+        <Icon name='change-photo' size='24px' />
+        <input className='hidden' type='file' onChange={inputChangeHandler} />
+        <span className=' text-sm font-bold text-indigo-500 sm:ml-3 sm:text-base'>
+          {user.profilePhoto ? 'Change' : 'New photo'}
+        </span>
+      </label>
       <div>
-        {photo && (
+        {user.profilePhoto && (
           <button
             className='flex flex-row items-center justify-center rounded-xl border border-rose-500 py-1 pl-3 pr-4 transition hover:bg-rose-300 md:py-2.5 md:pl-6 md:pr-7'
             onClick={deleteFileHandler}
