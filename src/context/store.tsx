@@ -26,7 +26,9 @@ interface ContextType {
   toggleIsMenuShow: () => void;
   setIsMenuShow: (value: boolean) => void;
   user: UserData | null;
-  setUser: (user: UserData) => void;
+  setUser: (user: UserData | null) => void;
+  photo: string | null;
+  setPhoto: (photo: string | null) => void;
 }
 
 const Context = createContext<ContextType>({
@@ -37,6 +39,8 @@ const Context = createContext<ContextType>({
   setIsMenuShow: (value: boolean) => {},
   user: null,
   setUser: () => {},
+  photo: null,
+  setPhoto: () => {},
 });
 
 export const ContextProvider: React.FC<{
@@ -45,6 +49,7 @@ export const ContextProvider: React.FC<{
   const [alert, setAlert] = useState<AlertProps | null>(null);
   const [isMenuShow, setIsMenuShow] = useState<boolean | null>(false);
   const [user, setUser] = useState<UserData | null>(null);
+  const [photo, setPhoto] = useState<string | null>(null);
 
   const toggleIsMenuShow = () => {
     setIsMenuShow((prev) => !prev);
@@ -67,10 +72,12 @@ export const ContextProvider: React.FC<{
         alert,
         isMenuShow,
         user,
+        photo,
         setAlert,
         setIsMenuShow,
         toggleIsMenuShow,
         setUser,
+        setPhoto,
       }}
     >
       {children}

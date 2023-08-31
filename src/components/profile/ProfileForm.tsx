@@ -19,7 +19,9 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [usernameLoading, setUsernameLoading] = useState<boolean>(false);
 
-  const { alert, setAlert } = useContextProvider();
+  const { alert, setAlert, setPhoto } = useContextProvider();
+
+  setPhoto(userData.profilePhoto);
 
   const formik = useFormik({
     initialValues: {
