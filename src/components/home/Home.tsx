@@ -1,5 +1,5 @@
 import Navbar from '&/home/Navbar';
-import UserList from '@/src/components/home/UserList';
+import ConnectList from '@/src/components/home/ConnectList';
 import MenuControl from '@/src/components/home/menu/MenuControl';
 import Link from 'next/link';
 import Icon from '../ui/Icon';
@@ -36,7 +36,7 @@ export default async function Home() {
       {res ? <MenuControl userData={res} /> : <Loading />}
       <div className='h-full w-full overflow-y-scroll bg-[#18181855]'>
         <Navbar />
-        <UserList users={FakeApi} />
+        <ConnectList users={FakeApi} />
       </div>
       <Link
         className='link absolute bottom-4 right-4 rounded-full bg-sky-500 bg-gradient-to-tr p-4 transition hover:bg-sky-400'

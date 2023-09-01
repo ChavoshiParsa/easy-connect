@@ -2,7 +2,7 @@ import Image from 'next/image';
 import ProfilePhoto from './ProfilePhoto';
 import Link from 'next/link';
 
-export interface UserItemProps {
+export interface ConnectItemProps {
   connectId: string;
   profilePhoto: string;
   firstName: string;
@@ -12,7 +12,7 @@ export interface UserItemProps {
   lastMessageTime: string;
 }
 
-export default function UserItem(props: UserItemProps) {
+export default function ConnectItem(props: ConnectItemProps) {
   const {
     profilePhoto,
     firstName,
