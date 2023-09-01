@@ -1,7 +1,14 @@
-export default function AllUser() {
+import { prisma } from '@/prisma/prisma';
+import UserList from '../UserList';
+
+export default async function AllUser() {
+  let res = await prisma.user.findMany();
+  console.log(res);
+
   return (
     <div className='relative flex h-full w-full flex-col items-center'>
-      We will show all users here soon
+      <h1 className=''>Select some one to chat.</h1>
+      <UserList />
     </div>
   );
 }

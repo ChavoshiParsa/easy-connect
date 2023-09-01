@@ -2,7 +2,7 @@ import Image from 'next/image';
 import ProfilePhoto from './ProfilePhoto';
 import Link from 'next/link';
 
-interface UserItemProps {
+export interface UserItemProps {
   connectId: string;
   profilePhoto: string;
   firstName: string;
