@@ -10,6 +10,8 @@ import Loading from '@/src/app/loading';
 
 const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
+let WIDTH = 256;
+
 export default function Uploader() {
   const { user, setUser, setAlert } = useContextProvider();
   if (!user) return <Loading />;
@@ -107,8 +109,8 @@ export default function Uploader() {
 
       imageTag.onload = (imageTagE: Event) => {
         let canvas = document.createElement('canvas');
-        let ratio = 512 / (imageTagE.target as HTMLImageElement).width;
-        canvas.width = 512;
+        let ratio = WIDTH / (imageTagE.target as HTMLImageElement).width;
+        canvas.width = WIDTH;
         canvas.height = (imageTagE.target as HTMLImageElement).height * ratio;
 
         const context = canvas.getContext('2d');
@@ -123,7 +125,7 @@ export default function Uploader() {
         canvas.toBlob(
           (blob) => {
             if (blob) {
-              const newFile = new File([blob], `${user.email}.jpg`, {
+              const newFile = new File([blob], `${user.email}.jpeg`, {
                 type: 'image/jpeg',
                 lastModified: Date.now(),
               });

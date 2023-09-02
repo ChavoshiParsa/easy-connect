@@ -1,6 +1,24 @@
-import UserItem, { UserItemProps } from './UserItem';
+'use client';
 
-export default function UserList({ users }: { users: UserItemProps[] }) {
+import useSWR from 'swr';
+import UserItem, { UserItemProps } from './UserItem';
+import axios from 'axios';
+import Loading from '@/src/app/loading';
+
+const fetcher = (url: any) => axios.get(url).then((res) => res.data);
+
+export default function UserList() {
+  const {
+    data: users,
+    isLoading,
+  }: { data: UserItemProps[]; isLoading: boolean } = useSWR(
+    '/api/users',
+    fetcher,
+    { refreshInterval: 1000 }
+  );
+
+  if (isLoading) return <Loading />;
+
   return (
     <div className='relative flex w-full flex-col items-center justify-start space-y-px'>
       {users.length === 0 ? (

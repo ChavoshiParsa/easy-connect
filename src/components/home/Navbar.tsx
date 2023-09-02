@@ -4,6 +4,7 @@ import { Roboto_Flex } from 'next/font/google';
 import { useContextProvider } from '@/src/context/store';
 import Link from 'next/link';
 import Icon from '../ui/Icon';
+import StatusCheckBox from './StatusCheckBox';
 
 const roboto = Roboto_Flex({
   subsets: ['latin'],
@@ -22,6 +23,9 @@ export default function Navbar() {
         <Icon size='24px' name='hamburger' />
       </div>
       <h1 className={`${roboto.className} text-xl`}>Easy Connect</h1>
+      <div className='ml-6'>
+        <StatusCheckBox />
+      </div>
       <Link
         className='link ml-auto cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
         href='/search'

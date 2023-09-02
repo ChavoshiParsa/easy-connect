@@ -1,3 +1,5 @@
+'use client';
+import Loading from '@/src/app/loading';
 import Image, { ImageLoader } from 'next/image';
 
 interface ProfilePhotoProps {
