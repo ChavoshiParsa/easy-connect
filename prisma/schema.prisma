@@ -36,8 +36,8 @@ model Connects {
 }
 
 model Messages {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  message String
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  text String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

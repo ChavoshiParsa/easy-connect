@@ -5,7 +5,9 @@ import Navbar from './Navbar';
 import InputMessage from './InputMessage';
 import MessageContainer from './message/MessageContainer';
 
-export default function ChatScreen() {
+interface connectProps {}
+
+export default function ChatScreen(connect: connectProps) {
   return (
     <div className='relative flex h-full w-full flex-col items-center justify-end'>
       <Image

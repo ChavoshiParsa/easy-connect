@@ -22,6 +22,7 @@ export default async () => {
             alt='geometry shapes'
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             priority
+            placeholder='blur'
           />
         </div>
         <div className='absolute left-1.5 top-1 block md:hidden'>

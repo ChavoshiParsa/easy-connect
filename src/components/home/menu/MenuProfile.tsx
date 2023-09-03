@@ -3,6 +3,7 @@ import ProfilePhoto from '../ProfilePhoto';
 import galaxy from '@/public/images/wallpaper4.jpg';
 import { useContextProvider } from '@/src/context/store';
 import Loading from '@/src/app/loading';
+import StatusCheckBox from '../StatusCheckBox';
 
 export default function MenuProfile() {
   const { user } = useContextProvider();
@@ -22,14 +23,22 @@ export default function MenuProfile() {
         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
         priority
       />
-      <div className='relative mb-3 mt-6'>
-        <ProfilePhoto
-          profilePhoto={user.profilePhoto}
-          profileColor={user.profileColor}
-          firstName={user.firstName}
-          lastName={user.lastName}
-          size={64}
-        />
+      <div className='flex w-full items-center justify-between'>
+        <div className='relative mb-3 mt-6'>
+          <ProfilePhoto
+            profilePhoto={user.profilePhoto}
+            profileColor={user.profileColor}
+            firstName={user.firstName}
+            lastName={user.lastName}
+            size={64}
+          />
+        </div>
+        <div className='z-40 mr-6'>
+          <StatusCheckBox
+            email={user.email}
+            status={user.isOnline ? 'online' : 'offline'}
+          />
+        </div>
       </div>
       <h1 className='z-10 mb-0.5 font-bold text-white'>
         {user.firstName} {user.lastName}

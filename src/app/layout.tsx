@@ -4,8 +4,7 @@ import { Inter } from 'next/font/google';
 import { AuthProvider } from './provider';
 import { ContextProvider } from '../context/store';
 import Alert from '../components/ui/Alert';
-import Image from 'next/image';
-import wallpaperLaptop from '@/public/images/wallpaper4.jpg';
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,7 +25,10 @@ export default function RootLayout({
       <body className={`${inter.className} relative w-screen`}>
         <ContextProvider>
           <Alert />
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <NextTopLoader color='rgb(79 70 229)' />
+            {children}
+          </AuthProvider>
         </ContextProvider>
       </body>
     </html>

@@ -25,6 +25,7 @@ export default async () => {
       profilePhoto: true,
       lastName: true,
       age: true,
+      isOnline: true,
     },
   });
 

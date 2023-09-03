@@ -28,6 +28,7 @@ export default async function Home() {
       profilePhoto: true,
       lastName: true,
       age: true,
+      isOnline: true,
     },
   });
 

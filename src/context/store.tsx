@@ -16,6 +16,7 @@ export interface UserData {
   profilePhoto: string | null;
   lastName: string | null;
   age: number | null;
+  isOnline: boolean;
 }
 
 interface ContextType {

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import ProfilePhoto from '../ProfilePhoto';
 
 export interface UserItemProps {
@@ -10,11 +11,18 @@ export interface UserItemProps {
 }
 
 export default function UserItem(props: UserItemProps) {
-  const { firstName, lastName, profileColor, profilePhoto, isOnline } = props;
+  const { id, firstName, lastName, profileColor, profilePhoto, isOnline } =
+    props;
   let statusColor = isOnline ? 'rgb(52,211,153)' : 'rgb(156,163,175)';
+  const router = useRouter();
 
   return (
-    <div className='link flex w-full flex-row items-center justify-start bg-[#101012] py-2 pl-2.5 pr-4 transition hover:bg-[#232327]'>
+    <div
+      className='link flex w-full flex-row items-center justify-start bg-[#101012] py-2 pl-2.5 pr-4 transition hover:bg-[#232327]'
+      onClick={() => {
+        router.push(`/home/${id}`);
+      }}
+    >
       <div className='mr-2.5'>
         <ProfilePhoto
           profileColor={profileColor}

@@ -21,6 +21,7 @@ export default async function Home() {
           alt='Picture of Galaxy'
           priority
           sizes='100vw'
+          placeholder='blur'
         />
       </div>
       <div className='z-20 mx-6 flex flex-col items-start justify-center md:-mt-10 md:items-center'>

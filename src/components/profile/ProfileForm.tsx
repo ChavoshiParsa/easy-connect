@@ -162,7 +162,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
               editable={isEditing}
             />
             {!usernameIsValid && usernameError && usernameIsTouched && (
-              <p className='absolute -bottom-5 text-sm text-rose-500 '>
+              <p className='absolute -bottom-5 text-sm text-rose-500'>
                 {usernameError}
               </p>
             )}

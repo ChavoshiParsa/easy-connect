@@ -1,16 +1,16 @@
 import { ChangeEvent } from 'react';
 
 import { UploadFileResponse } from 'uploadthing/client';
-import axios from 'axios';
 import Icon from '../ui/Icon';
 import { generateReactHelpers } from '@uploadthing/react/hooks';
 import { OurFileRouter } from '@/src/app/api/uploadthing/core';
 import { useContextProvider } from '@/src/context/store';
 import Loading from '@/src/app/loading';
+import { updateProfile } from '@/src/app/actions/user-profile';
 
 const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
-let WIDTH = 256;
+let WIDTH = 128;
 
 export default function Uploader() {
   const { user, setUser, setAlert } = useContextProvider();
@@ -22,10 +22,7 @@ export default function Uploader() {
       title: 'Loading...',
       message: `Deleting your photo from server...`,
     });
-    await axios.post('/api/update-profile-photo', {
-      email: user.email,
-      photo: null,
-    });
+    await updateProfile(user.email, null);
     setUser({
       ...user,
       profilePhoto: null,
@@ -55,10 +52,7 @@ export default function Uploader() {
           title: 'Loading...',
           message: 'Setting profile photo',
         });
-        await axios.post('/api/update-profile-photo', {
-          email: user.email,
-          photo: res[0].key,
-        });
+        await updateProfile(user.email, res[0].key);
         setUser({
           ...user,
           profilePhoto: res[0].key,
@@ -125,14 +119,14 @@ export default function Uploader() {
         canvas.toBlob(
           (blob) => {
             if (blob) {
-              const newFile = new File([blob], `${user.email}.jpeg`, {
-                type: 'image/jpeg',
+              const newFile = new File([blob], `${user.email}.jpg`, {
+                type: 'image/jpg',
                 lastModified: Date.now(),
               });
               startUpload([newFile]);
             }
           },
-          'image/jpeg',
+          'image/jpg',
           0.9
         );
       };

@@ -14,7 +14,7 @@ export default function UserList() {
   }: { data: UserItemProps[]; isLoading: boolean } = useSWR(
     '/api/users',
     fetcher,
-    { refreshInterval: 1000 }
+    { refreshInterval: 5000, revalidateOnFocus: true }
   );
 
   if (isLoading) return <Loading />;

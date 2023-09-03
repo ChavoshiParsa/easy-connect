@@ -2,17 +2,18 @@ import Link from 'next/link';
 import ProfilePhoto from '../ProfilePhoto';
 import Icon from '../../ui/Icon';
 
-interface ChatScreenNavbarProps {
+export interface ChatScreenNavbarProps {
+  profileColor: string;
   profilePhoto: string;
-  status: string;
+  status: boolean;
   firstName: string;
   lastName: string;
 }
 
 export default function Navbar(props: ChatScreenNavbarProps) {
-  const { profilePhoto, firstName, lastName, status } = props;
+  const { profileColor, profilePhoto, firstName, lastName, status } = props;
   return (
-    <div className='absolute top-0 z-30 flex w-full items-center justify-start bg-[#171d2da4] px-1 py-2.5 backdrop-blur-lg'>
+    <div className='absolute top-0 z-30 flex w-full items-center justify-start bg-[#171d2da4] px-1 pb-2.5 pt-2 backdrop-blur-lg'>
       <Link
         className='link mr-4 cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
         href='/home'
@@ -21,7 +22,7 @@ export default function Navbar(props: ChatScreenNavbarProps) {
       </Link>
       <div className='mr-2.5'>
         <ProfilePhoto
-          profileColor='red'
+          profileColor={profileColor}
           profilePhoto={profilePhoto}
           firstName={firstName}
           lastName={lastName}
