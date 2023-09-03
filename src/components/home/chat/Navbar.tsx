@@ -4,14 +4,15 @@ import Icon from '../../ui/Icon';
 
 export interface ChatScreenNavbarProps {
   profileColor: string;
-  profilePhoto: string;
-  status: boolean;
+  profilePhoto: string | null;
+  isOnline: boolean;
   firstName: string;
-  lastName: string;
+  lastName: string | null;
 }
 
 export default function Navbar(props: ChatScreenNavbarProps) {
-  const { profileColor, profilePhoto, firstName, lastName, status } = props;
+  const { profileColor, profilePhoto, firstName, lastName, isOnline } = props;
+  let status = isOnline ? 'online ' : 'last seen recently';
   return (
     <div className='absolute top-0 z-30 flex w-full items-center justify-start bg-[#171d2da4] px-1 pb-2.5 pt-2 backdrop-blur-lg'>
       <Link

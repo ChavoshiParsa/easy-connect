@@ -3,7 +3,7 @@ import ProfilePhoto from '../ProfilePhoto';
 import galaxy from '@/public/images/wallpaper4.jpg';
 import { useContextProvider } from '@/src/context/store';
 import Loading from '@/src/app/loading';
-import StatusCheckBox from '../StatusCheckBox';
+import StatusCheckBox from './StatusCheckBox';
 
 export default function MenuProfile() {
   const { user } = useContextProvider();
