@@ -14,8 +14,6 @@ export default function ConnectList() {
 
   if (isLoading) return <Loading />;
 
-  console.log(connects);
-
   return (
     <div className='relative flex w-full flex-col items-center justify-start space-y-px'>
       {connects.length === 0 ? (

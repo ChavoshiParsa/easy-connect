@@ -4,6 +4,14 @@ import { NextResponse } from 'next/server';
 import { type NextRequest } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/options';
 
+interface connect {
+  id: string;
+  profileColor: string;
+  profilePhoto: string | null;
+  firstName: string;
+  lastName: string | null;
+}
+
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
 
@@ -15,9 +23,8 @@ export async function GET(req: NextRequest) {
       connects: true,
     },
   });
-  console.log(res);
 
-  const mappedConnects = [];
+  const mappedConnects: connect[] = [];
 
   await Promise.all(
     (res?.connects || []).map(async (connect) => {
@@ -31,7 +38,9 @@ export async function GET(req: NextRequest) {
           lastName: true,
         },
       });
-      mappedConnects.push(user);
+      if (user) {
+        mappedConnects.push(user);
+      }
     })
   );
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Icon from '../../ui/Icon';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
@@ -16,14 +16,15 @@ export default function InputMessage() {
     // set server he is typing... with useEffect and more
   };
 
-  const sendMessageHandler = async () => {
+  const sendMessageHandler = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const message = enteredMassage;
 
     // validation
     if (typeof message !== 'string' || message.length === 0) {
       throw new Error('Invalid message');
     }
-
+    setEnteredMassage('');
     await axios.post('/api/messages', {
       message,
       sender: data?.user?.email,
@@ -38,7 +39,7 @@ export default function InputMessage() {
       </button>
       <form
         className='flex w-full items-center justify-start'
-        action={sendMessageHandler}
+        onSubmit={sendMessageHandler}
       >
         <div className='relative flex w-full items-center justify-center'>
           <input
