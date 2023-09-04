@@ -31,7 +31,7 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
 
   setTimeout(() => {
     setBackgroundImage(isLoaded ? 'none' : '');
-  }, 500);
+  }, 100);
 
   if (profilePhoto !== '' && profilePhoto !== null) {
     let opacity = isLoaded ? '1' : '0';

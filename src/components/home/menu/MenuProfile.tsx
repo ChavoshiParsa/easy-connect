@@ -33,11 +33,14 @@ export default function MenuProfile() {
             size={64}
           />
         </div>
-        <div className='z-40 mr-6'>
+        <div className='z-40 mr-6 flex w-32 flex-col items-center justify-center'>
           <StatusCheckBox
             email={user.email}
             status={user.isOnline ? 'online' : 'offline'}
           />
+          <span className='text-center text-xs'>
+            Status is shown to other users
+          </span>
         </div>
       </div>
       <h1 className='z-10 mb-0.5 font-bold text-white'>

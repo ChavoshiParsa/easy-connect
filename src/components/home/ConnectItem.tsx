@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 export interface ConnectItemProps {
   connectId: string;
+  profileColor: string;
   profilePhoto: string;
   firstName: string;
   lastName: string;
@@ -14,6 +15,7 @@ export interface ConnectItemProps {
 
 export default function ConnectItem(props: ConnectItemProps) {
   const {
+    profileColor,
     profilePhoto,
     firstName,
     lastName,
@@ -30,7 +32,7 @@ export default function ConnectItem(props: ConnectItemProps) {
     >
       <div className='mr-2.5'>
         <ProfilePhoto
-          profileColor='blue'
+          profileColor={profileColor}
           profilePhoto={profilePhoto}
           firstName={firstName}
           lastName={lastName}

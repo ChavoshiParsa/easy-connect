@@ -37,7 +37,7 @@ export default async function Home() {
       {res ? <MenuControl userData={res} /> : <Loading />}
       <div className='h-full w-full overflow-y-scroll bg-[#18181855]'>
         <Navbar />
-        <ConnectList users={FakeApi} />
+        <ConnectList />
       </div>
       <Link
         className='link absolute bottom-4 right-4 rounded-full bg-sky-500 bg-gradient-to-tr p-4 transition hover:bg-sky-400'
@@ -48,33 +48,3 @@ export default async function Home() {
     </>
   );
 }
-
-const FakeApi = [
-  {
-    profilePhoto: '',
-    firstName: 'AmirHossein',
-    lastName: 'Noori',
-    lastSender: 'I',
-    lastSenderMessage: "I'm Ok",
-    lastMessageTime: '8:13 AM',
-    connectId: '5698',
-  },
-  {
-    profilePhoto: '',
-    firstName: 'Ali',
-    lastName: 'Ahmadi',
-    lastSender: 'I',
-    lastSenderMessage: 'Hi, How ru?',
-    lastMessageTime: '3:00 PM',
-    connectId: '8408',
-  },
-  {
-    profilePhoto: '',
-    firstName: 'AmirHossein',
-    lastName: 'Naderali',
-    lastSender: 'Y',
-    lastSenderMessage: 'He is great',
-    lastMessageTime: '2:50 PM',
-    connectId: '1292',
-  },
-];

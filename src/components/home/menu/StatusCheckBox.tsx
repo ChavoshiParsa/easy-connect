@@ -42,7 +42,7 @@ export default function StatusCheckBox({
         <div
           className='h-4 w-4 rounded-full bg-zinc-700 transition duration-500'
           style={{ transform: translate }}
-        ></div>
+        />
       </div>
     </div>
   );

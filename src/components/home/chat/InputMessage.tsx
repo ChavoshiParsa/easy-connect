@@ -2,14 +2,33 @@
 
 import { ChangeEvent, useState } from 'react';
 import Icon from '../../ui/Icon';
-import { sendMessage } from '@/src/app/actions/message-action';
+import axios from 'axios';
+import { useParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function InputMessage() {
   const [enteredMassage, setEnteredMassage] = useState<string>('');
+  const { data } = useSession();
+  const params = useParams();
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEnteredMassage(e.target.value);
     // set server he is typing... with useEffect and more
+  };
+
+  const sendMessageHandler = async () => {
+    const message = enteredMassage;
+
+    // validation
+    if (typeof message !== 'string' || message.length === 0) {
+      throw new Error('Invalid message');
+    }
+
+    await axios.post('/api/messages', {
+      message,
+      sender: data?.user?.email,
+      connect: params.connect,
+    });
   };
 
   return (
@@ -19,7 +38,7 @@ export default function InputMessage() {
       </button>
       <form
         className='flex w-full items-center justify-start'
-        action={sendMessage}
+        action={sendMessageHandler}
       >
         <div className='relative flex w-full items-center justify-center'>
           <input
