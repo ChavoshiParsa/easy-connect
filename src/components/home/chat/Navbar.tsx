@@ -10,9 +10,20 @@ export interface ChatScreenNavbarProps {
   lastName: string | null;
 }
 
-export default function Navbar(props: ChatScreenNavbarProps) {
-  const { profileColor, profilePhoto, firstName, lastName, isOnline } = props;
+export default function Navbar({
+  connect,
+  isTyping,
+}: {
+  connect: ChatScreenNavbarProps;
+  isTyping: boolean;
+}) {
+  const { firstName, isOnline, lastName, profileColor, profilePhoto } = connect;
   let status = isOnline ? 'online ' : 'last seen recently';
+  let statusColor = isTyping
+    ? 'rgb(14 165 233)'
+    : isOnline
+    ? 'rgb(16 185 129)'
+    : 'rgb(100 116 139)';
   return (
     <div className='absolute top-0 z-30 flex w-full items-center justify-start bg-[#171d2da4] px-1 pb-2.5 pt-2 backdrop-blur-lg'>
       <Link
@@ -36,7 +47,9 @@ export default function Navbar(props: ChatScreenNavbarProps) {
             {firstName + ' ' + lastName}
           </span>
         </div>
-        <div className='text-sm text-gray-400'>{status}</div>
+        <div className='text-sm ' style={{ color: statusColor }}>
+          {isTyping ? '...typing' : status}
+        </div>
       </div>
       <button className='link ml-auto cursor-pointer rounded-full p-2 transition hover:bg-slate-700'>
         <Icon size='22px' name='3dot' />

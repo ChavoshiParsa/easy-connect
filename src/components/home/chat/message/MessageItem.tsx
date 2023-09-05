@@ -1,6 +1,7 @@
 import Icon from '@/src/components/ui/Icon';
 
-interface MessageProps {
+export interface MessageProps {
+  id: string;
   messageText: string;
   timeSent: string;
   type: string;

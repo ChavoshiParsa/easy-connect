@@ -1,22 +1,30 @@
-// get user detail from id generated and chat details
+'use client';
 
 import { prisma } from '@/prisma/prisma';
 import ChatScreen from '@/src/components/home/chat/ChatScreen';
-import Loading from '../../loading';
+import useSWR from 'swr';
+import axios from 'axios';
+import Loading from '@/src/app/loading';
 
-export default async ({ params }: { params: { connect: string } }) => {
+const fetcher = (url: any) => axios.get(url).then((res) => res.data);
+
+export default ({ params }: { params: { connect: string } }) => {
   const connect = params.connect;
-  const res = await prisma.user.findUnique({
-    where: { id: connect },
-    select: {
-      profileColor: true,
-      profilePhoto: true,
-      isOnline: true,
-      firstName: true,
-      lastName: true,
-    },
-  });
-  if (!res) return <Loading />;
 
-  return <ChatScreen connect={res} />;
+  const { data: connectStatus, isLoading } = useSWR(
+    `/api/connect-status?connectId=${connect}`,
+    fetcher,
+    { refreshInterval: 100 }
+  );
+
+  console.log(connectStatus);
+
+  if (!connectStatus) return <Loading />;
+
+  return (
+    <ChatScreen
+      connect={connectStatus.info}
+      isTyping={connectStatus.isTyping}
+    />
+  );
 };

@@ -7,8 +7,10 @@ import MessageContainer from './message/MessageContainer';
 
 export default function ChatScreen({
   connect,
+  isTyping,
 }: {
   connect: ChatScreenNavbarProps;
+  isTyping: boolean;
 }) {
   return (
     <div className='relative flex h-full w-full flex-col items-center justify-end'>
@@ -32,13 +34,7 @@ export default function ChatScreen({
         alt='beautiful bridge'
         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
       />
-      <Navbar
-        profileColor={connect.profileColor}
-        profilePhoto={connect.profilePhoto}
-        firstName={connect.firstName}
-        lastName={connect.lastName}
-        isOnline={connect.isOnline}
-      />
+      <Navbar connect={connect} isTyping={isTyping} />
       <MessageContainer />
       <InputMessage />
     </div>

@@ -5,14 +5,21 @@ import Icon from '../../ui/Icon';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { setIsTyping } from '@/src/app/actions/connect-status';
 
 export default function InputMessage() {
   const [enteredMassage, setEnteredMassage] = useState<string>('');
-  const { data } = useSession();
+  const { data, status } = useSession();
   const params = useParams();
+
+  if (status === 'loading' || !data || !data.user) return;
+
+  const email = data?.user?.email as string;
+  const connect = params.connect as string;
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEnteredMassage(e.target.value);
+    setIsTyping(email, connect);
     // set server he is typing... with useEffect and more
   };
 
@@ -20,15 +27,14 @@ export default function InputMessage() {
     e.preventDefault();
     const message = enteredMassage;
 
-    // validation
     if (typeof message !== 'string' || message.length === 0) {
       throw new Error('Invalid message');
     }
     setEnteredMassage('');
     await axios.post('/api/messages', {
       message,
-      sender: data?.user?.email,
-      connect: params.connect,
+      sender: email,
+      connect: connect,
     });
   };
 
