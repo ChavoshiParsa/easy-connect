@@ -9,7 +9,9 @@ const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 export default function ConnectList() {
   const { data: connects, isLoading } = useSWR('/api/connects', fetcher, {
     refreshInterval: 1000,
-    revalidateOnFocus: true,
+  });
+  const { data: lastMessage } = useSWR('/api/connects', fetcher, {
+    refreshInterval: 1000,
   });
 
   if (isLoading) return <Loading />;
@@ -31,7 +33,7 @@ export default function ConnectList() {
             firstName={connect.firstName}
             lastName={connect.lastName}
             lastSender={connect.lastSender}
-            lastSenderMessage={connect.lastSenderMessage}
+            lastMessage={connect.lastMessage}
             lastMessageTime={connect.lastMessageTime}
           />
         ))

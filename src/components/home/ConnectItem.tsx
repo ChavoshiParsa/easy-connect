@@ -9,7 +9,7 @@ export interface ConnectItemProps {
   firstName: string;
   lastName: string;
   lastSender: string;
-  lastSenderMessage: string;
+  lastMessage: string;
   lastMessageTime: string;
 }
 
@@ -20,7 +20,7 @@ export default function ConnectItem(props: ConnectItemProps) {
     firstName,
     lastName,
     lastSender,
-    lastSenderMessage,
+    lastMessage,
     lastMessageTime,
     connectId,
   } = props;
@@ -43,7 +43,7 @@ export default function ConnectItem(props: ConnectItemProps) {
         <span className='font-semibold text-white'>
           {firstName + (lastName ? ' ' + lastName : '')}
         </span>
-        <span className='text-sm text-gray-400'>{lastSenderMessage}</span>
+        <span className='text-sm text-gray-400'>{lastMessage}</span>
       </div>
       <div className='mb-5 ml-auto flex flex-row items-center justify-center'>
         {lastSender === 'I' && (

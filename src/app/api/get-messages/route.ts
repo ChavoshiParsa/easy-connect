@@ -82,27 +82,9 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(transformedSortedArray);
 }
 
-/*
-{
-  type='received'
-  timeSent='8:58 PM'
-  messageText="I'm not Ok bro :("
-  messageStatus='sent'
-}
-*/
-
 // first my message loads in array with type mapped post and status sent --> find with (email from session) --> connects --> messages
 // then sender message loads with array type mapped received and status sent --> find with (connectId of my email and match) --> message
 
 // sort array in order to time
 
 // return array
-
-// let res = await prisma.user.findUnique({
-//   where: {
-//     email: session?.user?.email as string,
-//   },
-//   select: {
-//     connects: true,
-//   },
-// });
