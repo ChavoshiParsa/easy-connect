@@ -1,13 +1,16 @@
 'use client';
 
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Icon from '../../ui/Icon';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { setIsTyping } from '@/src/app/actions/connect-status';
+import { ActionType, useContextProvider } from '@/src/context/store';
 
 export default function InputMessage() {
+  const { dispatch } = useContextProvider();
+
   const [enteredMassage, setEnteredMassage] = useState<string>('');
   const { data, status } = useSession();
   const params = useParams();
@@ -19,9 +22,19 @@ export default function InputMessage() {
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEnteredMassage(e.target.value);
-    setIsTyping(email, connect);
-    // set server he is typing... with useEffect and more
   };
+
+  useEffect(() => {
+    let timer: any;
+    timer = setTimeout(() => {
+      if (enteredMassage !== '') setIsTyping(email, connect);
+    }, 1000);
+
+    return () => {
+      if (enteredMassage !== '') setIsTyping(email, connect);
+      clearTimeout(timer);
+    };
+  }, [enteredMassage]);
 
   const sendMessageHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,6 +43,26 @@ export default function InputMessage() {
     if (typeof message !== 'string' || message.length === 0) {
       throw new Error('Invalid message');
     }
+
+    const now = new Date();
+
+    const messages = [
+      {
+        id: Date.now().toString(36),
+        messageText: message,
+        timeSent: `${now.getHours()}:${now.getMinutes()} ${
+          now.getHours() >= 12 ? 'PM' : 'AM'
+        }`,
+        type: 'posted',
+        messageStatus: 'load',
+      },
+    ];
+
+    dispatch({
+      type: ActionType.ADD_MESSAGES,
+      payload: { connect: params.connect as string, messages },
+    });
+
     setEnteredMassage('');
     await axios.post('/api/messages', {
       message,

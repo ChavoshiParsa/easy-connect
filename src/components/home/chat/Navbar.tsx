@@ -44,7 +44,7 @@ export default function Navbar({
       <div className='flex flex-col items-start justify-center'>
         <div className='flex flex-col items-start justify-center'>
           <span className='font-semibold text-white'>
-            {firstName + ' ' + lastName}
+            {firstName + (lastName ? ' ' + lastName : '')}
           </span>
         </div>
         <div className='text-sm ' style={{ color: statusColor }}>

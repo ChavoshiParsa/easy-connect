@@ -17,14 +17,12 @@ export default ({ params }: { params: { connect: string } }) => {
     { refreshInterval: 100 }
   );
 
-  console.log(connectStatus);
-
   if (!connectStatus) return <Loading />;
+  let isTyping = connectStatus.isTyping;
 
-  return (
-    <ChatScreen
-      connect={connectStatus.info}
-      isTyping={connectStatus.isTyping}
-    />
-  );
+  if (typeof connectStatus.isTyping === 'undefined') {
+    isTyping = false;
+  }
+
+  return <ChatScreen connect={connectStatus.info} isTyping={isTyping} />;
 };

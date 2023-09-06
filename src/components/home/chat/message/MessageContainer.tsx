@@ -6,10 +6,12 @@ import axios from 'axios';
 import Loading from '@/src/app/loading';
 import { useParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+import { ActionType, useContextProvider } from '@/src/context/store';
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
 export default function MessageContainer() {
+  const { messages: messagesState, dispatch } = useContextProvider();
   const params = useParams();
 
   const {
@@ -18,17 +20,24 @@ export default function MessageContainer() {
   }: { data: MessageProps[]; isLoading: boolean } = useSWR(
     `/api/get-messages?connectId=${params.connect}`,
     fetcher,
-    { refreshInterval: 100 }
+    { refreshInterval: 1000 }
   );
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    dispatch({
+      type: ActionType.SET_MESSAGES,
+      payload: { connect: params.connect as string, messages },
+    });
+  }, [messages]);
 
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messagesState]);
 
   if (isLoading) return <Loading />;
 
@@ -37,18 +46,22 @@ export default function MessageContainer() {
       className='relative z-10 mb-14 flex w-full flex-col overflow-y-scroll px-2 pt-20 md:mb-20 md:w-9/12'
       ref={chatContainerRef}
     >
-      {messages?.map((message) => (
-        <MessageItem
-          key={message.id}
-          id={message.id}
-          type={message.type}
-          timeSent={message.timeSent}
-          messageText={message.messageText}
-          messageStatus={message.messageStatus}
-        />
-      ))}
+      {!messagesState ? (
+        <p className='mb-72 flex w-auto animate-pulse flex-col items-center justify-center px-4 pb-0.5 pt-1 text-center text-xl text-white md:text-2xl'>
+          send something to create a connection with
+        </p>
+      ) : (
+        messagesState?.map((message) => (
+          <MessageItem
+            key={message.id}
+            id={message.id}
+            type={message.type}
+            timeSent={message.timeSent}
+            messageText={message.messageText}
+            messageStatus={message.messageStatus}
+          />
+        ))
+      )}
     </div>
   );
 }
-
-// const messages = []; --> server realtime

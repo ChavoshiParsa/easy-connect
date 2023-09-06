@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import ChangeProfilePhoto from './ChangeProfilePhoto';
@@ -19,11 +17,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [usernameLoading, setUsernameLoading] = useState<boolean>(false);
 
-  const { setUser, alert, setAlert } = useContextProvider();
-
-  useEffect(() => {
-    setUser(userData);
-  }, [userData, setUser]);
+  const { alert, setAlert } = useContextProvider();
 
   const formik = useFormik({
     initialValues: {
@@ -132,7 +126,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
       <h1 className='mb-4 text-4xl font-bold sm:text-5xl md:mb-8'>
         Profile Page
       </h1>
-      <ChangeProfilePhoto />
+      <ChangeProfilePhoto user={userData} />
       <form className='w-full' onSubmit={formik.handleSubmit}>
         <div className='mb-6 flex w-full flex-col items-center justify-center space-y-5 md:mb-12 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4 md:space-y-0'>
           <div className='relative flex w-full items-center justify-center'>

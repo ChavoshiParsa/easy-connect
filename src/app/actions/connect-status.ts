@@ -7,19 +7,28 @@ export const setIsTyping = async (email: string, connectTo: string) => {
     where: { email },
     select: { connects: true },
   });
+
   let c = finder?.connects.find((c) => c.connectTo === connectTo);
 
-  const updateIsTyping = async (value: boolean) => {
+  if (!c) return;
+
+  await prisma.user.update({
+    where: { email },
+    data: {
+      connects: {
+        update: { where: { id: c?.id }, data: { isTyping: true } },
+      },
+    },
+  });
+
+  setTimeout(async () => {
     await prisma.user.update({
       where: { email },
       data: {
         connects: {
-          update: { where: { id: c?.id }, data: { isTyping: value } },
+          update: { where: { id: c?.id }, data: { isTyping: false } },
         },
       },
     });
-  };
-
-  await updateIsTyping(true);
-  await updateIsTyping(false);
+  }, 1000);
 };

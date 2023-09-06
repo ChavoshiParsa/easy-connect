@@ -1,14 +1,19 @@
 import Image from 'next/image';
 import ProfilePhoto from '../ProfilePhoto';
 import galaxy from '@/public/images/wallpaper4.jpg';
-import { useContextProvider } from '@/src/context/store';
 import Loading from '@/src/app/loading';
 import StatusCheckBox from './StatusCheckBox';
+import useSWR from 'swr';
+import axios from 'axios';
+
+const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
 export default function MenuProfile() {
-  const { user } = useContextProvider();
+  const { data: user, isLoading } = useSWR('/api/get-user', fetcher, {
+    revalidateOnFocus: true,
+  });
 
-  if (!user) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <div className='relative flex h-1/4 w-full flex-col items-start justify-end pl-5'>

@@ -65,7 +65,8 @@ export async function GET(req: NextRequest) {
     return createdAtA - createdAtB;
   });
 
-  const transformedSortedArray = sortedArray.map((message) => {
+  let transformedSortedArray = [];
+  transformedSortedArray = sortedArray.map((message) => {
     const { timeSent } = message;
 
     const createdAtDate = new Date(timeSent);

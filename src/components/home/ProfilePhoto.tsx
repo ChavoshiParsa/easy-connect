@@ -47,7 +47,7 @@ export default function ProfilePhoto(props: ProfilePhotoProps) {
         <span className='absolute'>{firstLetter}</span>
 
         <Image
-          className='absolute transition duration-500'
+          className='absolute transition duration-500 hover:scale-125'
           style={{ opacity }}
           loader={imageLoader}
           src={profilePhoto}

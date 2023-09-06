@@ -41,7 +41,7 @@ export default function ConnectItem(props: ConnectItemProps) {
       </div>
       <div className='flex flex-col items-start justify-center'>
         <span className='font-semibold text-white'>
-          {firstName + ' ' + lastName}
+          {firstName + (lastName ? ' ' + lastName : '')}
         </span>
         <span className='text-sm text-gray-400'>{lastSenderMessage}</span>
       </div>

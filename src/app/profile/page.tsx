@@ -1,35 +1,23 @@
+'use client';
+
 import ProfileForm from '@/src/components/profile/ProfileForm';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import { authOptions } from '../api/auth/[...nextauth]/options';
-import { prisma } from '@/prisma/prisma';
 import Loading from '../loading';
+import useSWR from 'swr';
+import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
-export default async () => {
-  const session = await getServerSession(authOptions);
-  if (!session) redirect('/signup');
+const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
-  const userEmail = session?.user?.email;
+export default () => {
+  const { status } = useSession();
 
-  if (!userEmail) return <Loading />;
-
-  let res = await prisma.user.findUnique({
-    where: {
-      email: userEmail,
-    },
-    select: {
-      email: true,
-      username: true,
-      firstName: true,
-      profileColor: true,
-      profilePhoto: true,
-      lastName: true,
-      age: true,
-      isOnline: true,
-    },
+  const { data: user, isLoading } = useSWR('/api/get-user', fetcher, {
+    revalidateOnFocus: true,
   });
 
-  if (!res) return <Loading />;
+  if (isLoading || status === 'loading') return <Loading />;
+  if (status === 'unauthenticated') redirect('/signup');
 
-  return <ProfileForm userData={res} />;
+  return <ProfileForm userData={user} />;
 };

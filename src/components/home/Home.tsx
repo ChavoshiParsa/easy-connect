@@ -16,25 +16,9 @@ export default async function Home() {
 
   if (!userEmail) return;
 
-  let res = await prisma.user.findUnique({
-    where: {
-      email: userEmail,
-    },
-    select: {
-      email: true,
-      username: true,
-      firstName: true,
-      profileColor: true,
-      profilePhoto: true,
-      lastName: true,
-      age: true,
-      isOnline: true,
-    },
-  });
-
   return (
     <>
-      {res ? <MenuControl userData={res} /> : <Loading />}
+      <MenuControl />
       <div className='h-full w-full overflow-y-scroll bg-[#18181855]'>
         <Navbar />
         <ConnectList />

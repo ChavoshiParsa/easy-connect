@@ -4,17 +4,23 @@ import { UploadFileResponse } from 'uploadthing/client';
 import Icon from '../ui/Icon';
 import { generateReactHelpers } from '@uploadthing/react/hooks';
 import { OurFileRouter } from '@/src/app/api/uploadthing/core';
-import { useContextProvider } from '@/src/context/store';
-import Loading from '@/src/app/loading';
+import { UserData, useContextProvider } from '@/src/context/store';
 import { updateProfile } from '@/src/app/actions/user-profile';
 
 const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
 let WIDTH = 128;
 
-export default function Uploader() {
-  const { user, setUser, setAlert } = useContextProvider();
-  if (!user) return <Loading />;
+export default function Uploader({
+  user,
+  profile,
+  setProfile,
+}: {
+  user: UserData;
+  profile: string | null;
+  setProfile: (url: string | null) => void;
+}) {
+  const { setAlert } = useContextProvider();
 
   const deleteFileHandler = async () => {
     setAlert({
@@ -23,10 +29,7 @@ export default function Uploader() {
       message: `Deleting your photo from server...`,
     });
     await updateProfile(user.email, null);
-    setUser({
-      ...user,
-      profilePhoto: null,
-    });
+    setProfile(null);
     setAlert({
       status: 'success',
       title: 'Done',
@@ -43,7 +46,7 @@ export default function Uploader() {
       });
     },
     onClientUploadComplete: async (res: UploadFileResponse[] | undefined) => {
-      if (user.profilePhoto) {
+      if (profile) {
         await deleteFileHandler();
       }
       if (res && res.length > 0) {
@@ -53,10 +56,7 @@ export default function Uploader() {
           message: 'Setting profile photo',
         });
         await updateProfile(user.email, res[0].key);
-        setUser({
-          ...user,
-          profilePhoto: res[0].key,
-        });
+        setProfile(res[0].key);
       }
 
       setAlert({
@@ -139,11 +139,11 @@ export default function Uploader() {
         <Icon name='change-photo' size='24px' />
         <input className='hidden' type='file' onChange={inputChangeHandler} />
         <span className=' text-sm font-bold text-indigo-500 sm:ml-3 sm:text-base'>
-          {user.profilePhoto ? 'Change' : 'New photo'}
+          {profile ? 'Change' : 'New photo'}
         </span>
       </label>
       <div>
-        {user.profilePhoto && (
+        {profile && (
           <button
             className='flex flex-row items-center justify-center rounded-xl border border-rose-500 py-1 pl-3 pr-4 transition hover:bg-rose-300 md:py-2.5 md:pl-6 md:pr-7'
             onClick={deleteFileHandler}
