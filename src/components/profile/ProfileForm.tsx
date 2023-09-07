@@ -128,7 +128,17 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
       </h1>
       <ChangeProfilePhoto user={userData} />
       <form className='w-full' onSubmit={formik.handleSubmit}>
-        <div className='mb-6 flex w-full flex-col items-center justify-center space-y-5 md:mb-12 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4 md:space-y-0'>
+        <div
+          className='mb-6 flex w-full flex-col items-center justify-center space-y-5 md:mb-12 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4 md:space-y-0'
+          onClick={() => {
+            !isEditing &&
+              setAlert({
+                title: 'warning',
+                status: 'error',
+                message: 'please click at edit fist',
+              });
+          }}
+        >
           <div className='relative flex w-full items-center justify-center'>
             <Input
               label='First Name'
