@@ -7,6 +7,7 @@ import Loading from '@/src/app/loading';
 import { useParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { ActionType, useContextProvider } from '@/src/context/store';
+import useSound from 'use-sound';
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
@@ -25,6 +26,8 @@ export default function MessageContainer() {
 
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
+  const [playOn] = useSound('/sounds/bip1.wav', { volume: 0.3 });
+
   useEffect(() => {
     dispatch({
       type: ActionType.SET_MESSAGES,
@@ -36,6 +39,12 @@ export default function MessageContainer() {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
+    }
+    if (
+      messagesState.length !== 0 &&
+      messagesState[messagesState.length - 1].type === 'received'
+    ) {
+      playOn();
     }
   }, [messagesState]);
 

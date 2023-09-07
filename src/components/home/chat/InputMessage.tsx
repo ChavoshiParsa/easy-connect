@@ -7,6 +7,7 @@ import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { setIsTyping } from '@/src/app/actions/connect-status';
 import { ActionType, useContextProvider } from '@/src/context/store';
+import useSound from 'use-sound';
 
 export default function InputMessage() {
   const { dispatch } = useContextProvider();
@@ -19,9 +20,12 @@ export default function InputMessage() {
 
   const email = data?.user?.email as string;
   const connect = params.connect as string;
+  const [playOn] = useSound('/sounds/bip3.wav', { volume: 0.2 });
+  const [sendOn] = useSound('/sounds/bip2.wav', { volume: 0.2 });
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEnteredMassage(e.target.value);
+    playOn();
   };
 
   useEffect(() => {
@@ -63,6 +67,7 @@ export default function InputMessage() {
       payload: { connect: params.connect as string, messages },
     });
 
+    sendOn();
     setEnteredMassage('');
     await axios.post('/api/messages', {
       message,

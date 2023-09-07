@@ -7,12 +7,16 @@ import axios from 'axios';
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
 export default function ConnectList() {
-  const { data: connects, isLoading } = useSWR('/api/connects', fetcher, {
-    refreshInterval: 1000,
-  });
-  const { data: lastMessage } = useSWR('/api/connects', fetcher, {
-    refreshInterval: 1000,
-  });
+  const {
+    data: connects,
+    isLoading,
+  }: { data: ConnectItemProps[]; isLoading: boolean } = useSWR(
+    '/api/connects',
+    fetcher,
+    {
+      refreshInterval: 2000,
+    }
+  );
 
   if (isLoading) return <Loading />;
 
@@ -27,7 +31,7 @@ export default function ConnectList() {
         connects.map((connect) => (
           <ConnectItem
             key={connect.id}
-            connectId={`/home/${connect.id}`}
+            id={`/home/${connect.id}`}
             profilePhoto={connect.profilePhoto}
             profileColor={connect.profileColor}
             firstName={connect.firstName}

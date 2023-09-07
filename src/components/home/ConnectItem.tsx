@@ -3,14 +3,14 @@ import ProfilePhoto from './ProfilePhoto';
 import Link from 'next/link';
 
 export interface ConnectItemProps {
-  connectId: string;
+  id: string;
   profileColor: string;
-  profilePhoto: string;
+  profilePhoto: string | null;
   firstName: string;
-  lastName: string;
+  lastName: string | null;
   lastSender: string;
   lastMessage: string;
-  lastMessageTime: string;
+  lastMessageTime: Date;
 }
 
 export default function ConnectItem(props: ConnectItemProps) {
@@ -22,13 +22,18 @@ export default function ConnectItem(props: ConnectItemProps) {
     lastSender,
     lastMessage,
     lastMessageTime,
-    connectId,
+    id,
   } = props;
+
+  const createdAtDate = new Date(lastMessageTime);
+  let convertedTime = `${createdAtDate.getHours()}:${createdAtDate.getMinutes()} ${
+    createdAtDate.getHours() >= 12 ? 'PM' : 'AM'
+  }`;
 
   return (
     <Link
       className='link flex w-full flex-row items-center justify-start bg-[#101012] py-2 pl-2.5 pr-4 transition hover:bg-[#232327]'
-      href={connectId}
+      href={id}
     >
       <div className='mr-2.5'>
         <ProfilePhoto
@@ -46,7 +51,7 @@ export default function ConnectItem(props: ConnectItemProps) {
         <span className='text-sm text-gray-400'>{lastMessage}</span>
       </div>
       <div className='mb-5 ml-auto flex flex-row items-center justify-center'>
-        {lastSender === 'I' && (
+        {lastSender === 'user' && (
           <Image
             className='pb-0.5'
             src='/icons/single-tick.svg'
@@ -61,7 +66,7 @@ export default function ConnectItem(props: ConnectItemProps) {
           />
         )}
 
-        <div className='text-sm text-gray-400'>{lastMessageTime}</div>
+        <div className='text-sm text-gray-400'>{convertedTime}</div>
       </div>
     </Link>
   );
