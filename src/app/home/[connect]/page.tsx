@@ -10,7 +10,7 @@ import { newMessageOff } from '../../actions/new-message';
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
-export default ({ params }: { params: { connect: string } }) => {
+export default function Connect({ params }: { params: { connect: string } }) {
   const connect = params.connect;
 
   const { data: connectStatus, isLoading } = useSWR(
@@ -21,7 +21,7 @@ export default ({ params }: { params: { connect: string } }) => {
 
   useEffect(() => {
     newMessageOff(connect);
-  }, [connectStatus]);
+  }, [connect, connectStatus]);
 
   if (isLoading) return <Loading />;
   let isTyping = connectStatus.isTyping;
@@ -31,4 +31,4 @@ export default ({ params }: { params: { connect: string } }) => {
   }
 
   return <ChatScreen connect={connectStatus.info} isTyping={isTyping} />;
-};
+}

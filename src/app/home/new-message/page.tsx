@@ -1,5 +1,5 @@
 import AllUser from '@/src/components/home/all-users/AllUser';
 
-export default () => {
+export default function NewMessage() {
   return <AllUser />;
-};
+}

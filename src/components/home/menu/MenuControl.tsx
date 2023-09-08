@@ -9,7 +9,7 @@ export default function MenuControl() {
 
   useEffect(() => {
     setIsMenuShow(false);
-  }, []);
+  }, [setIsMenuShow]);
 
   let display = 'none';
   let transform = 'translateX(-100%)';

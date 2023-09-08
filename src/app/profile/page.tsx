@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
-export default () => {
+export default function ProfilePage() {
   const { status } = useSession();
 
   const { data: user, isLoading } = useSWR('/api/get-user', fetcher, {
@@ -20,4 +20,4 @@ export default () => {
   if (status === 'unauthenticated') redirect('/signup');
 
   return <ProfileForm userData={user} />;
-};
+}
