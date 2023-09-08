@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint"
   },
@@ -19,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.15",
+    "eslint-config-prettier": "^9.0.0",
     "formik": "^2.4.3",
     "next": "13.4.19",
     "next-auth": "^4.23.0",
