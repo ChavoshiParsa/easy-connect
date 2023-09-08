@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ProfilePhoto from '../ProfilePhoto';
-import Icon from '../../ui/Icon';
+import CustomIcon from '../../ui/CustomIcon';
 
 export interface ChatScreenNavbarProps {
   profileColor: string;
@@ -30,7 +30,7 @@ export default function Navbar({
         className='link mr-4 cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
         href='/home'
       >
-        <Icon size='18px' name='back' />
+        <CustomIcon size='18px' name='back' />
       </Link>
       <div className='mr-2.5'>
         <ProfilePhoto
@@ -52,7 +52,7 @@ export default function Navbar({
         </div>
       </div>
       <button className='link ml-auto cursor-pointer rounded-full p-2 transition hover:bg-slate-700'>
-        <Icon size='22px' name='3dot' />
+        <CustomIcon size='22px' name='3dot' />
       </button>
     </div>
   );

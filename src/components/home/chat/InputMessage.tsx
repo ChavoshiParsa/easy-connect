@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import Icon from '../../ui/Icon';
+import CustomIcon from '../../ui/CustomIcon';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -79,7 +79,7 @@ export default function InputMessage() {
   return (
     <div className='absolute bottom-0 z-30 flex w-full items-center justify-start bg-[#171d2db9] px-2 py-1.5 backdrop-blur-xl md:px-4 lg:bottom-4 lg:w-9/12 lg:rounded-xl lg:py-2'>
       <button className='link cursor-pointer rounded-full p-1 transition hover:bg-slate-800'>
-        <Icon size='38px' name='emoji' />
+        <CustomIcon size='38px' name='emoji' />
       </button>
       <form
         className='flex w-full items-center justify-start'
@@ -102,13 +102,13 @@ export default function InputMessage() {
             className='link cursor-pointer rounded-full bg-[] p-1 transition hover:bg-slate-800'
             type='submit'
           >
-            <Icon size='40px' name='send' />
+            <CustomIcon size='40px' name='send' />
           </button>
         )}
       </form>
       {!enteredMassage && (
         <button className='link cursor-pointer rounded-full p-0 transition hover:bg-slate-800'>
-          <Icon size='48px' name='attach' />
+          <CustomIcon size='48px' name='attach' />
         </button>
       )}
     </div>

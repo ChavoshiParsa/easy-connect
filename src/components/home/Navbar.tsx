@@ -3,7 +3,7 @@
 import { Roboto_Flex } from 'next/font/google';
 import { useContextProvider } from '@/src/context/store';
 import Link from 'next/link';
-import Icon from '../ui/Icon';
+import CustomIcon from '../ui/CustomIcon';
 
 const roboto = Roboto_Flex({
   subsets: ['latin'],
@@ -19,14 +19,14 @@ export default function Navbar() {
         className='link mr-5 cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
         onClick={() => setIsMenuShow(true)}
       >
-        <Icon size='24px' name='hamburger' />
+        <CustomIcon size='24px' name='hamburger' />
       </div>
       <h1 className={`${roboto.className} text-xl`}>Easy Connect</h1>
       <Link
         className='link ml-auto cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
         href='/search'
       >
-        <Icon size='24px' name='magnifier' />
+        <CustomIcon size='24px' name='magnifier' />
       </Link>
     </div>
   );

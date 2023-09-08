@@ -5,7 +5,7 @@ interface Props {
   size: string;
 }
 
-export default function Icon(props: Props) {
+export default function CustomIcon(props: Props) {
   return (
     <Image
       src={`/icons/${props.name}.svg`}

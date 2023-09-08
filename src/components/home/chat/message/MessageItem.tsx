@@ -1,4 +1,4 @@
-import Icon from '@/src/components/ui/Icon';
+import CustomIcon from '@/src/components/ui/CustomIcon';
 
 export interface MessageProps {
   id: string;
@@ -27,19 +27,19 @@ export default function MessageItem(props: MessageProps) {
   if (props.messageStatus === 'sent') {
     messageStatusIcon = (
       <div className='-mr-3'>
-        <Icon name='single-tick' size='18px' />
+        <CustomIcon name='single-tick' size='18px' />
       </div>
     );
   } else if (props.messageStatus === 'seen') {
     messageStatusIcon = (
       <div className='-mr-3'>
-        <Icon name='double-tick' size='18px' />
+        <CustomIcon name='double-tick' size='18px' />
       </div>
     );
   } else if (props.messageStatus === 'load') {
     messageStatusIcon = (
       <div className='-mr-3 ml-1'>
-        <Icon name='timer' size='12px' />
+        <CustomIcon name='timer' size='12px' />
       </div>
     );
   }

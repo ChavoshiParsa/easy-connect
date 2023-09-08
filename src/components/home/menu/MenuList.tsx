@@ -1,6 +1,6 @@
 import { Roboto_Flex } from 'next/font/google';
 import MenuItem from './MenuItem';
-import Icon from '../../ui/Icon';
+import CustomIcon from '../../ui/CustomIcon';
 
 const roboto = Roboto_Flex({
   subsets: ['latin'],
@@ -16,19 +16,19 @@ export default function MenuList() {
       }
     >
       <MenuItem text='Profile' link='/profile'>
-        <Icon size='30px' name='profile' />
+        <CustomIcon size='30px' name='profile' />
       </MenuItem>
       <MenuItem text='New Message' link='/home/new-message'>
-        <Icon size='30px' name='message' />
+        <CustomIcon size='30px' name='message' />
       </MenuItem>
       <MenuItem text='Account' link='/account'>
-        <Icon size='30px' name='account' />
+        <CustomIcon size='30px' name='account' />
       </MenuItem>
       <MenuItem text='Settings' link='/settings'>
-        <Icon size='30px' name='settings' />
+        <CustomIcon size='30px' name='settings' />
       </MenuItem>
       <MenuItem text='Send FeedBacks' link='#'>
-        <Icon size='30px' name='feedback' />
+        <CustomIcon size='30px' name='feedback' />
       </MenuItem>
     </ul>
   );
