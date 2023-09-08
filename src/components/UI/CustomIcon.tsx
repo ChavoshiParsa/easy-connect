@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
-interface Props {
+interface IconProps {
   name: string;
   size: string;
 }
 
-export default function CustomIcon(props: Props) {
+const CustomIcon = (props: IconProps) => {
   return (
     <Image
       src={`/icons/${props.name}.svg`}
@@ -19,4 +19,6 @@ export default function CustomIcon(props: Props) {
       }}
     />
   );
-}
+};
+
+export default CustomIcon;
