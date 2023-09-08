@@ -1,11 +1,11 @@
 import { ChangeEvent } from 'react';
 
 import { UploadFileResponse } from 'uploadthing/client';
-import Icon from '../ui/Icon';
 import { generateReactHelpers } from '@uploadthing/react/hooks';
 import { OurFileRouter } from '@/src/app/api/uploadthing/core';
 import { UserData, useContextProvider } from '@/src/context/store';
 import { updateProfile } from '@/src/app/actions/user-profile';
+import Icon from '../ui/Icon';
 
 const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
