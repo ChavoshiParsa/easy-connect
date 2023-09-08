@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import { setIsTyping } from '@/src/app/actions/connect-status';
 import { ActionType, useContextProvider } from '@/src/context/store';
 import Image from 'next/image';
-import useSound from 'use-sound';
+// import useSound from 'use-sound';
 
 export default function InputMessage() {
   const { dispatch } = useContextProvider();
@@ -16,8 +16,8 @@ export default function InputMessage() {
   const { data, status } = useSession();
   const params = useParams();
 
-  const [sendOn] = useSound('/sounds/bip2.wav', { volume: 0.2 }) as any;
-  const [playOn] = useSound('/sounds/bip1.wav', { volume: 0.3 }) as any;
+  // const [sendOn] = useSound<any>('/sounds/bip2.wav', { volume: 0.2 }) as any;
+  // const [playOn] = useSound<any>('/sounds/bip1.wav', { volume: 0.3 }) as any;
 
   const email = data?.user?.email as string;
   const connect = params.connect as string;
@@ -37,7 +37,7 @@ export default function InputMessage() {
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setEnteredMassage(e.target.value);
-    playOn();
+    // playOn();
   };
 
   const sendMessageHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -67,7 +67,7 @@ export default function InputMessage() {
       payload: { connect: params.connect as string, messages },
     });
 
-    sendOn();
+    // sendOn();
     setEnteredMassage('');
     await axios.post('/api/messages', {
       message,
