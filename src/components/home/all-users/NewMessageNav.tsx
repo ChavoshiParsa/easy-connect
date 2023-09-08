@@ -1,5 +1,5 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import Icon from '../../UI/CustomIcon';
 
 export default function NewMessageNav() {
   return (
@@ -8,12 +8,28 @@ export default function NewMessageNav() {
         className='link mr-4 cursor-pointer rounded-full p-2 transition hover:bg-slate-700'
         href='/home'
       >
-        <Icon size='16px' name='back' />
+        <CustomIcon size='16px' name='back' />
       </Link>
       <span className='text-lg font-bold text-slate-300'>New Message</span>
       <button className='link ml-auto cursor-pointer rounded-full p-2 transition hover:bg-slate-700'>
-        <Icon size='22px' name='magnifier' />
+        <CustomIcon size='22px' name='magnifier' />
       </button>
     </div>
   );
 }
+
+const CustomIcon = (props: { name: string; size: string }) => {
+  return (
+    <Image
+      src={`/icons/${props.name}.svg`}
+      alt={`${props.name} icon`}
+      width={20}
+      height={20}
+      sizes='100vw'
+      style={{
+        width: props.size,
+        height: 'auto',
+      }}
+    />
+  );
+};
