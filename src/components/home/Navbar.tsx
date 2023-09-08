@@ -3,7 +3,6 @@
 import { Roboto_Flex } from 'next/font/google';
 import { useContextProvider } from '@/src/context/store';
 import Link from 'next/link';
-import CustomIcon from '../ui/CustomIcon';
 import Image from 'next/image';
 
 const roboto = Roboto_Flex({
