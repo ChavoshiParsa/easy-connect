@@ -8,32 +8,30 @@ datasource db {
 }
 
 model User {
-  id           String  @id @default(auto()) @map("_id") @db.ObjectId
-  email        String  @unique
-  username     String  @unique
-  isOnline     Boolean @default(true)
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  email        String   @unique
+  username     String   @unique
+  isOnline     Boolean  @default(true)
   firstName    String
   password     String
   profileColor String
   profilePhoto String?
   lastName     String?
   age          Int?
-  // location     String?
-  // gender       String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   connects Connects[]
 }
 
 model Connects {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  owner     User       @relation(fields: [ownerId], references: [id])
-  ownerId   String     @db.ObjectId
-  connectTo String
-  isTyping  Boolean    @default(false)
-  messages  Messages[]
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  owner      User       @relation(fields: [ownerId], references: [id])
+  ownerId    String     @db.ObjectId
+  connectTo  String
+  isTyping   Boolean    @default(false)
+  newMessage Int        @default(0)
+  messages   Messages[]
 }
 
 model Messages {

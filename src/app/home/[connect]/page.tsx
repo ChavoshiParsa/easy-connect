@@ -5,6 +5,8 @@ import ChatScreen from '@/src/components/home/chat/ChatScreen';
 import useSWR from 'swr';
 import axios from 'axios';
 import Loading from '@/src/app/loading';
+import { useEffect } from 'react';
+import { newMessageOff } from '../../actions/new-message';
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
 
@@ -17,7 +19,11 @@ export default ({ params }: { params: { connect: string } }) => {
     { refreshInterval: 100 }
   );
 
-  if (!connectStatus) return <Loading />;
+  useEffect(() => {
+    newMessageOff(connect);
+  }, [connectStatus]);
+
+  if (isLoading) return <Loading />;
   let isTyping = connectStatus.isTyping;
 
   if (typeof connectStatus.isTyping === 'undefined') {

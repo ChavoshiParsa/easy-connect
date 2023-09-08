@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
   let finder = await prisma.user.findUnique({
     where: { email: sender },
-    select: { connects: true },
+    select: { connects: true, id: true },
   });
 
   let c = finder?.connects.find((c) => c.connectTo === connect);
@@ -31,13 +31,14 @@ export async function POST(req: NextRequest) {
       data: {
         connects: {
           create: {
-            connectTo: res?.id,
+            connectTo: res.id,
+            newMessage: 1,
           },
         },
       },
     });
   } else {
-    await prisma.user.update({
+    let res = await prisma.user.update({
       where: { email: sender },
       data: {
         connects: {
@@ -50,6 +51,23 @@ export async function POST(req: NextRequest) {
             },
           },
         },
+      },
+    });
+
+    let newMessage = await prisma.connects.findUnique({
+      where: { id: c.id },
+      select: { newMessage: true },
+    });
+
+    let currentNewMessages = newMessage?.newMessage as number;
+    let newMessageNum = currentNewMessages + 1;
+
+    await prisma.connects.update({
+      where: {
+        id: c.id,
+      },
+      data: {
+        newMessage: newMessageNum,
       },
     });
   }

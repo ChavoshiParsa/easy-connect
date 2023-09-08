@@ -62,6 +62,7 @@ export async function GET() {
   const connectMessages = await prisma.connects.findMany({
     where: { connectTo: userMessages?.id },
     select: {
+      newMessage: true,
       messages: {
         select: {
           text: true,
@@ -87,6 +88,8 @@ export async function GET() {
   let theirLastMessages = connectMessages
     .map((connect) => connect.messages)
     .map((connect) => connect[0]);
+
+  let newMessages = connectMessages.map((connect) => connect.newMessage);
 
   if (myLastMessages && theirLastMessages) {
     for (let i = 0; i < myLastMessages.length; i++) {
@@ -148,6 +151,7 @@ export async function GET() {
       lastSender,
       lastMessage: realLastMessage[i].text,
       lastMessageTime: realLastMessage[i].createdAt,
+      newMessage: newMessages[i],
     });
   }
 

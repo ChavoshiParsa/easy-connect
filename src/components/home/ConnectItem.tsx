@@ -11,6 +11,7 @@ export interface ConnectItemProps {
   lastSender: string;
   lastMessage: string;
   lastMessageTime: Date;
+  newMessage: number;
 }
 
 export default function ConnectItem(props: ConnectItemProps) {
@@ -23,18 +24,29 @@ export default function ConnectItem(props: ConnectItemProps) {
     lastMessage,
     lastMessageTime,
     id,
+    newMessage,
   } = props;
 
   const createdAtDate = new Date(lastMessageTime);
-  let convertedTime = `${createdAtDate.getHours()}:${createdAtDate.getMinutes()} ${
+
+  let min = createdAtDate.getMinutes().toString();
+  if (createdAtDate.getMinutes() < 10) {
+    min = '0' + createdAtDate.getMinutes();
+  }
+  let convertedTime = `${createdAtDate.getHours()}:${min} ${
     createdAtDate.getHours() >= 12 ? 'PM' : 'AM'
   }`;
 
   return (
     <Link
-      className='link flex w-full flex-row items-center justify-start bg-[#101012] py-2 pl-2.5 pr-4 transition hover:bg-[#232327]'
+      className='link relative flex w-full translate-y-0 flex-row items-center justify-start bg-[#101012] py-2 pl-2.5 pr-4 transition hover:bg-[#232327]'
       href={id}
     >
+      {newMessage !== 0 && (
+        <div className='absolute bottom-2.5 right-4 z-40 flex h-5 w-5 items-center justify-center rounded-full bg-sky-500'>
+          <span className='text-xs font-bold'>{newMessage}</span>
+        </div>
+      )}
       <div className='mr-2.5'>
         <ProfilePhoto
           profileColor={profileColor}

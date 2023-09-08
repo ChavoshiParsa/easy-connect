@@ -48,15 +48,13 @@ export async function POST(req: NextRequest) {
 
   const hashedPassword = await hashPassword(convertedData.password);
 
-  const loweredFirstName = firstName.toLowerCase();
-  // generating username base name and random numbers
-  let username: string =
-    loweredFirstName.toLowerCase() + randomNumber(1000, 9999);
+  // generating username base user and random numbers
+  let username: string = 'user' + randomNumber(10000, 99999);
   let anyUsername = await prisma.user.findUnique({
     where: { username },
   });
   if (anyUsername) {
-    username = await usernameGenerator(username, loweredFirstName);
+    username = await usernameGenerator(username);
   }
 
   const res = await prisma.user.create({
@@ -72,14 +70,14 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(res);
 }
 
-async function usernameGenerator(username: string, firstName: string) {
-  let newUsername: string = firstName + randomNumber(1000, 9999);
+async function usernameGenerator(username: string) {
+  let newUsername: string = 'user' + randomNumber(10000, 99999);
   let anyUsername = await prisma.user.findUnique({
     where: { username: newUsername },
   });
 
   if (anyUsername) {
-    newUsername = await usernameGenerator(username, firstName);
+    newUsername = await usernameGenerator(username);
     return newUsername;
   } else return newUsername;
 }

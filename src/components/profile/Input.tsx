@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent } from 'react';
+import { ChangeEvent, FocusEvent, MouseEvent } from 'react';
 
 interface InputProps {
   label: string;
@@ -6,14 +6,15 @@ interface InputProps {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
-  value: string | number | undefined;
+  onClick: (event: MouseEvent<HTMLInputElement>) => void;
+  value: string;
   editable: boolean;
   type: string;
 }
 
 export default function Input(props: InputProps) {
   return (
-    <div className='w-full'>
+    <div className='w-full' onClick={props.onClick}>
       <label className='ml-1 text-base text-slate-300 md:text-lg'>
         {props.label}
       </label>

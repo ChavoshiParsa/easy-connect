@@ -1,4 +1,5 @@
 'use client';
+
 import Loading from '@/src/app/loading';
 import ConnectItem, { ConnectItemProps } from './ConnectItem';
 import useSWR from 'swr';
@@ -39,6 +40,7 @@ export default function ConnectList() {
             lastSender={connect.lastSender}
             lastMessage={connect.lastMessage}
             lastMessageTime={connect.lastMessageTime}
+            newMessage={connect.newMessage}
           />
         ))
       )}

@@ -16,14 +16,22 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
   const [usernameIsTouched, setUsernameIsTouched] = useState<boolean>(false);
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [usernameLoading, setUsernameLoading] = useState<boolean>(false);
-
   const { alert, setAlert } = useContextProvider();
+
+  const editingHandler = () => {
+    !isEditing &&
+      setAlert({
+        title: 'warning',
+        status: 'error',
+        message: 'please click at edit fist',
+      });
+  };
 
   const formik = useFormik({
     initialValues: {
       firstName: userData.firstName,
-      lastName: userData.lastName || undefined,
-      age: userData.age || undefined,
+      lastName: userData.lastName || '',
+      age: userData.age || '',
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -47,8 +55,8 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
       const formData = {
         email: userData.email,
         firstName: values.firstName,
-        lastName: values.lastName || undefined,
-        age: values.age || undefined,
+        lastName: values.lastName || '',
+        age: values.age || '',
         username: enteredUsername,
       };
 
@@ -67,8 +75,8 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
         });
 
         formik.values.firstName = result.data.res.firstName;
-        formik.values.lastName = result.data.res.lastName;
-        formik.values.age = result.data.res.age;
+        formik.values.lastName = result.data.res.lastName || '';
+        formik.values.age = result.data.res.age || '';
         setEnteredUsername(result.data.res.username);
 
         setIsEditing(false);
@@ -128,18 +136,8 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
       </h1>
       <ChangeProfilePhoto user={userData} />
       <form className='w-full' onSubmit={formik.handleSubmit}>
-        <div
-          className='mb-6 flex w-full flex-col items-center justify-center space-y-5 md:mb-12 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4 md:space-y-0'
-          onClick={() => {
-            !isEditing &&
-              setAlert({
-                title: 'warning',
-                status: 'error',
-                message: 'please click at edit fist',
-              });
-          }}
-        >
-          <div className='relative flex w-full items-center justify-center'>
+        <div className='mb-6 flex w-full flex-col items-center justify-center space-y-5 md:mb-12 md:grid md:grid-cols-2 md:gap-x-10 md:gap-y-4 md:space-y-0'>
+          <div className='relative z-50 flex w-full items-center justify-center'>
             <Input
               label='First Name'
               name='firstName'
@@ -148,6 +146,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
               onBlur={formik.handleBlur}
               value={formik.values.firstName}
               editable={isEditing}
+              onClick={editingHandler}
             />
             {formik.touched.firstName && formik.errors.firstName && (
               <p className='absolute -bottom-5 text-sm text-rose-500 '>
@@ -164,6 +163,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
               onChange={(e) => setEnteredUsername(e.target.value)}
               value={enteredUsername}
               editable={isEditing}
+              onClick={editingHandler}
             />
             {!usernameIsValid && usernameError && usernameIsTouched && (
               <p className='absolute -bottom-5 text-sm text-rose-500'>
@@ -193,6 +193,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
               onBlur={formik.handleBlur}
               value={formik.values.lastName || ''}
               editable={isEditing}
+              onClick={editingHandler}
             />
             {formik.touched.lastName && formik.errors.lastName && (
               <p className='absolute -bottom-5 text-sm text-rose-500 '>
@@ -207,8 +208,9 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
               type='number'
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.age || ''}
+              value={formik.values.age?.toString() || ''}
               editable={isEditing}
+              onClick={editingHandler}
             />
             {formik.touched.age && formik.errors.age && (
               <p className='absolute -bottom-5 text-sm text-rose-500 '>
@@ -242,9 +244,9 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
                 onClick={() => {
                   setIsEditing(false);
 
-                  formik.values.firstName = formik.initialValues.firstName;
-                  formik.values.lastName = formik.initialValues.lastName;
-                  formik.values.age = formik.initialValues.age;
+                  formik.values.firstName = userData.firstName;
+                  formik.values.lastName = userData.lastName || '';
+                  formik.values.age = userData.age || '';
 
                   formik.errors.firstName = '';
                   formik.errors.lastName = '';

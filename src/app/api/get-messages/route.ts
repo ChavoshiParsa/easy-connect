@@ -22,42 +22,43 @@ export async function GET(req: NextRequest) {
     (connect) => connect.connectTo === connectId
   )?.messages;
 
-  const transformedPostedMessages = postedMessages.map((message) => {
-    const { text, createdAt, id } = message;
+  const transformedPostedMessages =
+    postedMessages?.map((message) => {
+      const { text, createdAt, id } = message;
 
-    return {
-      id,
-      type: 'posted',
-      timeSent: createdAt,
-      messageText: text,
-      messageStatus: 'sent',
-    };
-  });
+      return {
+        id,
+        type: 'posted',
+        timeSent: createdAt,
+        messageText: text,
+        messageStatus: 'sent',
+      };
+    }) || [];
 
   const resReceive = await prisma.user.findUnique({
     where: { id: connectId as string },
     select: { connects: { select: { messages: true, connectTo: true } } },
   });
 
-  const receivedMessages = resReceive?.connects.find(
-    (connect) => connect.connectTo === resPost?.id
-  )?.messages;
+  const receivedMessages =
+    resReceive?.connects.find((connect) => connect.connectTo === resPost?.id)
+      ?.messages || [];
 
-  const transformedReceivedMessages = receivedMessages.map((message) => {
-    const { text, createdAt, id } = message;
+  const transformedReceivedMessages =
+    receivedMessages.map((message) => {
+      const { text, createdAt, id } = message;
 
-    return {
-      id,
-      type: 'received',
-      timeSent: createdAt,
-      messageText: text,
-      messageStatus: 'sent',
-    };
-  });
+      return {
+        id,
+        type: 'received',
+        timeSent: createdAt,
+        messageText: text,
+        messageStatus: 'sent',
+      };
+    }) || [];
 
-  let mergedArray = transformedPostedMessages.concat(
-    transformedReceivedMessages
-  );
+  let mergedArray =
+    transformedPostedMessages.concat(transformedReceivedMessages) || [];
 
   const sortedArray = mergedArray.sort((a, b) => {
     const createdAtA = new Date(a.timeSent).getTime();
@@ -71,9 +72,14 @@ export async function GET(req: NextRequest) {
 
     const createdAtDate = new Date(timeSent);
 
+    let min = createdAtDate.getMinutes().toString();
+    if (createdAtDate.getMinutes() < 10) {
+      min = '0' + createdAtDate.getMinutes();
+    }
+
     return {
       ...message,
-      timeSent: `${createdAtDate.getHours()}:${createdAtDate.getMinutes()} ${
+      timeSent: `${createdAtDate.getHours()}:${min} ${
         createdAtDate.getHours() >= 12 ? 'PM' : 'AM'
       }`,
     };

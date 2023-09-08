@@ -4,9 +4,9 @@ import { type NextRequest } from 'next/server';
 
 interface Data {
   firstName: string;
-  lastName: string | undefined;
+  lastName: string | null;
   username: string;
-  age: number | undefined;
+  age: number | null;
 }
 
 export async function POST(req: NextRequest) {
@@ -14,17 +14,18 @@ export async function POST(req: NextRequest) {
 
   // transformation
   let convertedLastName = data.lastName;
-  if (typeof convertedLastName !== 'undefined') {
+  if (convertedLastName !== '') {
     convertedLastName =
       data.lastName.trim()[0].toUpperCase() + data.lastName.trim().slice(1);
+  } else {
+    convertedLastName = null;
   }
-  console.log(data.lastName);
   const convertedData: Data = {
     firstName:
       data.firstName.trim()[0].toUpperCase() + data.firstName.trim().slice(1),
-    lastName: convertedLastName || undefined,
+    lastName: convertedLastName || null,
     username: data.username.trim().toLowerCase(),
-    age: data.age || undefined,
+    age: data.age || null,
   };
 
   // validation
@@ -33,8 +34,8 @@ export async function POST(req: NextRequest) {
     where: { email: data.email },
     data: {
       firstName: convertedData.firstName,
-      lastName: convertedData.lastName || undefined,
-      age: convertedData.age || undefined,
+      lastName: convertedData.lastName,
+      age: convertedData.age,
       username: convertedData.username,
     },
   });
