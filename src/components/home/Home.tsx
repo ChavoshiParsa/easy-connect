@@ -2,9 +2,9 @@ import Navbar from '&/home/Navbar';
 import ConnectList from '@/src/components/home/ConnectList';
 import MenuControl from '@/src/components/home/menu/MenuControl';
 import Link from 'next/link';
-import CustomIcon from '../ui/CustomIcon';
 import { authOptions } from '@/src/app/api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
+import Image from 'next/image';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -28,3 +28,19 @@ export default async function Home() {
     </>
   );
 }
+
+const CustomIcon = (props: { name: string; size: string }) => {
+  return (
+    <Image
+      src={`/icons/${props.name}.svg`}
+      alt={`${props.name} icon`}
+      width={20}
+      height={20}
+      sizes='100vw'
+      style={{
+        width: props.size,
+        height: 'auto',
+      }}
+    />
+  );
+};

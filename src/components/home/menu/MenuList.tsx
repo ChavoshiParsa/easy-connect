@@ -1,6 +1,6 @@
 import { Roboto_Flex } from 'next/font/google';
 import MenuItem from './MenuItem';
-import CustomIcon from '../../ui/CustomIcon';
+import Image from 'next/image';
 
 const roboto = Roboto_Flex({
   subsets: ['latin'],
@@ -33,3 +33,19 @@ export default function MenuList() {
     </ul>
   );
 }
+
+const CustomIcon = (props: { name: string; size: string }) => {
+  return (
+    <Image
+      src={`/icons/${props.name}.svg`}
+      alt={`${props.name} icon`}
+      width={20}
+      height={20}
+      sizes='100vw'
+      style={{
+        width: props.size,
+        height: 'auto',
+      }}
+    />
+  );
+};

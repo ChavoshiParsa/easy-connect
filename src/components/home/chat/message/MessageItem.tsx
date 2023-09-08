@@ -1,4 +1,4 @@
-import CustomIcon from '@/src/components/ui/CustomIcon';
+import Image from 'next/image';
 
 export interface MessageProps {
   id: string;
@@ -57,3 +57,19 @@ export default function MessageItem(props: MessageProps) {
     </div>
   );
 }
+
+const CustomIcon = (props: { name: string; size: string }) => {
+  return (
+    <Image
+      src={`/icons/${props.name}.svg`}
+      alt={`${props.name} icon`}
+      width={20}
+      height={20}
+      sizes='100vw'
+      style={{
+        width: props.size,
+        height: 'auto',
+      }}
+    />
+  );
+};

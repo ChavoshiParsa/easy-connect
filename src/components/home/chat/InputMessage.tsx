@@ -1,12 +1,12 @@
 'use client';
 
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import CustomIcon from '../../ui/CustomIcon';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { setIsTyping } from '@/src/app/actions/connect-status';
 import { ActionType, useContextProvider } from '@/src/context/store';
+import Image from 'next/image';
 // import useSound from 'use-sound';
 
 export default function InputMessage() {
@@ -114,3 +114,19 @@ export default function InputMessage() {
     </div>
   );
 }
+
+const CustomIcon = (props: { name: string; size: string }) => {
+  return (
+    <Image
+      src={`/icons/${props.name}.svg`}
+      alt={`${props.name} icon`}
+      width={20}
+      height={20}
+      sizes='100vw'
+      style={{
+        width: props.size,
+        height: 'auto',
+      }}
+    />
+  );
+};

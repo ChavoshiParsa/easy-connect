@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ProfilePhoto from '../ProfilePhoto';
-import CustomIcon from '../../ui/CustomIcon';
+import Image from 'next/image';
 
 export interface ChatScreenNavbarProps {
   profileColor: string;
@@ -57,3 +57,19 @@ export default function Navbar({
     </div>
   );
 }
+
+const CustomIcon = (props: { name: string; size: string }) => {
+  return (
+    <Image
+      src={`/icons/${props.name}.svg`}
+      alt={`${props.name} icon`}
+      width={20}
+      height={20}
+      sizes='100vw'
+      style={{
+        width: props.size,
+        height: 'auto',
+      }}
+    />
+  );
+};
