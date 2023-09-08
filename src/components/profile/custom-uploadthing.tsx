@@ -5,7 +5,7 @@ import { generateReactHelpers } from '@uploadthing/react/hooks';
 import { OurFileRouter } from '@/src/app/api/uploadthing/core';
 import { UserData, useContextProvider } from '@/src/context/store';
 import { updateProfile } from '@/src/app/actions/user-profile';
-import Icon from '../ui/CustomIcon';
+import Image from 'next/image';
 
 const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
@@ -136,7 +136,7 @@ export default function Uploader({
   return (
     <div className='flex flex-row items-center justify-center md:flex-col'>
       <label className='mr-3 flex cursor-pointer flex-row items-center justify-center rounded-xl border border-indigo-500 py-1 pl-3 pr-4 transition hover:bg-indigo-300 md:mb-2 md:mr-0 md:py-2.5 md:pl-6 md:pr-7'>
-        <Icon name='change-photo' size='24px' />
+        <CustomIcon name='change-photo' size='24px' />
         <input className='hidden' type='file' onChange={inputChangeHandler} />
         <span className=' text-sm font-bold text-indigo-500 sm:ml-3 sm:text-base'>
           {profile ? 'Change' : 'New photo'}
@@ -148,7 +148,7 @@ export default function Uploader({
             className='flex flex-row items-center justify-center rounded-xl border border-rose-500 py-1 pl-3 pr-4 transition hover:bg-rose-300 md:py-2.5 md:pl-6 md:pr-7'
             onClick={deleteFileHandler}
           >
-            <Icon name='remove-photo' size='24px' />
+            <CustomIcon name='remove-photo' size='24px' />
             <span className=' text-sm font-bold text-rose-500 sm:ml-3 sm:text-base'>
               Remove
             </span>
@@ -158,3 +158,19 @@ export default function Uploader({
     </div>
   );
 }
+
+const CustomIcon = (props: { name: string; size: string }) => {
+  return (
+    <Image
+      src={`/icons/${props.name}.svg`}
+      alt={`${props.name} icon`}
+      width={20}
+      height={20}
+      sizes='100vw'
+      style={{
+        width: props.size,
+        height: 'auto',
+      }}
+    />
+  );
+};

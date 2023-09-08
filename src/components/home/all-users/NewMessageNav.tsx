@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Icon from '../../ui/CustomIcon';
+import Icon from '../../UI/CustomIcon';
 
 export default function NewMessageNav() {
   return (

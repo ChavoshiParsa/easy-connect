@@ -1,9 +1,9 @@
 'use client';
 
-import Input from '@/src/components/ui/Input';
+import Input from '@/src/components/UI/Input';
 import Image from 'next/image';
 import Link from 'next/link';
-import DividerLine from '../ui/DividerLine';
+import DividerLine from '../UI/DividerLine';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useContextProvider } from '@/src/context/store';

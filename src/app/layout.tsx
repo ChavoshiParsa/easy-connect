@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { AuthProvider } from './provider';
 import { ContextProvider } from '../context/store';
-import Alert from '../components/ui/Alert';
+import Alert from '../components/UI/Alert';
 import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({
