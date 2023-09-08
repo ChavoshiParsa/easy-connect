@@ -16,10 +16,21 @@ export default function InputMessage() {
   const { data, status } = useSession();
   const params = useParams();
 
-  if (status === 'loading' || !data || !data.user) return;
-
   const email = data?.user?.email as string;
   const connect = params.connect as string;
+
+  useEffect(() => {
+    let timer: any;
+    timer = setTimeout(() => {
+      if (enteredMassage !== '') setIsTyping(email, connect);
+    }, 1000);
+    return () => {
+      if (enteredMassage !== '') setIsTyping(email, connect);
+      clearTimeout(timer);
+    };
+  }, [connect, email, enteredMassage]);
+
+  if (status === 'loading') return;
   // const [playOn] = useSound('/sounds/bip3.wav', { volume: 0.2 });
   // const [sendOn] = useSound('/sounds/bip2.wav', { volume: 0.2 });
 
@@ -27,18 +38,6 @@ export default function InputMessage() {
     setEnteredMassage(e.target.value);
     // playOn();
   };
-
-  useEffect(() => {
-    let timer: any;
-    timer = setTimeout(() => {
-      if (enteredMassage !== '') setIsTyping(email, connect);
-    }, 1000);
-
-    return () => {
-      if (enteredMassage !== '') setIsTyping(email, connect);
-      clearTimeout(timer);
-    };
-  }, [enteredMassage]);
 
   const sendMessageHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

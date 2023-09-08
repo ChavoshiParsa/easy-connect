@@ -127,7 +127,7 @@ export default function ProfileForm({ userData }: { userData: UserData }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [enteredUsername]);
+  }, [enteredUsername, userData.username, usernameSchema]);
 
   return (
     <div className='m-2 flex h-full flex-col items-center justify-center rounded-xl bg-zinc-900 px-3 py-4 sm:mx-8 sm:my-8 sm:p-6 md:items-start md:p-8 lg:mx-40 lg:my-12 lg:p-10 xl:mx-52'>

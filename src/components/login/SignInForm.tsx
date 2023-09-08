@@ -122,7 +122,7 @@ export default function SignInForm() {
       </button>
 
       <p className='text-sm'>
-        Don't have an account?{' '}
+        {"Don't have an account? "}
         <Link
           className='font-bold text-indigo-500 hover:text-indigo-400'
           href='/signup'
