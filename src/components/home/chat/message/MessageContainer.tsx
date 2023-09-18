@@ -7,7 +7,6 @@ import Loading from '@/src/app/loading';
 import { useParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { ActionType, useContextProvider } from '@/src/context/store';
-// import useSound from 'use-sound';
 import { newMessageOff } from '@/src/app/actions/new-message';
 
 const fetcher = (url: any) => axios.get(url).then((res) => res.data);
